@@ -71,9 +71,9 @@ function LogIn() {
           onChange={handlePassword}
           />
       </div>
+
     <button type="submit">Log in</button>
     {errorMessage && <p>{errorMessage}</p>}
-
     </form>
 
 

@@ -1,31 +1,47 @@
 import "../CSS/navBar.css"
-import { Link } from 'react-router-dom'
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 
 function NavBar() {
+
+  const navigate = useNavigate()
+  const {isLoggedIn, authenticateUser} = useContext(AuthContext)
+
+  const handleLogOut = async () => {
+    try {
+      localStorage.removeItem("authToken")
+      await authenticateUser()
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <div className="navbar">
+    <nav className="navbar">
 
     <Link to="/">
     <p>Home</p>
     </Link>
 
-    <Link to="/signup">
+    {!isLoggedIn  && <Link to="/signup">
     <p>Sign up</p>
-    </Link>
+    </Link>}
 
-    <Link to="/login">
+    {!isLoggedIn && <Link to="/login">
     <p>Log in</p>
-    </Link>
+    </Link>}
 
-    <Link to="/profile">
+    {isLoggedIn  && <Link to="/profile">
     <p>Profile</p>
-    </Link>
+    </Link>}
 
-    <Link to="/">
+    {isLoggedIn && <Link onClick={handleLogOut} to="/">
     <p>Log out</p>
-    </Link>
+    </Link>}
 
-    </div>
+    </nav>
     
   )
 }
