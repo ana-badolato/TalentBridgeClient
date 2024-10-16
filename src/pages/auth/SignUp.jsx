@@ -50,6 +50,15 @@ function SignUp() {
 
   return (
     <div>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            name="accountEmail"
+            value={accountEmail}
+            onChange={handleAccountEmail}
+          />
+        </div>
 
       <form onSubmit={handleSignUp}>
         <div>
@@ -59,16 +68,6 @@ function SignUp() {
             name="username"
             value={username}
             onChange={handleUsername}
-          />
-        </div>
-
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="accountEmail"
-            value={accountEmail}
-            onChange={handleAccountEmail}
           />
         </div>
 
