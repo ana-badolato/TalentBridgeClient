@@ -23,10 +23,10 @@ function Profile() {
 
 
 //! Animación de carga aquí?
-  if(!dataLoggedUser) {
+/*   if(!dataLoggedUser) {
     return <h3>Access Denied</h3>
   }
-  
+   */
   return (
     <div>
       <h1>

@@ -6,6 +6,7 @@ import SignUp from './pages/auth/SignUp'
 import LogIn from './pages/auth/LogIn'
 import Profile from './pages/Profile'
 import Error from './pages/Error'
+import Private from './components/auth/Private'
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Private> <Profile /> </Private>} />
         <Route path="/error" element={<Error />} />
       </Routes>
     </div>
