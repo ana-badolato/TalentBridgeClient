@@ -1,3 +1,4 @@
+import '../App.css'
 import "../CSS/navBar.css"
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,17 +26,39 @@ function NavBar() {
     <p>Home</p>
     </Link>
 
-    {!isLoggedIn  && <Link to="/signup">
-    <p>Sign up</p>
-    </Link>}
+    <p>Projects</p>
+    <p>Talents</p>
+    <p>Events</p>
 
     {!isLoggedIn && <Link to="/login">
     <p>Log in</p>
     </Link>}
 
-    {isLoggedIn  && <Link to="/profile">
-    <p>Profile</p>
+    {!isLoggedIn  && <Link to="/signup">
+    <p>Get Started</p>
     </Link>}
+
+    {isLoggedIn  && <Link to="/profile">
+    <div>
+    <img src="" alt="" />
+    <p>Profile</p>
+    </div>
+    </Link>}
+
+    {isLoggedIn  &&
+    <div>
+      <img src="" alt="" />
+      <p><span>0</span>Notifications</p>
+    </div>
+    }
+
+  {isLoggedIn  &&
+    <div>
+      <img src="" alt="" />
+      <p><span>0</span>Messages</p>
+    </div>
+  }
+
 
     {isLoggedIn && <Link onClick={handleLogOut} to="/">
     <p>Log out</p>
