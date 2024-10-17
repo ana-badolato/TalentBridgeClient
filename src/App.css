@@ -4,6 +4,7 @@
   --primary-blue-mid: #110F34;
   --primary-blue-dark: #0A091F;
   --accent-yellow: #FFBE1A;
+  --accent-yellow-light: #FFD25F;
   --neutral-grey-dark: #959494;
   --neutral-grey-light: #E9ECF5;
   --neutral-white: #F8F9FC;
@@ -12,8 +13,9 @@
 
 #root {
 min-height: 100vh;
-width: 100%;
-max-width: 1440px;
+display: flex;
+flex-direction: column;
+background-color: var(--neutral-white);
 }
 
 * {
@@ -25,6 +27,8 @@ max-width: 1440px;
 html, body {
   height: 100%;
   font-family: var(--font-main);
+  color: var(--primary-blue-mid);
+  font-weight: 400;
 }
 
 a {
@@ -36,6 +40,28 @@ ul, ol {
   list-style: none;
 }
 
+
+/* Common elements----------------------------------------------------------*/
+
+.icon-text-element{
+  display: flex;
+}
+
+.icon-text-element p{
+  display: flex;
+  gap: 4px;
+}
+
+.button-large-yellow{
+  padding: 8px 16px;
+  background-color: var(--accent-yellow);
+  border-radius: 5px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.button-large-yellow:hover{
+  background-color: var(--accent-yellow-light);
+}
 
 @media (max-width: 768px) {
   body {
