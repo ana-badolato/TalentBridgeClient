@@ -20,13 +20,8 @@ function Profile() {
     }
   }
 
+  //! Gestor de Loading
 
-
-//! Animación de carga aquí?
-/*   if(!dataLoggedUser) {
-    return <h3>Access Denied</h3>
-  }
-   */
   return (
     <div>
       <h1>
