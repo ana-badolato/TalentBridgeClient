@@ -1,8 +1,16 @@
 
+function SearchBar(props) {
+  
+  const { searchValue, setSearchValue } = props
 
-function SearchBar() {
+   const handleSearchChange = (e) =>{
+     setSearchValue(e.target.value)
+   }
+  
   return (
-    <div>SearchBar</div>
+    <div>
+      <input onChange={handleSearchChange} value={searchValue}/>
+    </div>
   )
 }
 

@@ -3,9 +3,9 @@ import service from "../services/config.js";
 import { useParams } from "react-router-dom";
 import CardProject from "./CardProject.jsx";
 
-function ListProjects() {
+function ListProjects(props) {
   const [allProjects, setAllProjects] = useState([]) //!
-
+  const {searchValue} = props
   const params = useParams();
   
   useEffect(()=>{
@@ -25,7 +25,11 @@ function ListProjects() {
   
   return (
     <div>
-      {allProjects.map((eachProject)=> {
+      {allProjects
+      .filter((eachProject) =>{
+        return eachProject.title.toLowerCase().includes(searchValue.toLowerCase())
+      })
+      .map((eachProject)=> {
         return (
           <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject}/>
         )
