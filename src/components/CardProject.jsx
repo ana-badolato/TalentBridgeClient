@@ -20,8 +20,7 @@ function CardProject(props) {
       <p>{props.title}</p>
       <p>{props.category}</p>
       <p>{props.description}</p>
-      <hr />
-      <img src={props.owner.profilePicture} alt="" />
+      <img src={props.owner.profilePicture} alt=""  style={{width:"64px"}}/>
       <p>Owner name: {props.owner.username}</p>
       </Link>
       <button>

@@ -11,12 +11,6 @@
   --font-main: "Poppins", sans-serif;
 }
 
-#root {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-background-color: var(--neutral-white);
-}
 
 * {
   margin: 0;
@@ -26,8 +20,10 @@ background-color: var(--neutral-white);
 
 html, body {
   height: 100%;
+  min-height: 100vh;
   font-family: var(--font-main);
   color: var(--primary-blue-mid);
+  background-color: var(--neutral-white);
   font-weight: 400;
 }
 
@@ -61,6 +57,44 @@ ul, ol {
 
 .button-large-yellow:hover{
   background-color: var(--accent-yellow-light);
+}
+
+.project-list {
+  display: flex;
+}
+
+/*Contenedor genérico de la página*/
+.container-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estructura específica del contenido */
+.container-main-content {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px; 
+}
+
+section {
+  margin: 64px;
+}
+
+.tabs {
+  display: flex;
+  gap: 16px;
+}
+
+.tabs p {
+  cursor: pointer;
+}
+
+.active-tab {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

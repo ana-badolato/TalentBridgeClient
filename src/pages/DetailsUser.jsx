@@ -5,73 +5,169 @@ import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
 
 function DetailsUser() {
-
-  const [user, setUser] = useState("")
-  const [allUserProjects, setAllUserProjects] = useState([])
-  const [allUserEvents, setAllUserEvents] = useState ([])
+  const [user, setUser] = useState("");
+  const [allUserProjects, setAllUserProjects] = useState([]);
+  const [allUserEvents, setAllUserEvents] = useState([]);
+  const [showOwnerProjects, setShowOwnerProjects] = useState(true); // Controla si se muestran proyectos como owner
+  const [showEventType, setShowEventType] = useState("owner"); // Controla la pestaña activa de eventos
 
   const params = useParams();
-  
-  useEffect(()=>{
-    getData()
-  }, [])
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const getData = async () => {
     try {
-      const response = await service.get(`/user/${params.userid}`)
-      setUser(response.data)
+      const response = await service.get(`/user/${params.userid}`);
+      setUser(response.data);
 
-      const responseProject = await service.get(`/project/user/${params.userid}`)
-      setAllUserProjects(responseProject.data)
+      const responseProject = await service.get(
+        `/project/user/${params.userid}`
+      );
+      setAllUserProjects(responseProject.data);
 
-      const responseEvent = await service.get(`/event/user/${params.userid}`)
-      setAllUserEvents(responseEvent.data)
-
+      const responseEvent = await service.get(`/event/user/${params.userid}`);
+      setAllUserEvents(responseEvent.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
-  if(user === null || allUserProjects === null || allUserEvents === null){
-    return <h3>...loading</h3>
+  };
+
+  if (user === null || allUserProjects === null || allUserEvents === null) {
+    return <h3>...loading</h3>;
     //! añadir efecto de carga
   }
 
-  console.log("params", params)
-    return (
-    <div>
-      <p>Detail User</p>
-      <img src={user.profilePicture} alt="" /> 
-      <p>{user.username}</p>
-      <p>BIO{user.bio}</p>
-      <p>Tags {user.skills}</p>
-      
-      <button>
-        <img src="" alt="" />
-        <p>Edit Profile</p>
-      </button>
+  // Filtra proyectos donde el usuario es owner
+  const ownerProjects = allUserProjects.filter((project) => {
+    return project.owner === user._id || project.owner._id === user._id;
+  });
 
-      <button>
-        <img src="" alt="" />
-        <p>Send Message</p>
-      </button>
-      {/*Revisar si va con link*/}
-     
-      <p>Projects list</p>
-        {allUserProjects.map((eachProject)=> {
-        return (
-          <CardProject key={eachProject._id} allUserProjects={allUserProjects} {...eachProject}/>
-        )
-      })}
+  // Filtra proyectos donde el usuario es collaborator
+  const collaboratorProjects = allUserProjects.filter((project) =>
+    project.teamMembers.includes(user._id)
+  );
 
-      <p>Event list</p>
-        {allUserEvents.map((eachEvent)=>{
-          return (
-            <CardEvent key={eachEvent._id} allUserEvents={allUserEvents} {...eachEvent}/>
-          )
-        })}
+  // Filtros de eventos según el rol del usuario
+  const ownerEvents = allUserEvents.filter(
+    (event) => event.owner === user._id || event.owner._id === user._id
+  );
+  const lecturerEvents = allUserEvents.filter((event) =>
+    event.lecturer.some((lecturer) => lecturer === user._id)
+  );
+  const attendeeEvents = allUserEvents.filter((event) =>
+    event.atendees.some((attendee) => attendee === user._id)
+  );
+
+  // Función que devuelve los eventos filtrados según la pestaña seleccionada
+  const getFilteredEvents = () => {
+    if (showEventType === "owner") return ownerEvents;
+    if (showEventType === "lecturer") return lecturerEvents;
+    return attendeeEvents;
+  };
+
+  return (
+    <div className="container-page">
+      <div className="container-main-content">
+        <section>
+          <p>Detail User</p>
+          <img src={user.profilePicture} alt="" />
+          <p>{user.username}</p>
+          <p>BIO: {user.bio}</p>
+          <p>Tags: {user.skills}</p>
+
+          <button>
+            <img src="" alt="" />
+            <p>Edit Profile</p>
+          </button>
+
+          <button>
+            <img src="" alt="" />
+            <p>Send Message</p>
+          </button>
+          {/*Revisar si va con link*/}
+        </section>
+
+        <section>
+          <p>Projects</p>
+          {/* Selector de owner y collaborator */}
+          <div className="tabs">
+            <p
+              className={showOwnerProjects ? "active-tab" : ""}
+              onClick={() => setShowOwnerProjects(true)}
+            >
+              OWNER
+            </p>
+            <p>|</p>
+            <p
+              className={!showOwnerProjects ? "active-tab" : ""}
+              onClick={() => setShowOwnerProjects(false)}
+            >
+              COLLABORATOR
+            </p>
+          </div>
+
+          <div className="project-list">
+            {showOwnerProjects
+              ? ownerProjects.map((eachProject) => (
+                  <CardProject
+                    key={eachProject._id}
+                    allUserProjects={ownerProjects}
+                    {...eachProject}
+                  />
+                ))
+              : collaboratorProjects.map((eachProject) => (
+                  <CardProject
+                    key={eachProject._id}
+                    allUserProjects={collaboratorProjects}
+                    {...eachProject}
+                  />
+                ))}
+          </div>
+        </section>
+
+        <section>
+          <div>
+            <p>Event list</p>
+            {/* Selector de owner, lecturer, atendee */}
+            <div className="tabs">
+              <p
+                className={showEventType === "owner" ? "active-tab" : ""}
+                onClick={() => setShowEventType("owner")}
+              >
+                OWNER
+              </p>
+              <p>|</p>
+              <p
+                className={showEventType === "lecturer" ? "active-tab" : ""}
+                onClick={() => setShowEventType("lecturer")}
+              >
+                LECTURER
+              </p>
+              <p>|</p>
+              <p
+                className={showEventType === "attendee" ? "active-tab" : ""}
+                onClick={() => setShowEventType("attendee")}
+              >
+                ATTENDEE
+              </p>
+            </div>
+
+            <div className="event-list">
+              {getFilteredEvents().map((eachEvent) => (
+                <CardEvent
+                  key={eachEvent._id}
+                  allUserEvents={getFilteredEvents()}
+                  {...eachEvent}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-  )
+  );
 }
 
-export default DetailsUser
+export default DetailsUser;
