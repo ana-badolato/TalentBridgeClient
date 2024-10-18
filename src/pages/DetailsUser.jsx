@@ -50,15 +50,22 @@ function DetailsUser() {
   );
 
   // Filtros de eventos según el rol del usuario
+
+  // Comparación de IDs: Dado que el campo owner puede ser tanto un string (ID) como un objeto (con _id), es buena práctica usar String() para asegurar de que las comparaciones funcionen ok.
+
+
   const ownerEvents = allUserEvents.filter(
-    (event) => event.owner === user._id || event.owner._id === user._id
+    (event) => String(event.owner) === String(user._id) || String(event.owner._id) === String(user._id)
   );
+  
   const lecturerEvents = allUserEvents.filter((event) =>
-    event.lecturer.some((lecturer) => lecturer === user._id)
+    event.lecturer.some((lecturer) => String(lecturer) === String(user._id))
   );
+  
   const attendeeEvents = allUserEvents.filter((event) =>
-    event.atendees.some((attendee) => attendee === user._id)
+    event.atendees.some((attendee) => String(attendee) === String(user._id))
   );
+  
 
   // Función que devuelve los eventos filtrados según la pestaña seleccionada
   const getFilteredEvents = () => {
