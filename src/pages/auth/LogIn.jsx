@@ -36,7 +36,7 @@ function LogIn() {
       localStorage.setItem("authToken", response.data.authToken)
 
       await authenticateUser()
-      navigate("/profile")
+      navigate("/")
 
     } catch (error) {
       console.log(error)

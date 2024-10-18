@@ -22,7 +22,7 @@ function ListEvents() {
 
   return (
     <div>
-      <p>Event page</p>
+      
         {allEvents.map((eachEvent)=>{
           return (
             <CardEvent key={eachEvent._id} allEvents={allEvents} {...eachEvent}/>

@@ -27,7 +27,7 @@ function NavBar() {
 
         <p>Projects</p>
 
-        <Link to="/talent">
+        <Link to="/user">
           <p>Talent</p>
         </Link>
 
@@ -44,13 +44,13 @@ function NavBar() {
             <p>Get Started</p>
           </Link>
         )}
-        <div className="navbar-private">
+{/*         {<div className="navbar-private">
           {isLoggedIn && (
             <Link to="/profile" className="icon-text-element">
               <img src="" alt="" />
               <p>Profile</p>
             </Link>
-          )}
+          )}} */}
 
           {isLoggedIn && (
             //!cambiar div por Link cuando tengamos las páginas
@@ -79,7 +79,7 @@ function NavBar() {
             </Link>
           )}
         </div>
-      </div>
+      {/* </div> */}
     </nav>
   );
 }

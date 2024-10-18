@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import CardProject from "./CardProject.jsx";
 
 function ListProjects() {
-  const [allUserProjects, setAllUserProjects] = useState([]) //!
+  const [allProjects, setAllProjects] = useState([]) //!
 
   const params = useParams();
   
@@ -14,8 +14,8 @@ function ListProjects() {
 
   const getData = async () => {
     try {
-      const response = await service(`/user/${params.userid}/project`)
-      setAllUserProjects(response.data)
+      const response = await service(`/project/`)
+      setAllProjects(response.data)
 
     } catch (error) {
       console.log(error)
@@ -25,9 +25,9 @@ function ListProjects() {
   
   return (
     <div>
-      {allUserProjects.map((eachProject)=> {
+      {allProjects.map((eachProject)=> {
         return (
-          <CardProject key={eachProject._id} allUserProjects={allUserProjects} {...eachProject}/>
+          <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject}/>
         )
       })}
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/* import { useState, useEffect } from "react";
 import service from "../services/config.js";
 
 function Profile() {
@@ -31,4 +31,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export default Profile */
