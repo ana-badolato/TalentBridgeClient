@@ -7,6 +7,10 @@ import LogIn from './pages/auth/LogIn'
 import Profile from './pages/Profile'
 import Error from './pages/Error'
 import Private from './components/auth/Private'
+import ListUser from './components/ListUser'
+import ListEvents from './components/ListEvents'
+import DetailsUser from './pages/DetailsUser'
+import ListProjects from './components/ListProjects'
 
 function App() {
 
@@ -18,6 +22,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<Private> <Profile /> </Private>} />
+        <Route path="/user/:userid" element={<DetailsUser/>}/>
+        <Route path="/talent" element={<ListUser/>}/>
+        <Route path="/event" element={<ListEvents/>}/>
+        <Route path="/project" element={<ListProjects/>}/>
         <Route path="/error" element={<Error />} />
       </Routes>
     </div>

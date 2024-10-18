@@ -26,7 +26,11 @@ function NavBar() {
         </Link>
 
         <p>Projects</p>
-        <p>Talents</p>
+
+        <Link to="/talent">
+          <p>Talent</p>
+        </Link>
+
         <p>Events</p>
 
         {!isLoggedIn && (

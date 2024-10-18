@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
-import CardUser from "../components/CardUser.jsx";
+import CardUser from "./CardUser.jsx"
 
-function Index() {
-
+function ListUser() {
   const [allUsers, setAllUsers] = useState([])
 
   useEffect(()=>{
@@ -13,7 +12,7 @@ function Index() {
   const getData = async () => {
     try {
       const response = await service.get("/user/")
-      // console.log("response", response)
+      //console.log("response", response)
       setAllUsers(response.data)
     } catch (error) {
       console.log(error)
@@ -22,9 +21,9 @@ function Index() {
 
   return (
     <div>
+      <p>Talent page</p>
         {allUsers.map((eachUser)=>{
           return (
-            //! modificar este componente por el de sectionTalent
             <CardUser key={eachUser._id} allUsers={allUsers} {...eachUser}/>
           )
         })}
@@ -32,4 +31,4 @@ function Index() {
   )
 }
 
-export default Index
+export default ListUser

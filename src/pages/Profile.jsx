@@ -3,7 +3,6 @@ import service from "../services/config.js";
 
 function Profile() {
 
-
   const [dataLoggedUser, setDataLoggedUser] = useState(null)
 
   useEffect(()=>{
@@ -12,8 +11,8 @@ function Profile() {
 
   const getData = async () =>{
     try {
-      const response = await service.get("/auth/user/profile")
-      console.log(response)
+      const response = await service.get("/user/:userid")
+      console.log("response", response)
       setDataLoggedUser(response.data.message)
     } catch (error) {
       console.log(error)
