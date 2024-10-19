@@ -13,6 +13,7 @@ function ListProjects(props) {
   const getData = async () => {
     try {
       const response = await service(`/project/`)
+      console.log("ey",response.data);
       setAllProjects(response.data)
 
     } catch (error) {
