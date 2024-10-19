@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import service from "../services/config.js";
 import { useParams } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
+import { AuthContext } from "../context/auth.context.jsx"; 
 
 function DetailsUser() {
   const [user, setUser] = useState("");
@@ -12,6 +13,8 @@ function DetailsUser() {
   const [showEventType, setShowEventType] = useState("owner"); // Controla la pestaña activa de eventos
 
   const params = useParams();
+
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
 
   useEffect(() => {
     getData();
@@ -33,6 +36,11 @@ function DetailsUser() {
       console.log(error);
     }
   };
+
+ // Agregar logs para ver qué valores están siendo asignados
+ console.log("Logged User ID:", loggedUserId); // Este es el usuario logueado
+ console.log("Profile User ID:", user._id); // Este es el perfil que estás viendo
+ console.log("Is Logged In:", isLoggedIn);
 
   if (user === null || allUserProjects === null || allUserEvents === null) {
     return <h3>...loading</h3>;
@@ -74,6 +82,8 @@ function DetailsUser() {
     return attendeeEvents;
   };
 
+  const isOwnProfile = isLoggedIn && loggedUserId === user._id;
+
   return (
     <div className="container-page">
       <div className="container-main-content">
@@ -84,16 +94,18 @@ function DetailsUser() {
           <p>BIO: {user.bio}</p>
           <p>Tags: {user.skills}</p>
 
-          <button>
-            <img src="" alt="" />
-            <p>Edit Profile</p>
-          </button>
-
-          <button>
-            <img src="" alt="" />
-            <p>Send Message</p>
-          </button>
-          {/*Revisar si va con link*/}
+{/* Mostrar botón condicionalmente */}
+{isOwnProfile ? (
+            <button>
+              <img src="" alt="" />
+              <p>Edit Profile</p>
+            </button>
+          ) : (
+            <button>
+              <img src="" alt="" />
+              <p>Send Message</p>
+            </button>
+          )}
         </section>
 
         <section>
@@ -121,6 +133,7 @@ function DetailsUser() {
                   <CardProject
                     key={eachProject._id}
                     allUserProjects={ownerProjects}
+                    isOwnProfile={isOwnProfile}
                     {...eachProject}
                   />
                 ))
@@ -128,6 +141,7 @@ function DetailsUser() {
                   <CardProject
                     key={eachProject._id}
                     allUserProjects={collaboratorProjects}
+                    isOwnProfile={false}
                     {...eachProject}
                   />
                 ))}
@@ -166,6 +180,7 @@ function DetailsUser() {
                 <CardEvent
                   key={eachEvent._id}
                   allUserEvents={getFilteredEvents()}
+                  isOwnProfile={isOwnProfile}
                   {...eachEvent}
                 />
               ))}
