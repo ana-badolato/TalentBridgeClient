@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx"; // Importar el contexto de autenticación
 import service from "../services/config.js"; // Importar el servicio para hacer la solicitud de datos
 
-import applyImg from "../assets/icons/apply.svg"
-import disabledApplyImg from "../assets/icons/disabledApply.svg"
-import deleteImg from "../assets/icons/delete.svg"
-import editImg from "../assets/icons/edit.svg"
-import dateImg from "../assets/icons/date.svg"
-import teamMembersImg from "../assets/icons/teamMembers.svg"
+import applyImg from "../assets/icons/apply.svg";
+import disabledApplyImg from "../assets/icons/disabledApply.svg";
+import deleteImg from "../assets/icons/delete.svg";
+import editImg from "../assets/icons/edit.svg";
+import dateImg from "../assets/icons/date.svg";
+import teamMembersImg from "../assets/icons/teamMembers.svg";
 
 function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
@@ -37,13 +37,24 @@ function CardProject(props) {
 
   if (loading) return <p>Loading project...</p>;
 
-  const { owner, teamMembers, title, image, startDate, mainObjective, category, _id } = projectData;
+  const {
+    owner,
+    teamMembers,
+    title,
+    image,
+    startDate,
+    mainObjective,
+    category,
+    _id,
+  } = projectData;
 
   // Verificar si el usuario es el owner
   const isOwner = isLoggedIn && String(loggedUserId) === String(owner._id);
 
   // Verificar si el usuario ya es miembro del equipo
-  const isTeamMember = teamMembers.some((member) => String(member._id || member) === String(loggedUserId));
+  const isTeamMember = teamMembers.some(
+    (member) => String(member._id || member) === String(loggedUserId)
+  );
 
   // Condición para deshabilitar el botón:
   const isApplyDisabled = isOwner || isTeamMember;
@@ -63,7 +74,7 @@ function CardProject(props) {
                 <p>Edit</p>
               </button>
               <button className="card-pr-button">
-              <img src={deleteImg} alt="" />
+                <img src={deleteImg} alt="" />
                 <p>Delete</p>
               </button>
             </div>
@@ -80,11 +91,15 @@ function CardProject(props) {
         <div className="card-pr-section-properties">
           <div className="icon-text-element-pr">
             <img src={dateImg} alt="" />
-            <p>{new Date(startDate).toLocaleDateString()} <span>Start Date</span></p>
+            <p>
+              {new Date(startDate).toLocaleDateString()} <span>Start Date</span>
+            </p>
           </div>
           <div className="icon-text-element-pr">
             <img src={teamMembersImg} alt="" />
-            <p>{totalMembers} <span>Members</span></p>
+            <p>
+              {totalMembers} <span>Members</span>
+            </p>
           </div>
         </div>
       </Link>
@@ -100,15 +115,20 @@ function CardProject(props) {
             className="card-profile-img"
           />
           <p>
-            <span>Leaded by </span>{owner.username}
+            <span>Leaded by </span>
+            {owner.username}
           </p>
         </div>
 
         {/* Botón Apply deshabilitado si ya es miembro o es su propio proyecto */}
         <button className="button-small-blue" disabled={isApplyDisabled}>
           <div className="icon-text-element">
-          <img src={isApplyDisabled ? disabledApplyImg : applyImg} alt="" className="icon"/>
-          <p>Apply</p>
+            <img
+              src={isApplyDisabled ? disabledApplyImg : applyImg}
+              alt=""
+              className="icon"
+            />
+            <p>Apply</p>
           </div>
         </button>
       </div>

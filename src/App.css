@@ -1,17 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --primary-blue-light: #292748;
-  --primary-blue-mid: #110F34;
-  --primary-blue-dark: #0A091F;
-  --accent-yellow: #FFBE1A;
-  --accent-yellow-light: #FFD25F;
+  --primary-blue-light: #413f5d;
+  --primary-blue-mid: #110f34;
+  --primary-blue-dark: #0a091f;
+  --accent-yellow: #ffbe1a;
+  --accent-yellow-light: #ffd25f;
   --neutral-grey-dark: #959494;
   --neutral-grey-light: #e2e5ec;
-  --neutral-white: #F8F9FC;
+  --neutral-white: #f8f9fc;
   --font-main: "Poppins", sans-serif;
 }
-
 
 * {
   margin: 0;
@@ -19,7 +18,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   min-height: 100vh;
   font-family: var(--font-main);
@@ -33,24 +33,22 @@ a {
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
-
 /* Common elements----------------------------------------------------------*/
 
-.icon-text-element{
-  display: flex;
-  gap: 4px
-}
-
-.icon-text-element p{
+.icon-text-element {
   display: flex;
   gap: 4px;
 }
 
-
+.icon-text-element p {
+  display: flex;
+  gap: 4px;
+}
 
 .project-list {
   display: flex;
@@ -69,7 +67,7 @@ ul, ol {
   max-width: 1440px;
   display: flex;
   flex-direction: column;
-  padding: 0 16px; 
+  padding: 0 16px;
 }
 
 section {
@@ -97,35 +95,57 @@ section {
   border-radius: 100px;
 }
 
-.hr-thin-light{
-  border: none; 
-  border-top: 0.5px solid var(--neutral-grey-light); 
+.hr-thin-light {
+  border: none;
+  border-top: 0.5px solid var(--neutral-grey-light);
   margin: 16px 0;
 }
 /*Lists---------------------------------------------------------*/
 .project-list {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px; 
+  flex-wrap: wrap;
+  gap: 20px;
   max-width: 1440px;
   margin: 0 auto; /* Centrar el contenido */
   margin-top: 32px;
   padding: 0px;
 }
 /*Buttons----------------------------------------------------------------*/
-.button-large-yellow{
-  padding: 8px 16px;
+.button-large-yellow {
+  display: block; /* Asegura que se comporte como un bloque */
+  margin: 0 auto; /* Centra horizontalmente el botón */
+  padding: 12px 16px;
   background-color: var(--accent-yellow);
+  border: none;
   border-radius: 5px;
   transition: background-color 0.4s ease, color 0.4s ease;
+  display: flex;
+  align-items: center;
 }
 
-.button-large-yellow:hover{
+.button-large-yellow:hover {
   background-color: var(--accent-yellow-light);
   cursor: pointer;
 }
 
-.button-small-blue{
+.button-large-yellow p, .button-large-blue p{
+  font-weight: 500;
+}
+
+.button-large-blue {
+  display: block; /* Asegura que se comporte como un bloque */
+  margin: 0 auto; /* Centra horizontalmente el botón */
+  padding: 12px 16px;
+  background-color: var(--primary-blue-mid);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  display: flex;
+  align-items: center;
+}
+
+.button-small-blue {
   background-color: var(--primary-blue-mid);
   color: var(--neutral-white);
   font-size: 14px;
@@ -145,16 +165,14 @@ section {
   color: #b0b0b0;
 }
 
-.button-small-blue:hover {
+.button-small-blue:hover,
+.button-large-blue:hover {
   background-color: var(--primary-blue-light);
-  color: var(--accent-yellow);
   cursor: pointer;
 }
-
 
 @media (max-width: 768px) {
   body {
     font-size: 14px;
   }
-
 }

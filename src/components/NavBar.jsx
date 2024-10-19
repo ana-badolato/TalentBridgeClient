@@ -30,14 +30,15 @@ function NavBar() {
         <Link to="/project">
         <p>Projects</p>
         </Link>
+        
+        <Link to="/event">
+        <p>Events</p>
+        </Link>
 
         <Link to="/user">
           <p>Talent</p>
         </Link>
 
-        <Link to="/event">
-        <p>Events</p>
-        </Link>
 
         {!isLoggedIn && (
           <Link to="/login">
