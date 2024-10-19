@@ -1,0 +1,122 @@
+.card-pr-container {
+  flex: 1 1 300px; /*ancho base para las cards */
+  max-width: 32%; 
+  box-sizing: border-box; 
+  transition: box-shadow 0.3s ease;
+  position: relative; /* Necesario para el posicionamiento de los botones */
+}
+
+/* Control del tamaño de la imagen */
+.card-pr-img {
+  will-change: transform; /* Optimiza la transformación */
+  width: 100%; 
+  object-fit: cover;
+  height: 240px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card-pr-img:hover {
+  object-fit: cover;
+  transform: scale(1.05); 
+}
+
+.card-pr-section-img-buttons{
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Estilos para los botones (Edit/Delete) sobre la imagen */
+.card-pr-section-buttons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px; 
+}
+
+.card-pr-button {
+  background-color: rgba(248, 249, 252, 0.8); 
+  color: var(--primary-blue-mid);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.card-pr-button:hover {
+  background-color: rgba(248, 249, 252, 1); 
+}
+
+/* Ajustes para el contenido inferior (perfil y botón Apply) */
+.card-pr-section-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.card-pr-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 8px 0 16px 0;
+  text-overflow: ellipsis;
+  line-height: 1.2em; /* Define la altura de la línea */
+  height: calc(1.2em * 2); /* Limita a 2 líneas (ajusta según lo que quieras) */
+}
+
+.card-pr-category {
+  background-color: var(--neutral-grey-light);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 25px;
+}
+
+.card-pr-description{
+  font-weight: 300;
+  margin-top: 16px;
+  text-overflow: ellipsis;
+  line-height: 1.3em; /* Define la altura de la línea */
+  height: calc(1.3em * 3);
+}
+
+.card-pr-section-profile{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-pr-section-profile p {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.card-pr-section-profile span {
+  color: var(--neutral-grey-dark);
+}
+
+.card-pr-profile-img {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+}
+
+
+
+/* Ajuste en pantallas medianas: 2 cards por fila */
+@media (max-width: 1024px) {
+  .card-pr-container {
+    flex: 1 1 45%; /* Ajuste para 2 cards por fila */
+    max-width: 45%;
+  }
+}
+
+/* Ajuste en pantallas pequeñas/móviles: 1 card por fila */
+@media (max-width: 768px) {
+  .card-pr-container {
+    flex: 1 1 100%; /* 1 card por fila */
+    max-width: 100%;
+  }
+}

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
 import { AuthContext } from "../context/auth.context.jsx"; 
+import "../CSS/detailsUser.css";
+
 
 function DetailsUser() {
   const [user, setUser] = useState("");
