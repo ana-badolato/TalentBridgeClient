@@ -8,6 +8,7 @@ function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   const isOwner = isLoggedIn && String(loggedUserId) === String(props.owner._id);
 
+
  // Verificar si el usuario ya es miembro del equipo
  const isTeamMember = props.teamMembers.some(
   (memberId) => String(memberId) === String(loggedUserId)
@@ -19,10 +20,7 @@ function CardProject(props) {
   const isApplyDisabled = isOwner || isTeamMember;
 
 
-
-  
-
-  
+ 
   return (
     <div className="card-pr-container">
       <Link to={`/project/${props._id}`}>
@@ -51,6 +49,11 @@ function CardProject(props) {
             <div className="icon-text-element">
               <img src="" alt="" />
             <p>{new Date(props.startDate).toLocaleDateString()}</p>
+            </div>
+
+            <div className="icon-text-element">
+              <img src="" alt="" />
+            <p></p>
             </div>
         </div>
       </Link>
