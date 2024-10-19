@@ -34,7 +34,7 @@ function EditUser() {
   // Hook para redirigir a otra página
   const navigate = useNavigate();
 
-  // Hook de efecto que se ejecuta cuando se monta el componente, busca los datos del usuario
+  // busca los datos del usuario
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -78,14 +78,14 @@ function EditUser() {
 
     const formData = new FormData(); // Creamos un objeto FormData para enviar el archivo
     formData.append("file", file);
-    formData.append("upload_preset", "s3e3p4eg"); // El "preset" de Cloudinary para la subida
+    formData.append("upload_preset", "s3e3p4eg"); // El "preset" de Cloudinary para la subida (este es el mío propio de mi cuenta)
 
     setUploadingImage(true); // Cambiamos el estado para mostrar que está subiendo la imagen
 
     try {
       // Hacemos la petición POST a Cloudinary
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload", // URL de Cloudinary con el nombre del "cloud"
+        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload", // URL de Cloudinary con el nombre del "cloud". El mío propio de mi cuenta
         formData
       );
       const imageUrl = response.data.secure_url; // Guardamos la URL de la imagen subida
