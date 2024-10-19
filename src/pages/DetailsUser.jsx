@@ -37,10 +37,10 @@ function DetailsUser() {
     }
   };
 
- // Agregar logs para ver qué valores están siendo asignados
- console.log("Logged User ID:", loggedUserId); // Este es el usuario logueado
- console.log("Profile User ID:", user._id); // Este es el perfil que estás viendo
- console.log("Is Logged In:", isLoggedIn);
+//  // Agregar logs para ver qué valores están siendo asignados
+//  console.log("Logged User ID:", loggedUserId); // Este es el usuario logueado
+//  console.log("Profile User ID:", user._id); // Este es el perfil que estás viendo
+//  console.log("Is Logged In:", isLoggedIn);
 
   if (user === null || allUserProjects === null || allUserEvents === null) {
     return <h3>...loading</h3>;
