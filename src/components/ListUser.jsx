@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardUser from "./CardUser.jsx"
 
-function ListUser() {
+function ListUser(props) {
   const [allUsers, setAllUsers] = useState([])
+  const {searchValue} = props
 
   useEffect(()=>{
     getData()
@@ -19,12 +20,17 @@ function ListUser() {
     }
   }
 
+  // filtrar los usuarios segun el valor de la búsqueda
+  const searchedUsers = allUsers.filter((eachUser) =>{
+    return eachUser.username.toLowerCase().includes(searchValue.toLowerCase())
+  })
+
   return (
     <div>
       <p>Talent page</p>
-        {allUsers.map((eachUser)=>{
+        {searchedUsers.map((eachUser)=>{
           return (
-            <CardUser key={eachUser._id} allUsers={allUsers} {...eachUser}/>
+            <CardUser key={eachUser._id} {...eachUser}/>
           )
         })}
     </div>

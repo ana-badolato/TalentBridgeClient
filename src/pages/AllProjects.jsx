@@ -1,8 +1,20 @@
-
+import { useState } from "react";
+import SearchBar from "../components/SearchBar";
+import ListProjects from "../components/ListProjects";
+import Filter from "../components/Filter";
 
 function AllProjects() {
+
+  const [searchValue, setSearchValue] = useState("")
+  const [categoryFilter, setCategoryFilter] = useState("All")
+
   return (
-    <div>AllProjects</div>
+    <div>
+      <h3>ALL PROJECTS</h3>
+      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+      <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/>
+      <ListProjects searchValue={searchValue} categoryFilter={categoryFilter}/>
+    </div>
   )
 }
 

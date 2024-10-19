@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardEvent from "./CardEvent.jsx"
 
-function ListEvents() {
+function ListEvents(props) {
   const [allEvents, setAllEvents] = useState([])
+  const {searchValue} = props
 
   useEffect(()=>{
     getData()
@@ -22,8 +23,11 @@ function ListEvents() {
 
   return (
     <div>
-      
-        {allEvents.map((eachEvent)=>{
+        {allEvents
+        .filter((eachEvent) =>{
+          return eachEvent.name.toLowerCase().includes(searchValue.toLowerCase())
+        })
+        .map((eachEvent)=>{
           return (
             <CardEvent key={eachEvent._id} allEvents={allEvents} {...eachEvent}/>
           )

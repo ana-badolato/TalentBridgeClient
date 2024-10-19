@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
-import { useParams } from "react-router-dom";
 import CardProject from "./CardProject.jsx";
 
-function ListProjects() {
+function ListProjects(props) {
   const [allProjects, setAllProjects] = useState([]) //!
-
-  const params = useParams();
+  const {searchValue, categoryFilter} = props
   
   useEffect(()=>{
     getData()
@@ -23,9 +21,15 @@ function ListProjects() {
   }
 
   
+  const filteredProjects = allProjects.filter((eachProject) =>{
+    const matchesSearch = eachProject.title.toLowerCase().includes(searchValue.toLowerCase())
+    const matchesCategory = categoryFilter === "All" || eachProject.category === categoryFilter
+    return matchesSearch && matchesCategory
+  })
+
   return (
     <div>
-      {allProjects.map((eachProject)=> {
+      {filteredProjects.map((eachProject)=> {
         return (
           <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject}/>
         )
