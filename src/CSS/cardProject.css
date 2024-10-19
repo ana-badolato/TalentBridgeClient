@@ -78,7 +78,7 @@
   font-weight: 300;
   margin-top: 16px;
   text-overflow: ellipsis;
-  line-height: 1.3em; /* Define la altura de la línea */
+  line-height: 1.3em;
   height: calc(1.3em * 3);
 }
 
