@@ -3,6 +3,8 @@ import "../CSS/navBar.css";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import logoImg from "../assets/images/logoImg.svg"
+
 
 function NavBar() {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ function NavBar() {
     <nav className="navbar">
       <div className="navbar-content">
         <Link to="/" className="navbar-logo">
-          <p>Home</p>
+          <img src={logoImg} alt="" />
         </Link>
 
         <Link to="/project">
@@ -55,6 +57,8 @@ function NavBar() {
               <p>Profile</p>
             </Link>
           )}} */}
+
+          
 
           {isLoggedIn && (
             //!cambiar div por Link cuando tengamos las páginas
