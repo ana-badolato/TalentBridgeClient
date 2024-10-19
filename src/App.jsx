@@ -13,6 +13,8 @@ import AllProjects from './pages/AllProjects'
 import ListEvents from './components/ListEvents'
 import DetailsUser from './pages/DetailsUser'
 import ListProjects from './components/ListProjects'
+import NewProject from './pages/forms/NewProject'
+import NewEvent from './pages/forms/NewEvent'
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
         <Route path="/user" element={<AllUsers/>}/>
         <Route path="/event" element={<AllEvents/>}/>
         <Route path="/project" element={<AllProjects/>}/>
+        <Route path="/newproject" element={<NewProject />} />
+        <Route path="/newevent" element={<NewEvent />} />
         <Route path="/error" element={<Error />} />
       </Routes>
     </div>

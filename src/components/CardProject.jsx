@@ -42,7 +42,7 @@ function CardProject(props) {
             alt={props.owner.username}
             className="card-profile-img"
           />
-          <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p>
+{/*           <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p> */}
         </div>
         <button className="button-small-blue">
           <p>Apply</p>

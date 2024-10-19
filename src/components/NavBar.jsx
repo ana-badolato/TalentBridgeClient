@@ -39,6 +39,14 @@ function NavBar() {
         <p>Events</p>
         </Link>
 
+        <Link to="/newproject">
+        <p>New Project</p> {/* borrar mas tarde, es para ver el formulario */}
+        </Link>
+
+        <Link to="/newevent">
+        <p>New Event</p> {/* borrar mas tarde, es para ver el formulario */}
+        </Link>
+
         {!isLoggedIn && (
           <Link to="/login">
             <p>Log in</p>
