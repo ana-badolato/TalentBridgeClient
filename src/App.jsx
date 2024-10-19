@@ -13,6 +13,7 @@ import AllProjects from './pages/AllProjects'
 import ListEvents from './components/ListEvents'
 import DetailsUser from './pages/DetailsUser'
 import ListProjects from './components/ListProjects'
+import EditUser from './pages/forms/EditUser'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/user" element={<AllUsers/>}/>
         <Route path="/event" element={<AllEvents/>}/>
         <Route path="/project" element={<AllProjects/>}/>
+        <Route path="/profile/edit" element={<EditUser />} />
         <Route path="/error" element={<Error />} />
       </Routes>
     </div>

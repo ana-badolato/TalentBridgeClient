@@ -2,7 +2,7 @@ import "../CSS/detailsUser.css";
 
 import { useState, useEffect, useContext } from "react";
 import service from "../services/config.js";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
 import { AuthContext } from "../context/auth.context.jsx";
@@ -107,19 +107,23 @@ function DetailsUser() {
 
           {/* Mostrar botón condicionalmente */}
           {isOwnProfile ? (
+            <Link to="/profile/edit">
             <button className="button-large-yellow">
               <div className="icon-text-element">
-                <img src={edtitImg} alt="" />
+                <img src={edtitImg} alt="Edit" />
                 <p>Edit Profile</p>
               </div>
             </button>
+          </Link>
           ) : (
+            
             <button className="button-large-yellow">
               <div className="icon-text-element">
                 <img src={messageImg} alt="" />
                 <p>Send Message</p>
               </div>
             </button>
+
           )}
         </section>
 
