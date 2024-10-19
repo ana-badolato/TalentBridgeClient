@@ -8,6 +8,18 @@ function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   const isOwner = isLoggedIn && String(loggedUserId) === String(props.owner._id);
 
+ // Verificar si el usuario ya es miembro del equipo
+ const isTeamMember = props.teamMembers.some(
+  (memberId) => String(memberId) === String(loggedUserId)
+);
+
+ // Condición para deshabilitar el botón:
+  // - Si el proyecto pertenece al usuario (es su perfil)
+  // - O si el usuario ya pertenece al equipo (como owner o team member)
+  const isApplyDisabled = isOwner || isTeamMember;
+
+
+  
   return (
     <div className="card-pr-container">
       <Link to={`/project/${props._id}`}>
@@ -42,9 +54,11 @@ function CardProject(props) {
             alt={props.owner.username}
             className="card-profile-img"
           />
-          <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p>
+          <p><span>Leaded by </span>{props.owner.username}</p>
         </div>
-        <button className="button-small-blue">
+
+         {/* Botón Apply deshabilitado si ya es miembro o es su propio proyecto */}
+         <button className="button-small-blue" disabled={isApplyDisabled}>
           <p>Apply</p>
         </button>
       </div>

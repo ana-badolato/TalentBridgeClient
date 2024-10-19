@@ -86,6 +86,17 @@ function DetailsUser() {
 
   const isOwnProfile = isLoggedIn && loggedUserId === user._id;
 
+  // Calcular si el usuario debe tener el botón "Join" deshabilitado
+const isEventJoinDisabled = (event) => {
+  // Asegurarse de comparar el owner._id como cadena
+  const isOwner = String(event.owner._id || event.owner) === String(loggedUserId);
+  const isLecturer = event.lecturer.some((lecturerId) => String(lecturerId) === String(loggedUserId));
+  const isAttendee = event.atendees.some((attendeeId) => String(attendeeId) === String(loggedUserId));
+  
+  return isOwner || isLecturer || isAttendee; // Deshabilitar si es owner, lecturer o attendee
+};
+
+
   return (
     <div className="container-page">
       <div className="container-main-content">
@@ -183,6 +194,7 @@ function DetailsUser() {
                   key={eachEvent._id}
                   allUserEvents={getFilteredEvents()}
                   isOwnProfile={isOwnProfile}
+                  isJoinDisabled={isEventJoinDisabled(eachEvent)}
                   {...eachEvent}
                 />
               ))}

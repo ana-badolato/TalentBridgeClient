@@ -33,6 +33,10 @@ function CardEvent(props) {
       <p>{props.date}</p>
       <p>{props.address}</p>
       <p>{props.owner.username}</p>
+      {/* Botón Join deshabilitado según la prop isJoinDisabled */}
+      <button disabled={props.isJoinDisabled} className="button-small-blue">
+      <p>Join</p>
+      </button>
     </Link>
     </div>
   )
