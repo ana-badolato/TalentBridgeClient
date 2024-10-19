@@ -19,6 +19,9 @@ function CardProject(props) {
   const isApplyDisabled = isOwner || isTeamMember;
 
 
+
+  
+
   
   return (
     <div className="card-pr-container">
@@ -43,6 +46,12 @@ function CardProject(props) {
           <h4 className="card-pr-title">{props.title}</h4>
           <span className="card-pr-category">{props.category}</span>
           <p className="card-pr-description">{props.description}</p>
+        </div>
+        <div className="card-pr-section-properties">
+            <div className="icon-text-element">
+              <img src="" alt="" />
+            <p>{new Date(props.startDate).toLocaleDateString()}</p>
+            </div>
         </div>
       </Link>
           <hr className="hr-thin-light"/>
