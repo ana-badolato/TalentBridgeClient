@@ -6,7 +6,7 @@
   --accent-yellow: #FFBE1A;
   --accent-yellow-light: #FFD25F;
   --neutral-grey-dark: #959494;
-  --neutral-grey-light: #E9ECF5;
+  --neutral-grey-light: #e2e5ec;
   --neutral-white: #F8F9FC;
   --font-main: "Poppins", sans-serif;
 }
@@ -48,16 +48,7 @@ ul, ol {
   gap: 4px;
 }
 
-.button-large-yellow{
-  padding: 8px 16px;
-  background-color: var(--accent-yellow);
-  border-radius: 5px;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
 
-.button-large-yellow:hover{
-  background-color: var(--accent-yellow-light);
-}
 
 .project-list {
   display: flex;
@@ -96,6 +87,42 @@ section {
   font-weight: bold;
   text-decoration: underline;
 }
+
+.card-profile-img {
+  height: 24px;
+  width: 24px;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
+.hr-thin-light{
+  border: none; 
+  border-top: 0.5px solid var(--neutral-grey-light); 
+  margin: 16px 0;
+}
+
+/*Buttons----------------------------------------------------------------*/
+.button-large-yellow{
+  padding: 8px 16px;
+  background-color: var(--accent-yellow);
+  border-radius: 5px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.button-large-yellow:hover{
+  background-color: var(--accent-yellow-light);
+}
+
+.button-small-blue{
+  background-color: var(--primary-blue-mid);
+  color: var(--neutral-white);
+  font-size: 14px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+
 
 @media (max-width: 768px) {
   body {
