@@ -114,14 +114,11 @@ function CardProject(props) {
             alt={owner.username}
             className="card-profile-img"
           />
-<<<<<<< HEAD
 {/*           <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p> */}
-=======
           <p>
             <span>Leaded by </span>
             {owner.username}
           </p>
->>>>>>> 3975155f80b7dacaabde181851bb8eef084a89f3
         </div>
 
         {/* Botón Apply deshabilitado si ya es miembro o es su propio proyecto */}
