@@ -42,7 +42,8 @@ ol {
 
 .icon-text-element {
   display: flex;
-  gap: 4px;
+  gap: 8px;
+  align-items: center;
 }
 
 .icon-text-element p {
@@ -50,9 +51,8 @@ ol {
   gap: 4px;
 }
 
-.project-list {
-  display: flex;
-}
+
+
 
 /*Contenedor genérico de la página*/
 .container-page {
@@ -68,6 +68,7 @@ ol {
   display: flex;
   flex-direction: column;
   padding: 0 16px;
+  margin-bottom: 96px;
 }
 
 section {
@@ -100,10 +101,31 @@ section {
   border-top: 0.5px solid var(--neutral-grey-light);
   margin: 16px 0;
 }
+
+.hr-thin-light-yellow {
+  border: none;
+  border-top: 0.5px solid var(--accent-yellow);
+  width: 100%; /* El <hr> ocupa todo el ancho del contenedor */
+  margin: 0; /* Elimina márgenes adicionales */
+  box-sizing: border-box; /* Para que el ancho respete los márgenes y el padding */
+  margin-top: 16px;
+}
 /*Lists---------------------------------------------------------*/
+
 .project-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1440px;
+  margin: 0 auto; /* Centrar el contenido */
+  margin-top: 32px;
+  padding: 0px;
+}
+
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 20px;
   max-width: 1440px;
   margin: 0 auto; /* Centrar el contenido */
@@ -187,6 +209,40 @@ section {
   background-color: var(--primary-blue-light);
   cursor: pointer;
 }
+
+
+/* Controles de paginación */
+.pagination-controls {
+  display: flex;
+  justify-content: center; /* Centra los botones de paginación */
+  margin-top: 20px; /* Espacio adicional sobre los botones de paginación */
+  width: 100%;
+}
+
+.pagination-controls button {
+  margin: 0 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  min-width: 64px;
+  background-color: var(--neutral-grey-dark);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: #f0f0f0;
+  color: #b0b0b0;
+}
+
+.pagination-controls span {
+  font-size: 12px;
+  color: #333;
+}
+
+
 
 @media (max-width: 768px) {
   body {

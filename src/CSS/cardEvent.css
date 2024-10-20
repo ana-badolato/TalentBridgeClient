@@ -1,0 +1,288 @@
+/* Contenedor general de la tarjeta */
+.card-event {
+  min-width: 1 1 23%;
+  max-width: 23%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center;     /* Centra el contenido verticalmente */
+}
+
+/* Imagen de la tarjeta */
+.card-event-image {
+  width: 100%; /* La imagen tomará el ancho completo del contenedor */
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0px;
+  display: block; /* Asegura que la imagen sea un bloque para evitar problemas de alineación */
+}
+
+/* Botones Edit/Delete/Join siempre sobre la imagen y overlay */
+.card-ev-section-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 3; /* Asegura que los botones estén siempre por encima del overlay */
+}
+
+.card-ev-button {
+  background-color: rgba(248, 249, 252, 0.8);
+  color: var(--primary-blue-mid);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.card-ev-button img {
+  height: 12px;
+}
+
+.card-ev-button:hover {
+  background-color: rgba(248, 249, 252, 1);
+}
+
+/* Botón Join centrado debajo de la imagen */
+.button-small-yellow {
+  background-color: #ffc107;
+  color: var(--primary-blue-mid);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 15px;
+  right: 24px;
+  
+  z-index: 3; /* Asegura que el botón de Join esté por encima del overlay */
+}
+
+.button-small-yellow:disabled {
+  background-color: #f0f0f0;
+  color: #b0b0b0;
+}
+
+/* Overlay que aparece al hacer hover */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 15, 52, 0.9); /* Overlay azul translúcido */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden; /* Overlay escondido por defecto */
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 1; /* El overlay está debajo de los botones */
+}
+
+.card-ev-content-overlay {
+  margin: 0; /* Eliminar márgenes */
+  margin-top: 48px;
+  padding: 0 24px; /* Mantén el padding en los lados */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ocupar todo el ancho del contenedor */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  overflow: hidden; /* Evitar cualquier desbordamiento */
+}
+
+
+
+/* Mostrar el overlay al hacer hover */
+.card-event:hover .card-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.card-ev-section-profile {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-ev-section-profile p {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-yellow);
+}
+
+.card-ev-section-profile span {
+  color: var(--neutral-grey-dark);
+}
+
+.card-ev-profile-img {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
+.card-ev-bottom {
+  margin-top: auto;
+  margin-bottom: 48px;
+  padding: 16px 0; /* Espacio interno solo arriba y abajo */
+  width: 100%; /* El contenedor ocupa todo el ancho disponible */
+  box-sizing: border-box;
+  display: block; /* Aseguramos que sea un bloque de ancho completo */
+}
+
+/* Título con dos líneas y ellipsis */
+.card-ev-title-overlay {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limitar a dos líneas con prefijo */
+  line-clamp: 2; /* Limitar a dos líneas - propiedad estándar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: calc(1.2em * 2); /* Altura fija para dos líneas */
+}
+
+/* Objetivo principal con tres líneas y ellipsis */
+.card-ev-objective-overlay {
+  font-weight: 200;
+  text-align: left;
+  margin-top: 8px;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limitar a tres líneas con prefijo */
+  line-clamp: 3; /* Limitar a tres líneas - propiedad estándar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: calc(1.2em * 3); /* Altura fija para tres líneas */
+}
+
+.card-ev-properties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+
+/* Ajustes para pantallas medianas: 2 tarjetas por fila */
+@media screen and (max-width: 1024px) {
+  .card-event {
+    flex: 1 1 48%; /* 2 tarjetas por fila */
+    max-width: 48%; /* Ajusta el ancho máximo a 48% */
+  }
+}
+
+/* Ajustes para pantallas pequeñas: 1 tarjeta por fila */
+@media screen and (max-width: 768px) {
+  .card-event {
+    flex: 1 1 100%; /* 1 tarjeta por fila */
+    max-width: 100%; /* Ajusta el ancho máximo a 100% */
+    position: relative; /* Para contener el botón Join y demás elementos absolutos */
+  }
+
+  .card-overlay {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    background-color: transparent;
+    color: rgba(17, 15, 52, 0.9);
+  }
+
+  /* Ocultar los elementos no deseados en móvil */
+  .card-ev-objective-overlay,
+  .card-ev-section-profile,
+  .card-ev-bottom {
+    display: none; /* Ocultar en móvil */
+  }
+
+  /* Cambiar los iconos de fecha y ubicación en móvil */
+  .icon-text-element img[src*="evDateLight"] {
+    content: url("../assets/icons/evDate.svg"); /* Cambia el icono de la fecha */
+  }
+
+  .icon-text-element img[src*="locationLight"] {
+    content: url("../assets/icons/location.svg"); /* Cambia el icono de la ubicación */
+  }
+
+  /* Ajustar el ancho y disposición de los elementos restantes */
+  .card-ev-title-overlay, 
+  .card-ev-properties {
+    width: 100%; /* Asegurar que el título y las propiedades ocupen todo el ancho */
+  }
+
+  .card-ev-content-overlay {
+    padding: 0;
+    margin-top: 16px;
+  }
+
+  .card-ev-properties {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-start; /* Alinear los elementos juntos */
+    flex-wrap: wrap;
+    align-items: center; /* Alinear verticalmente si es necesario */
+    gap: 16px; /* Espacio entre fecha y ubicación */
+    width: 100%; /* Ocupar todo el ancho */
+  }
+
+  /* Alinear correctamente los iconos y el texto */
+  .icon-text-element {
+    display: flex;
+    align-items: center; /* Alineación vertical de los iconos y el texto */
+    gap: 4px; /* Espacio entre el icono y el texto */
+  }
+
+  /* Botones Edit/Delete en la esquina superior derecha */
+  .card-ev-section-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 3; /* Asegura que los botones Edit y Delete estén visibles sobre la imagen */
+  }
+
+  /* Colocar el botón Join en la esquina inferior derecha encima de la imagen */
+  .button-small-yellow {
+    position: absolute;
+    bottom: 124px; /* Colocar en la parte inferior de la tarjeta */
+    right: 16px;  /* Colocar en la parte derecha de la tarjeta */
+    z-index: 3;   /* Asegurar que esté encima de la imagen */
+    background-color: #ffc107; /* Asegurar que se vea sobre la imagen */
+  }
+
+  /* Hacer que la imagen no interfiera con el botón Join */
+  .card-event-image {
+    width: 100%;
+    height: 400px; /* Tamaño fijo para asegurarse de que haya espacio para el botón */
+    object-fit: cover;
+    position: relative; /* Para que los elementos absolutos se posicionen correctamente */
+  }
+
+  /* Asegurar que el contenedor principal mantenga todo dentro */
+  .card-event-content {
+    position: relative;
+  }
+}
