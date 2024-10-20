@@ -174,7 +174,9 @@ function DetailsUser() {
                     <button className="button-large-blue">
                       <div className="icon-text-element">
                         <img src={addImg} alt="" />
+                        <Link to="/newproject">
                         <p>Add Project</p>
+                        </Link>
                       </div>
                     </button>
                   </div>
@@ -256,7 +258,9 @@ function DetailsUser() {
                     <button className="button-large-blue">
                       <div className="icon-text-element">
                         <img src={addImg} alt="" />
+                        <Link to="/newevent">
                         <p>Add Event</p>
+                        </Link>
                       </div>
                     </button>
                   </div>
