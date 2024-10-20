@@ -42,6 +42,11 @@ ol {
 
 /* Common elements----------------------------------------------------------*/
 
+
+header {
+  margin: 32px 0;
+}
+
 .icon-text-element {
   display: flex;
   gap: 8px;
@@ -125,6 +130,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  row-gap: 64px;
   max-width: 1440px;
   margin: 0 auto; /* Centrar el contenido */
   margin-top: 32px;
