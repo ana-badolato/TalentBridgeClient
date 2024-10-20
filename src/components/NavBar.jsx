@@ -30,14 +30,15 @@ function NavBar() {
         <Link to="/project">
         <p>Projects</p>
         </Link>
+        
+        <Link to="/event">
+        <p>Events</p>
+        </Link>
 
         <Link to="/user">
           <p>Talent</p>
         </Link>
 
-        <Link to="/event">
-        <p>Events</p>
-        </Link>
 
         <Link to="/newproject">
         <p>New Project</p> {/* borrar mas tarde, es para ver el formulario */}

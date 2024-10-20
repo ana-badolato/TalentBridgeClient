@@ -1,7 +1,7 @@
 .card-pr-container {
-  flex: 1 1 300px; /*ancho base para las cards */
-  max-width: 32%; 
-  box-sizing: border-box; 
+  flex: 1 1 400px; /*ancho base para las cards */
+  max-width: 32%;
+  box-sizing: border-box;
   transition: box-shadow 0.3s ease;
   position: relative; /* Necesario para el posicionamiento de los botones */
 }
@@ -9,7 +9,7 @@
 /* Control del tamaño de la imagen */
 .card-pr-img {
   will-change: transform; /* Optimiza la transformación */
-  width: 100%; 
+  width: 100%;
   object-fit: cover;
   height: 240px;
   border-radius: 10px;
@@ -18,10 +18,10 @@
 
 .card-pr-img:hover {
   object-fit: cover;
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
-.card-pr-section-img-buttons{
+.card-pr-section-img-buttons {
   overflow: hidden;
   border-radius: 10px;
 }
@@ -32,38 +32,53 @@
   top: 8px;
   right: 8px;
   display: flex;
-  gap: 4px; 
+  gap: 4px;
 }
 
 .card-pr-button {
-  background-color: rgba(248, 249, 252, 0.8); 
+  background-color: rgba(248, 249, 252, 0.8);
   color: var(--primary-blue-mid);
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
+  display: flex;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.card-pr-button img {
+  height: 12px;
 }
 
 .card-pr-button:hover {
-  background-color: rgba(248, 249, 252, 1); 
+  background-color: rgba(248, 249, 252, 1);
 }
 
 /* Ajustes para el contenido inferior (perfil y botón Apply) */
-.card-pr-section-bottom{
+.card-pr-section-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 
 .card-pr-title {
   font-size: 20px;
   font-weight: 600;
   margin: 8px 0 16px 0;
   text-overflow: ellipsis;
+  overflow: hidden; /* Oculta cualquier texto que sobrepase el límite */
+  white-space: normal; /* Permite que el texto rompa en varias líneas */
+  display: -webkit-box; /* Establece un contenedor flexible */
+  -webkit-line-clamp: 2; /* Limita el contenido a 2 líneas (para WebKit) */
+  line-clamp: 2; /* Añade la propiedad estándar */
+  -webkit-box-orient: vertical; /* Orienta el contenedor en forma vertical */
   line-height: 1.2em; /* Define la altura de la línea */
-  height: calc(1.2em * 2); /* Limita a 2 líneas (ajusta según lo que quieras) */
+  height: calc(
+    1.2em * 2
+  ); /* Fija la altura a 2 líneas, incluso si el contenido es más corto */
+  max-height: calc(1.2em * 2); /* Limita la altura a 2 líneas */
 }
 
 .card-pr-category {
@@ -74,15 +89,24 @@
   border-radius: 25px;
 }
 
-.card-pr-description{
+.card-pr-objective {
   font-weight: 300;
   margin-top: 16px;
   text-overflow: ellipsis;
-  line-height: 1.3em;
-  height: calc(1.3em * 3);
+  overflow: hidden; /* Oculta el contenido que exceda el límite */
+  white-space: normal; /* Permite que el texto ocupe varias líneas */
+  display: -webkit-box; /* Establece un contenedor flexible */
+  -webkit-line-clamp: 3; /* Limita el contenido a 3 líneas (para WebKit) */
+  line-clamp: 3; /* Añade la propiedad estándar */
+  -webkit-box-orient: vertical; /* Orienta el contenedor en forma vertical */
+  line-height: 1.3em; /* Define la altura de cada línea */
+  height: calc(
+    1.3em * 3
+  ); /* Fija la altura a 3 líneas, incluso si el contenido es más corto */
+  max-height: calc(1.3em * 3); /* Limita la altura a 3 líneas */
 }
 
-.card-pr-section-profile{
+.card-pr-section-profile {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -103,7 +127,29 @@
   object-fit: cover;
 }
 
+.card-pr-section-properties {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+}
 
+.icon-text-element-pr {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  align-items: center;
+  font-weight: 400;
+}
+
+.icon-text-element-pr span {
+  color: var(--neutral-grey-dark);
+  font-weight: 400;
+}
+
+.icon-text-element-pr img {
+  height: 16px;
+}
 
 /* Ajuste en pantallas medianas: 2 cards por fila */
 @media (max-width: 1024px) {

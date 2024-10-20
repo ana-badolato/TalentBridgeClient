@@ -13,6 +13,7 @@ function ListProjects(props) {
   const getData = async () => {
     try {
       const response = await service(`/project/`)
+      console.log("ey",response.data);
       setAllProjects(response.data)
 
     } catch (error) {
@@ -28,7 +29,7 @@ function ListProjects(props) {
   })
 
   return (
-    <div>
+    <div className="project-list">
       {filteredProjects.map((eachProject)=> {
         return (
           <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject}/>

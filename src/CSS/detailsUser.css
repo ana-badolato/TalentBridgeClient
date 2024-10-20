@@ -1,9 +1,24 @@
-.project-list {
+.empty-section {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px; 
-  max-width: 1440px;
-  margin: 0 auto; /* Centrar el contenido */
-  margin-top: 32px;
-  padding: 0px;
+  justify-content: center;
+  align-items: center;
+  width: calc(3 * 300px + 2 * 16px); /* Ancho de 3 cards + gaps */
+  height: 300px; /* Alto equivalente a una card */
+  background-color: var(--neutral-grey-light);
+  border-radius: 10px;
+}
+
+.empty-section-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.add-project-container,
+.add-event-container {
+  display: block; /* Asegura que ocupe todo el ancho de su contenedor */
+  margin-top: 24px;
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  text-align: center; /* Alinea el botón en el centro */
 }

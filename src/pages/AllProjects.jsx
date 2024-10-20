@@ -9,11 +9,13 @@ function AllProjects() {
   const [categoryFilter, setCategoryFilter] = useState("All")
 
   return (
-    <div>
+    <div className="container-page">
+      <div className="container-main-content">
       <h3>ALL PROJECTS</h3>
       <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
       <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/>
-      <ListProjects searchValue={searchValue} categoryFilter={categoryFilter}/>
+      <ListProjects searchValue={searchValue} categoryFilter={categoryFilter} />
+    </div>
     </div>
   )
 }
