@@ -26,8 +26,7 @@ function ListUser(props) {
   })
 
   return (
-    <div>
-      <p>Talent page</p>
+    <div className="user-list">
         {searchedUsers.map((eachUser)=>{
           return (
             <CardUser key={eachUser._id} {...eachUser}/>

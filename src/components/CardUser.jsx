@@ -1,20 +1,52 @@
-import { Link } from "react-router-dom"
+import "../App.css";
+import "../CSS/cardUser.css";
+
+import { Link } from "react-router-dom";
+
+import messageLightImg from "../assets/icons/messageLight.svg";
 
 function CardUser(props) {
 
-  //console.log(props);
-
   //image, username, skills, bio
   return (
-    <div>
-    <Link to={`/user/${props._id}`}>
-      <img src={props.profilePicture} alt="" />
-      <p>{props.username}</p>
-      <p>Skills:{props.skills}</p>
-      <p>Bio:{props.bio}</p>
-    </Link>
+    <div className="card-user">
+      <Link to={`/user/${props._id}`}>
+      <div className="card-user-top">
+        <div>
+
+        <img src={props.profilePicture} alt={`${props.username}'s profile`} className="card-user-image" />
+        </div>
+        <div className="card-user-details">
+          <h4 className="card-user-username">{props.username}</h4>
+
+          {/* Solo mostrar la bio si existe */}
+          {props.bio && <p className="card-user-bio">"{props.bio}"</p>}
+            </div>
+
+      </div>
+      <hr className="hr-thin-blue"/>
+          <div className="card-user-skills">
+            {props.skills.map((skill, index) => (
+              <span key={index} className="chip">
+                {skill}
+              </span> // Cada habilidad convertida en un chip individual
+            ))}
+          </div>
+      </Link>
+      <div className="button-container">
+      <button className="button-small-blue" >
+          <div className="icon-text-element">
+            <img
+              src={messageLightImg}
+              alt=""
+              className="icon"
+            />
+            <p>Send Message</p>
+          </div>
+        </button>
+        </div>
     </div>
-  )
+  );
 }
 
-export default CardUser
+export default CardUser;
