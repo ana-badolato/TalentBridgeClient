@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import service from "../services/config.js";
 import addImg from "../assets/icons/add.svg"; // Icono para añadir usuarios
 
-function Autocomplete() {
+function Autocomplete({updateTeamMembers}) {
   const [allUsers, setAllUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -33,18 +33,20 @@ function Autocomplete() {
 
   // Función para mover el usuario a la lista de seleccionados
   const addUser = (user) => {
-    setSelectedUsers((prevSelected) => [...prevSelected, user]);
+    const newSelectedUsers = [...selectedUsers, user]
+    setSelectedUsers(newSelectedUsers);
     setFilteredUsers((prevFiltered) =>
       prevFiltered.filter((filteredUser) => filteredUser.username !== user.username)
     );
+    updateTeamMembers(newSelectedUsers)
   };
 
   // Función para remover el usuario de la lista de seleccionados y devolverlo a los disponibles
   const removeUser = (user) => {
-    setSelectedUsers((prevSelected) =>
-      prevSelected.filter((selectedUser) => selectedUser.username !== user.username)
-    );
+    const newSelectedUsers = selectedUsers.filter((selectedUsers)=> selectedUsers.username !==user.username)
+    setSelectedUsers(newSelectedUsers)
     setFilteredUsers((prevFiltered) => [...prevFiltered, user]);
+    updateTeamMembers(newSelectedUsers)
   };
 
   return (

@@ -11,7 +11,6 @@ function EditUser() {
 
   // Creamos un estado para almacenar los datos del usuario
   const [userData, setUserData] = useState({
-    username: "",
     profilePicture: "", 
     contactEmail: "",
     location: "",
@@ -42,7 +41,6 @@ function EditUser() {
         const response = await service.get(`/user/profile`);
         // Establecemos los datos del usuario en el estado userData
         setUserData({
-          username: response.data.username || "",
           profilePicture: response.data.profilePicture || "",
           contactEmail: response.data.contactEmail || "",
           location: response.data.location || "",
@@ -166,18 +164,6 @@ function EditUser() {
             {/* Input para subir una nueva imagen */}
             <input type="file" onChange={handleImageUpload} />
             {uploadingImage && <p>Uploading...</p>}
-          </div>
-
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={userData.username || ""}
-              onChange={handleChange}
-              required
-            />
           </div>
 
           <div>

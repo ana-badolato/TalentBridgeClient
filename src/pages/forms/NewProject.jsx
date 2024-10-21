@@ -95,6 +95,13 @@ function NewProject() {
     }
   }
 
+  const updateTeamMembers = (selectedUsers) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      teamMembers: selectedUsers, // Actualiza el array de miembros del equipo en el estado del proyecto
+    }));
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -138,7 +145,7 @@ function NewProject() {
         </div>
 
         <div>
-          {<Autocomplete/>} 
+          {<Autocomplete updateTeamMembers={updateTeamMembers}/>} 
         </div>
 
       <button type="submit">New project</button>
