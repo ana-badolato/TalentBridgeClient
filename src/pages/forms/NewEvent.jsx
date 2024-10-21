@@ -43,17 +43,17 @@ function NewEvent() {
     //estado donde almacenar los proyectos del usuario
     const [loggedUserProjects, setLoggedUserProjects] = useState([])
 
-    useEffect(() =>{
-      const fetchUserProjects = async () =>{
-        try {
-          const response = await service.get(`/project/user/${loggedUserId}`)
-          setLoggedUserProjects(response.data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      fetchUserProjects()
-    }, [loggedUserId])
+    // useEffect(() =>{
+    //   const fetchUserProjects = async () =>{
+    //     try {
+    //       const response = await service.get(`/project/user/${loggedUserId}`)
+    //       setLoggedUserProjects(response.data)
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
+    //   fetchUserProjects()
+    // }, [loggedUserId])
 
 
     const handleSubmit = async (e) =>{
@@ -76,8 +76,9 @@ function NewEvent() {
         owner,
         lecturer,
         atendees,
-        relatedProjects
+        relatedProjects: relatedProjects || null
       }
+      console.log("Event Data to be sent:", newEvent);
 
       try {
         //llamar al servidor para crearlo
@@ -123,7 +124,7 @@ function NewEvent() {
         <div>
           <label htmlFor="">Address</label>
           <input name="address" type="text" value={eventData.address} onChange={handleChange}/>
-          <button type="submit">Obtein coordinates</button>
+          <button>Obtein coordinates</button>
         </div>
 
         <div>
@@ -172,7 +173,7 @@ function NewEvent() {
           </select>
         </div>
 
-      <button>Create event</button>
+      <button type="submit">Create event</button>
       {showConfirmation && (
             <div className="confirmation-message">
               Event created successfully!
