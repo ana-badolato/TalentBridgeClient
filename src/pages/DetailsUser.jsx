@@ -29,17 +29,17 @@ function DetailsUser() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [params.username]);
 
   const getData = async () => {
     try {
-      const userResponse = await service.get(`/user/${params.userid}`);
+      const userResponse = await service.get(`/user/profile/${params.username}`);
       setUser(userResponse.data);
 
-      const projectResponse = await service.get(`/project/user/${params.userid}`);
+      const projectResponse = await service.get(`/project/user/${params.username}/projects`);
       setAllUserProjects(projectResponse.data);
 
-      const eventResponse = await service.get(`/event/user/${params.userid}`);
+      const eventResponse = await service.get(`/event/user/${params.username}/events`);
       setAllUserEvents(eventResponse.data);
     } catch (error) {
       console.log("Error fetching user data:", error);
@@ -75,6 +75,8 @@ function DetailsUser() {
     return attendeeEvents;
   };
 
+
+  //! eliminar
   const isOwnProfile = isLoggedIn && loggedUserId === user._id;
 
   // Paginación para proyectos
@@ -128,23 +130,13 @@ function DetailsUser() {
           <p>Tags: {user.skills}</p>
 
           {/* Mostrar botón condicionalmente */}
-          {isOwnProfile ? (
-            <Link to="/profile/edit">
-              <button className="button-large-yellow">
-                <div className="icon-text-element">
-                  <img src={edtitImg} alt="Edit" />
-                  <p>Edit Profile</p>
-                </div>
-              </button>
-            </Link>
-          ) : (
+          
             <button className="button-large-yellow">
               <div className="icon-text-element">
                 <img src={messageImg} alt="" />
                 <p>Send Message</p>
               </div>
             </button>
-          )}
         </section>
 
         {/* Projects Section */}
@@ -168,7 +160,7 @@ function DetailsUser() {
           <hr />
           <div className="project-list">
             {currentProjects.map((eachProject) => (
-              <CardProject key={eachProject._id} {...eachProject} isOwnProfile={isOwnProfile} />
+              <CardProject key={eachProject._id} {...eachProject}/>
             ))}
 
             {/* Paginación de Proyectos (solo si hay más de una página) */}
@@ -180,18 +172,6 @@ function DetailsUser() {
                 <span>Page {projectPage} of {totalProjectPages}</span>
                 <button onClick={goToNextProjectPage} disabled={projectPage === totalProjectPages}>
                   Next
-                </button>
-              </div>
-            )}
-
-            {/* Botón "Add Project" */}
-            {isOwnProfile && (
-              <div className="add-project-container">
-                <button className="button-large-blue">
-                  <div className="icon-text-element">
-                    <img src={addImg} alt="" />
-                    <p>Add Project</p>
-                  </div>
                 </button>
               </div>
             )}
@@ -217,7 +197,7 @@ function DetailsUser() {
           <hr />
           <div className="event-list">
             {currentEvents.map((eachEvent) => (
-              <CardEvent key={eachEvent._id} {...eachEvent} isOwnProfile={isOwnProfile} />
+              <CardEvent key={eachEvent._id} {...eachEvent}/>
             ))}
 
             {/* Paginación de Eventos (solo si hay más de una página) */}
@@ -229,18 +209,6 @@ function DetailsUser() {
                 <span>Page {eventPage} of {totalEventPages}</span>
                 <button onClick={goToNextEventPage} disabled={eventPage === totalEventPages}>
                   Next
-                </button>
-              </div>
-            )}
-
-            {/* Botón "Add Event" */}
-            {isOwnProfile && (
-              <div className="add-event-container">
-                <button className="button-large-blue">
-                  <div className="icon-text-element">
-                    <img src={addImg} alt="" />
-                    <p>Add Event</p>
-                  </div>
                 </button>
               </div>
             )}

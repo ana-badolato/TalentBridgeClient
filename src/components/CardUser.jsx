@@ -1,16 +1,17 @@
 import "../App.css";
 import "../CSS/cardUser.css";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import messageLightImg from "../assets/icons/messageLight.svg";
 
 function CardUser(props) {
 
+  const params = useParams()
   //image, username, skills, bio
   return (
     <div className="card-user">
-      <Link to={`/user/${props._id}`}>
+      <Link to={`/user/profile/${props.username}`}>
       <div className="card-user-top">
         <div>
 
