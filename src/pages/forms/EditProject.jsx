@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from "../../context/auth.context";
 import { useNavigate, useParams } from "react-router-dom"; 
 import service from '../../services/config';
+import Autocomplete from "../../components/Autocomplete"
 
 function EditProject() {
 
@@ -17,7 +18,6 @@ function EditProject() {
     location: "",
     image:"",
     category:"",
-//    owner: loggedUserId,
     teamMembers: []
   })
 
@@ -34,12 +34,16 @@ function EditProject() {
         setProjectData({
           title: response.data.title || "",
           mainObjective:response.data.mainObjective || "",
-          description: response.data.description || "",
+          description: response.data.description || "", 
           location: response.data.location || "",
           image: response.data.image || "",
           category: response.data.category || "",
           teamMembers:response.data.teamMembers || []
         });
+
+
+        // Pasar los miembros del equipo existentes a Autocomplete
+      updateTeamMembers(response.data.teamMembers || []);
         setIsLoading(false);
       } catch (error) {
         console.log("Error fetching project data:", error);
@@ -104,6 +108,14 @@ function EditProject() {
   };
 
   //! añadir funciones teamMembers
+  const updateTeamMembers = (selectedUsers) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      teamMembers: selectedUsers, // Actualiza el array de miembros del equipo en el estado del proyecto
+    }));
+  };
+
+
 
   if (isLoading) {
     return <h3>Loading...</h3>;
@@ -150,9 +162,9 @@ function EditProject() {
       </select>
     </div>
 
-{/*     <div>
-      {<Autocomplete updateTeamMembers={updateTeamMembers}/>} 
-    </div> */}
+     <div>
+      {<Autocomplete updateTeamMembers={updateTeamMembers} initialSelectedUsers={projectData.teamMembers}/>} 
+    </div>
 
     <div className="button-container">
             {/* Botón para guardar los cambios */}

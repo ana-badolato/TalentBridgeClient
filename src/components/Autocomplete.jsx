@@ -4,15 +4,19 @@ import { useEffect, useState } from "react";
 import service from "../services/config.js";
 import addImg from "../assets/icons/add.svg"; // Icono para añadir usuarios
 
-function Autocomplete({updateTeamMembers}) {
+function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
   const [allUsers, setAllUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]); // Lista de usuarios seleccionados
+  const [selectedUsers, setSelectedUsers] = useState(initialSelectedUsers); // Lista de usuarios seleccionados
 
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    setSelectedUsers(initialSelectedUsers);
+  }, [initialSelectedUsers]);
 
   const getData = async () => {
     try {
