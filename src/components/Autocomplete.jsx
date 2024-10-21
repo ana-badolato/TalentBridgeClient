@@ -16,7 +16,7 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
 
   useEffect(() => {
     setSelectedUsers(initialSelectedUsers);
-  }, [initialSelectedUsers]);
+  }, []);
 
   const getData = async () => {
     try {
