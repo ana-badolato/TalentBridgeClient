@@ -8,11 +8,12 @@ function AllUsers() {
 
 
   return (
-    <div>
-      <h3>ALL USERS</h3>
+    <div className="container-page">
+      <div className="container-main-content">
       <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
       <ListUser searchValue={searchValue}/> {/*Solo pasamos el valor de la búsqueda */}
     </div>
+     </div>
   )
 }
 

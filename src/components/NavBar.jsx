@@ -80,6 +80,18 @@ function NavBar() {
             </div>
           )}
 
+        {isLoggedIn && (
+            //!cambiar div por Link cuando tengamos las páginas
+            <Link to="/user/profile">
+            <div className="icon-text-element">
+              <img src="" alt="" />
+              <p>
+                Profile
+              </p>
+            </div>
+            </Link>
+          )}
+
           {isLoggedIn && (
             <Link onClick={handleLogOut} to="/" className="icon-text-element">
               <img src="" alt="" />
