@@ -1,0 +1,77 @@
+/* generic-form.css */
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.form-left {
+  flex: 1;
+  padding: 20px;
+}
+
+.form-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-right img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Formularios generales */
+.form-left form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-left label {
+  margin-bottom: 8px;
+  font-family: var(--font-main);
+  color: var(--primary-blue-mid);
+}
+
+.form-left input,
+.form-left textarea,
+.form-left select {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px solid var(--neutral-grey-light);
+  border-radius: 4px;
+  font-family: var(--font-main);
+  font-size: 14px;
+}
+
+.form-left button {
+  padding: 12px 20px;
+  background-color: var(--primary-blue-mid);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-main);
+  cursor: pointer;
+}
+
+.form-left button:hover {
+  background-color: var(--primary-blue-dark);
+}
+
+.confirmation-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--accent-yellow-light);
+  color: var(--primary-blue-mid);
+  border: 1px solid var(--accent-yellow);
+  border-radius: 5px;
+  text-align: center;
+  font-family: var(--font-main);
+}

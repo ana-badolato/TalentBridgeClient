@@ -1,0 +1,29 @@
+/* specific-form.css */
+.form-container {
+  background-color: var(--primary-blue-extra-light);
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-left {
+  background-color: var(--neutral-white);
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.form-right {
+  background-image: url('/path-to-your-image.png'); /* Sustituye la imagen aquí */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+/* Personalización específica de botones */
+.form-left button {
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue-mid);
+}
+
+.form-left button:hover {
+  background-color: var(--accent-yellow-light);
+}
