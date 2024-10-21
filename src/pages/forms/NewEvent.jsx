@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config";
-
+import axios from "axios";
 
 function NewEvent() {
 
   const { loggedUserId } = useContext(AuthContext);
 console.log("Logged User ID:", loggedUserId);
-
+const [uploadingImage, setUploadingImage] = useState(false);
   const [eventData, setEventData] =useState({
     name: "",
     mainObjective: "",
@@ -40,6 +40,27 @@ console.log("Logged User ID:", loggedUserId);
       }))
     }
 
+    // Función para obtener las coordenadas de una dirección
+  const getCoordinates = async (address) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
+      );
+      const data = await response.json();
+      if (data.length > 0) {
+        const { lat, lon } = data[0]; // Tomar la primera coincidencia
+        setEventData((prevData) => ({
+          ...prevData,
+          location: { lat: parseFloat(lat), lng: parseFloat(lon) } // Actualiza las coordenadas
+        }));
+      } else {
+        console.log("No coordinates found for the address.");
+      }
+    } catch (error) {
+      console.error("Error fetching coordinates:", error);
+    }
+  };
+
    
     // //estado donde almacenar los proyectos del usuario
     const [loggedUserProjects, setLoggedUserProjects] = useState([])
@@ -62,7 +83,32 @@ console.log("Logged User ID:", loggedUserId);
       fetchUserProjects();
     }, [loggedUserId]);
     
-
+    const handleImageUpload = async (e) => {
+      const file = e.target.files[0]; // Obtiene el archivo seleccionado
+      if (!file) return;
+  
+      const formData = new FormData(); // Crea un objeto FormData
+      formData.append("file", file);
+      formData.append("upload_preset", "s9t7p5jy"); // El "preset" de Cloudinary
+  
+      setUploadingImage(true); // Indica que la carga está en proceso
+  
+      try {
+          const response = await axios.post(
+              "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload", // URL de Cloudinary
+              formData
+          );
+          const imageUrl = response.data.secure_url; // URL de la imagen subida
+          setEventData((prevData) => ({
+              ...prevData,
+              posterImage: imageUrl, // Actualiza el estado con la URL de la imagen
+          }));
+          setUploadingImage(false); // Indica que la carga ha terminado
+      } catch (error) {
+          console.error("Error uploading image:", error);
+          setUploadingImage(false);
+      }
+  };
 
     const handleSubmit = async (e) =>{
       e.preventDefault()
@@ -104,6 +150,14 @@ console.log("Logged User ID:", loggedUserId);
   return (
     <div>
       <form onSubmit={handleSubmit}>
+      <div>
+          <label htmlFor="">Poster Image</label>
+          <input name="posterImage" type="file" onChange={handleImageUpload} />
+          {uploadingImage && <p>Uploading...</p>}
+          {eventData.posterImage && ( // Mostrar la imagen actual si existe
+            <img src={eventData.posterImage} alt="Uploaded" style={{ width: '200px', height: 'auto', marginTop: '10px' }} />
+          )}
+        </div>
         <div>
           <label htmlFor="">Title</label>
           <input name="name" type="text" value={eventData.name} onChange={handleChange}/>
@@ -129,10 +183,10 @@ console.log("Logged User ID:", loggedUserId);
           <input name="time" type="time" value={eventData.time} onChange={handleChange}/>
         </div>
 
-        <div>
+          <div>
           <label htmlFor="">Address</label>
-          <input name="address" type="text" value={eventData.address} onChange={handleChange}/>
-          <button>Obtein coordinates</button>
+          <input name="address" type="text" value={eventData.address} onChange={handleChange} />
+          <button type="button" onClick={() => getCoordinates(eventData.address)}>Obtain coordinates</button>
         </div>
 
         <div>
@@ -158,10 +212,6 @@ console.log("Logged User ID:", loggedUserId);
           <input name="price" type="number" value={eventData.price} onChange={handleChange}/>
         </div>
 
-        <div>
-          <label htmlFor="">Poster image</label>
-          <input name="posterImage" type="text" value={eventData.posterImage} onChange={handleChange}/>
-        </div>
 
         <div>
           <label htmlFor="">Add a lecturer</label>
