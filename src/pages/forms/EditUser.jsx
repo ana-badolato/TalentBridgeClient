@@ -39,7 +39,7 @@ function EditUser() {
     const fetchUserData = async () => {
       try {
         // Llama a la API para obtener los datos del usuario logueado
-        const response = await service.get(`/user/${loggedUserId}`);
+        const response = await service.get(`/user/profile`);
         // Establecemos los datos del usuario en el estado userData
         setUserData({
           username: response.data.username || "",
@@ -146,7 +146,7 @@ function EditUser() {
 
   // Función para volver al perfil del usuario
   const handleGoToProfile = () => {
-    navigate(`/user/${loggedUserId}`);
+    navigate(`/user/profile`);
   };
 
   // Si está cargando, mostramos un mensaje de carga

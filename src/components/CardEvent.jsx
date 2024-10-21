@@ -68,7 +68,7 @@ function CardEvent({
     lecturer: eventLecturer,
   } = eventData;
 
-  const isOwner = isLoggedIn && String(loggedUserId) === String(eventOwner._id);
+  const isOwner = isLoggedIn && String(loggedUserId) === String(eventOwner?._id);
 
   const isAlreadyAttendee = eventAttendees?.some(
     (attendeeId) => String(attendeeId) === String(loggedUserId)
@@ -118,14 +118,14 @@ function CardEvent({
               <div className="card-ev-bottom">
                 <div className="card-ev-section-profile">
                   <img
-                    src={eventOwner.profilePicture}
+                    src={eventOwner?.profilePicture}
                     alt=""
                     className="card-ev-profile-img"
                   />
                   <p>
                     {" "}
                     <span>Created by </span>
-                    {eventOwner.username}
+                    {eventOwner?.username}
                   </p>
                 </div>
                 <hr className="hr-thin-light-yellow" />

@@ -33,7 +33,7 @@ function SignUp() {
         password,
         username
       }
-
+      console.log("New user data:", newUser);
       await service.post("/auth/signup", newUser)
 
       navigate("/login")

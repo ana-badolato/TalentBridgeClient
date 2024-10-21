@@ -186,6 +186,7 @@ function DetailsUser() {
 
             {/* Botón "Add Project" */}
             {isOwnProfile && (
+              <Link to="/newproject">
               <div className="add-project-container">
                 <button className="button-large-blue">
                   <div className="icon-text-element">
@@ -194,6 +195,7 @@ function DetailsUser() {
                   </div>
                 </button>
               </div>
+              </Link>
             )}
           </div>
         </section>
@@ -235,6 +237,7 @@ function DetailsUser() {
 
             {/* Botón "Add Event" */}
             {isOwnProfile && (
+              <Link to="/newevent">
               <div className="add-event-container">
                 <button className="button-large-blue">
                   <div className="icon-text-element">
@@ -243,6 +246,7 @@ function DetailsUser() {
                   </div>
                 </button>
               </div>
+              </Link>
             )}
           </div>
         </section>

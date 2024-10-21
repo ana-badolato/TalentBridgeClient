@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config";
-import Map from "../../components/Map";
+
 
 function NewEvent() {
 
@@ -125,8 +125,6 @@ function NewEvent() {
           <input name="address" type="text" value={eventData.address} onChange={handleChange}/>
           <button type="submit">Obtein coordinates</button>
         </div>
-
-        <Map setLocation={handleChange} location={eventData.location}/>
 
         <div>
           <label htmlFor="">Category</label>

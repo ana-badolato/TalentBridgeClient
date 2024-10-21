@@ -3,11 +3,15 @@ import Autocomplete from "../../components/Autocomplete";
 import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
+import axios from "axios";
 
 function NewProject() {
 
   // Usamos el contexto para obtener el ID del usuario que está logueado
   const { loggedUserId } = useContext(AuthContext);
+
+  // Estado para mostrar si la imagen está en proceso de subida
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const [projectData, setProjectData] = useState({
     title: "",
@@ -32,6 +36,35 @@ function NewProject() {
       [name]: value,
     }))
   }
+
+  // Manejamos la subida de imágenes a Cloudinary
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]; // Obtenemos el archivo seleccionado
+    if (!file) return;
+
+    const formData = new FormData(); // Creamos un objeto FormData para enviar el archivo
+    formData.append("file", file);
+    formData.append("upload_preset", "s9t7p5jy"); // El "preset" de Cloudinary para la subida (este es el mío propio de mi cuenta)
+
+    setUploadingImage(true); // Cambiamos el estado para mostrar que está subiendo la imagen
+
+    try {
+      // Hacemos la petición POST a Cloudinary
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload", // URL de Cloudinary con el nombre del "cloud". El mío propio de mi cuenta
+        formData
+      );
+      const imageUrl = response.data.secure_url; // Guardamos la URL de la imagen subida
+      setProjectData((prevData) => ({
+        ...prevData,
+        image: imageUrl, // Actualizamos el campo de imagen de perfil
+      }));
+      setUploadingImage(false); // Indicamos que la subida ha terminado
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setUploadingImage(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -88,7 +121,7 @@ function NewProject() {
 
         <div>
           <label htmlFor="">Image</label>
-          <input name="image" type="text" placeholder="Place here your URL" value={projectData.image} onChange={handleChange}/>
+          <input name="image" type="file" onChange={handleImageUpload}/> {uploadingImage && <p>Uploading...</p>}
         </div>
 
         <div>

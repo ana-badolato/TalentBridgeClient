@@ -29,6 +29,7 @@ function Index() {
   const selectRandomProjects = (projects) => {
     let shuffled = projects.sort(() => 0.5 - Math.random()); // Mezcla el array de proyectos
     let selected = shuffled.slice(0, 6); // Selecciona los primeros 6 proyectos mezclados
+    console.log(selected)
     setRandomProjects(selected); // Actualiza el estado con los proyectos seleccionados
   };
 

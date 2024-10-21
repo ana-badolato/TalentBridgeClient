@@ -49,7 +49,7 @@ function CardProject(props) {
   } = projectData;
 
   // Verificar si el usuario es el owner
-  const isOwner = isLoggedIn && String(loggedUserId) === String(owner._id);
+  const isOwner = isLoggedIn && String(loggedUserId) === String(owner?._id);
 
   // Verificar si el usuario ya es miembro del equipo
   const isTeamMember = teamMembers.some(
@@ -110,14 +110,14 @@ function CardProject(props) {
       <div className="card-pr-section-bottom">
         <div className="card-pr-section-profile">
           <img
-            src={owner.profilePicture} // Mostrar la imagen del owner
-            alt={owner.username}
+            src={owner?.profilePicture} // Mostrar la imagen del owner
+            alt={owner?.username}
             className="card-profile-img"
           />
 {/*           <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p> */}
           <p>
             <span>Leaded by </span>
-            {owner.username}
+            {owner?.username}
           </p>
         </div>
 
