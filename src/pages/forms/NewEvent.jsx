@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config";
+import Map from "../../components/Map";
 
 function NewEvent() {
 
@@ -13,6 +14,7 @@ function NewEvent() {
     date:"",
     time:"",
     address:"",
+    location: {lat: null, lng: null},
     category: "",
     capacity: 20,
     price: 0,
@@ -27,15 +29,17 @@ function NewEvent() {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     // manejo de los cambios en el formulario
-    const handleChange = (e) =>{
+    const handleChange = async (e) =>{
       const {name, value} = e.target
+
       //actualizar las propiedades del nuevo proyecto con los valores escritos por el usuario
       setEventData((prevData) =>({
         ...prevData,
         [name]: value,
       }))
     }
-    
+
+   
     //estado donde almacenar los proyectos del usuario
     const [loggedUserProjects, setLoggedUserProjects] = useState([])
 
@@ -51,10 +55,11 @@ function NewEvent() {
       fetchUserProjects()
     }, [loggedUserId])
 
+
     const handleSubmit = async (e) =>{
       e.preventDefault()
 
-      const {name, mainObjective, description, date, time, address, category, capacity, price, posterImage, owner, lecturer, atendees, relatedProjects} = eventData
+      const {name, mainObjective, description, date, time, address, location, category, capacity, price, posterImage, owner, lecturer, atendees, relatedProjects} = eventData
 
       const newEvent = {
         name,
@@ -63,6 +68,7 @@ function NewEvent() {
         date,
         time,
         address,
+        location,
         category,
         capacity,
         price,
@@ -85,8 +91,6 @@ function NewEvent() {
         console.log(error)
       }
     }
-
-
 
   return (
     <div>
@@ -119,7 +123,10 @@ function NewEvent() {
         <div>
           <label htmlFor="">Address</label>
           <input name="address" type="text" value={eventData.address} onChange={handleChange}/>
+          <button type="submit">Obtein coordinates</button>
         </div>
+
+        <Map setLocation={handleChange} location={eventData.location}/>
 
         <div>
           <label htmlFor="">Category</label>
