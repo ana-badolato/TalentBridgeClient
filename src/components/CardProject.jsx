@@ -2,7 +2,7 @@ import "../App.css";
 import "../CSS/cardProject.css";
 
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx"; // Importar el contexto de autenticación
 import service from "../services/config.js"; // Importar el servicio para hacer la solicitud de datos
 
@@ -18,6 +18,7 @@ function CardProject(props) {
   const [projectData, setProjectData] = useState(props); // Si los datos son pasados, los usamos directamente
   const [loading, setLoading] = useState(!props.title); // Si no hay datos, los cargamos
 
+  const params = useParams()
   // Si no se pasaron datos, los solicitamos usando projectId
   useEffect(() => {
     if (!props.title) {
@@ -26,6 +27,7 @@ function CardProject(props) {
           const response = await service.get(`/project/${props.projectId}`);
           setProjectData(response.data);
           setLoading(false);
+          console.log("params", `params`.projectid)
         } catch (error) {
           console.error("Error fetching project data:", error);
           setLoading(false);
@@ -69,10 +71,12 @@ function CardProject(props) {
           <img src={image} alt={title} className="card-pr-img" />
           {isOwner && props.isOwnProfile && (
             <div className="card-pr-section-buttons">
+              <Link to={`/editproject/${_id}`}>
               <button className="card-pr-button">
                 <img src={editImg} alt="" />
                 <p>Edit</p>
               </button>
+              </Link>
               <button className="card-pr-button">
                 <img src={deleteImg} alt="" />
                 <p>Delete</p>
