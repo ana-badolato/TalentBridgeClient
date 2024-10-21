@@ -10,7 +10,7 @@ import addImg from "../assets/icons/add.svg";
 import edtitImg from "../assets/icons/edit.svg";
 import messageImg from "../assets/icons/message.svg";
 
-function DetailsUser() {
+function Profile() {
   const [user, setUser] = useState(null);
   const [allUserProjects, setAllUserProjects] = useState([]);
   const [allUserEvents, setAllUserEvents] = useState([]);
@@ -255,4 +255,4 @@ function DetailsUser() {
   );
 }
 
-export default DetailsUser;
+export default Profile;

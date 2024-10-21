@@ -6,6 +6,7 @@ import service from "../../services/config";
 function NewEvent() {
 
   const { loggedUserId } = useContext(AuthContext);
+console.log("Logged User ID:", loggedUserId);
 
   const [eventData, setEventData] =useState({
     name: "",
@@ -40,20 +41,27 @@ function NewEvent() {
     }
 
    
-    //estado donde almacenar los proyectos del usuario
+    // //estado donde almacenar los proyectos del usuario
     const [loggedUserProjects, setLoggedUserProjects] = useState([])
-
-    // useEffect(() =>{
-    //   const fetchUserProjects = async () =>{
-    //     try {
-    //       const response = await service.get(`/project/user/${loggedUserId}`)
-    //       setLoggedUserProjects(response.data)
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   fetchUserProjects()
-    // }, [loggedUserId])
+    useEffect(() => {
+      const fetchUserProjects = async () => {
+        if (!loggedUserId) {
+          console.log("No valid loggedUserId found");
+          return; // No hacer nada si no hay un ID de usuario válido
+        }
+    
+        try {
+          console.log("Logged User ID:", loggedUserId);
+          const response = await service.get(`project/user/projectsuser`);
+          setLoggedUserProjects(response.data);
+        } catch (error) {
+          console.log("Error fetching user projects:", error);
+        }
+      };
+    
+      fetchUserProjects();
+    }, [loggedUserId]);
+    
 
 
     const handleSubmit = async (e) =>{
