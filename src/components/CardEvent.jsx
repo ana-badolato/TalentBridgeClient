@@ -9,7 +9,7 @@ import service from "../services/config.js"; // Importar el servicio para hacer 
 import deleteImg from "../assets/icons/delete.svg";
 import editImg from "../assets/icons/edit.svg";
 import evDateLightImg from "../assets/icons/evDateLight.svg";
-import joinImg from "../assets/icons/join.svg";
+// import joinImg from "../assets/icons/join.svg";
 import locationLightImg from "../assets/icons/locationLight.svg";
 
 function CardEvent({
