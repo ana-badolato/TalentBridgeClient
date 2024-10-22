@@ -68,6 +68,15 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
       console.error("Error rejecting notification", error);
     }
   };
+  const handleDeleteNotification = async (notificationId) => {
+    try {
+      await service.delete(`/notification/${notificationId}`);
+      setNotifications(notifications.filter(notif => notif._id !== notificationId));
+      setUnreadNotificationCount(unreadNotificationCount - 1); // Actualiza el contador
+    } catch (error) {
+      console.error("Error deleting notification", error);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -92,24 +101,43 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
               </p>
               <span className="dropdown-icon">&#9660;</span> {/* Icono de flecha hacia abajo */}
 
-        {/* Dropdown de notificaciones */}
+       {/* Dropdown de notificaciones */}
 {isDropdownOpen && (
   <div className="dropdown-menu">
     {notifications.length === 0 ? (
       <p>No tienes nuevas notificaciones</p>
     ) : (
       notifications.map(notification => (
-        <div key={notification._id} className="notification-item">
+        <div key={notification._id} className="notification-item" style={{ position: 'relative' }}>
+          
+          {/* Botón de cierre (X) en la esquina superior derecha */}
+          <button 
+            onClick={() => handleDeleteNotification(notification._id)} 
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+              background: 'none',
+              border: 'none',
+              fontSize: '16px',
+              cursor: 'pointer',
+            }}
+          >
+            &times; {/* Representación de "X" */}
+          </button>
+
+          {/* Notificación de Proyecto */}
           {notification.type === "action" ? (
-            // Notificación de Proyecto (con Aceptar/Rechazar)
             <div>
               <p>{notification.from.username} quiere unirse a tu proyecto {notification.project?.title}</p>
               <button onClick={() => handleAcceptNotification(notification._id)}>Aceptar</button>
               <button onClick={() => handleRejectNotification(notification._id)}>Rechazar</button>
             </div>
           ) : (
-            // Notificación de Evento (solo informativa)
-            <p>{notification.from.username} se ha unido a tu evento {notification.event?.name}</p>
+            // Notificación de Evento
+            <div>
+              <p>{notification.from.username} se ha unido a tu evento {notification.event?.name}</p>
+            </div>
           )}
         </div>
       ))
