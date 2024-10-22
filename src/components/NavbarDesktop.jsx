@@ -92,22 +92,31 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
               </p>
               <span className="dropdown-icon">&#9660;</span> {/* Icono de flecha hacia abajo */}
 
-              {/* Dropdown de notificaciones */}
-              {isDropdownOpen && (
-                <div className="dropdown-menu">
-                  {notifications.length === 0 ? (
-                    <p>No tienes nuevas notificaciones</p>
-                  ) : (
-                    notifications.map(notification => (
-                      <div key={notification._id} className="notification-item">
-                        <p>{notification.from.username} quiere unirse a tu proyecto {notification.project?.title}</p>
-                        <button onClick={() => handleAcceptNotification(notification._id)}>Aceptar</button>
-                        <button onClick={() => handleRejectNotification(notification._id)}>Rechazar</button>
-                      </div>
-                    ))
-                  )}
-                </div>
-              )}
+        {/* Dropdown de notificaciones */}
+{isDropdownOpen && (
+  <div className="dropdown-menu">
+    {notifications.length === 0 ? (
+      <p>No tienes nuevas notificaciones</p>
+    ) : (
+      notifications.map(notification => (
+        <div key={notification._id} className="notification-item">
+          {notification.type === "action" ? (
+            // Notificación de Proyecto (con Aceptar/Rechazar)
+            <div>
+              <p>{notification.from.username} quiere unirse a tu proyecto {notification.project?.title}</p>
+              <button onClick={() => handleAcceptNotification(notification._id)}>Aceptar</button>
+              <button onClick={() => handleRejectNotification(notification._id)}>Rechazar</button>
+            </div>
+          ) : (
+            // Notificación de Evento (solo informativa)
+            <p>{notification.from.username} se ha unido a tu evento {notification.event?.name}</p>
+          )}
+        </div>
+      ))
+    )}
+  </div>
+)}
+
             </div>
 
             {/* Perfil del usuario */}
