@@ -121,9 +121,19 @@ function EditProject() {
     return <h3>Loading...</h3>;
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h3>New Project</h3>
+    <div className="form-page">
+      <form onSubmit={handleSubmit} className="project-form">
+        <h3>Edit Project</h3>
+        <div>
+          {projectData.image && (
+            <img
+              src={projectData.image}
+              alt="Project"
+              style={{ width: "200px" }}
+            />
+          )}
+          <input name="image" type="file" onChange={handleImageUpload} />
+        </div>
         <div>
           <label htmlFor="title">Title: </label>
           <input
@@ -169,16 +179,7 @@ function EditProject() {
           />
         </div>
 
-        <div>
-          {projectData.image && (
-            <img
-              src={projectData.image}
-              alt="Project"
-              style={{ width: "200px" }}
-            />
-          )}
-          <input name="image" type="file" onChange={handleImageUpload} />
-        </div>
+        
 
         <div>
           <label htmlFor="category">Category</label>

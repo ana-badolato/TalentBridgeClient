@@ -32,6 +32,7 @@ function App() {
         <Route path="/user/profile/:username" element={<DetailsUser/>}/>
         <Route path="/user" element={<AllUsers/>}/>
         <Route path="/event" element={<AllEvents/>}/>
+        <Route path="/editevent/:eventid" element={<EditProject/>} />
         <Route path="/project" element={<AllProjects/>}/>
         <Route path="/newproject" element={<NewProject />} />
         <Route path="/editproject/:projectid" element={<EditProject/>} />
