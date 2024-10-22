@@ -16,6 +16,7 @@ function ListEvents(props) {
   const getData = async () => {
     try {
       const response = await service.get("/event/");
+      console.log("Eventos obtenidos:", response.data);
       setAllEvents(response.data);
     } catch (error) {
       console.log(error);

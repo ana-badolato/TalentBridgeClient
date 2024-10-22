@@ -3,14 +3,23 @@ import service from "../services/config.js";
 import { useParams } from "react-router-dom";
 
 function DetailsEvent() {
+  const [eventData, setEventData] = useState({});
+  const { eventid } = useParams(); 
 
-  const [event, setEvent] = useState("")
-  const params = useParams()
+  useEffect(() => {
+    getData();
+  }, [eventid]); // El hook depende de eventid
 
+  const getData = async () => {
+    try {
+      const response = await service.get(`/event/${eventid}`); // Aquí usamos eventid en la URL
+      setEventData(response.data);
+    } catch (error) {
+      console.log("Error fetching event data:", error);
+    }
+  };
 
-  return (
-    <div>DetailsEvent</div>
-  )
+  return <div>{eventData.name}</div>;
 }
 
-export default DetailsEvent
+export default DetailsEvent;
