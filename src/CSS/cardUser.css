@@ -11,6 +11,11 @@
   box-sizing: border-box; /* Asegurar que el padding y el borde no afecten el ancho */
 }
 
+.owner-card{
+  background-color: red;
+}
+
+
 .card-user-image {
   width: 88px;
   height: 88px;
@@ -74,6 +79,7 @@
   justify-content: flex-end; /* Alinea el botón a la derecha */
   padding-top: 16px; /* Espacio entre el contenido y el botón */
 }
+
 
 
 /* Responsividad */

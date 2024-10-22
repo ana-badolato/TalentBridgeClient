@@ -1,9 +1,11 @@
+import "../CSS/DetailsEvent.css";
+import "../CSS/cardUser.css";
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
-import { useParams } from "react-router-dom";
-import "../CSS/DetailsEvent.css";
+import { useParams, Link } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardUserSmall from "../components/CardUserSmall.jsx";
+
 
 function DetailsEvent() {
   const [eventData, setEventData] = useState(null); // Inicializamos con null
@@ -17,6 +19,7 @@ function DetailsEvent() {
   const getData = async () => {
     try {
       const response = await service.get(`/event/${eventid}`);
+      console.log("Datos del evento recibidos:", response.data); 
       setEventData(response.data); // Guardamos los datos del evento
       setLoading(false); // Detenemos la carga
     } catch (error) {
@@ -59,16 +62,33 @@ function DetailsEvent() {
         {/* Renderizamos el Owner primero */}
         {eventData.owner && (
           <div className="owner-container">
-            <CardUserSmall 
-              profilePicture={eventData.owner.profilePicture} 
-              username={eventData.owner.username} 
-              bio={eventData.owner.bio}
-              className="owner-card"
-            />
+             {console.log("ID del Owner:", eventData.owner.username)} {/* Imprimir el ID del owner */}
+             <Link to={`/user/profile/${eventData.owner.username}`}> 
+      <CardUserSmall 
+        profilePicture={eventData.owner.profilePicture} 
+        username={eventData.owner.username} 
+        bio={eventData.owner.bio}
+        className="owner-card"
+      />
+    </Link>
           </div>
 
         )}
 
+{/* {eventData.lecturer && eventData.lecturer.length > 0 && (
+  <div className="lecturer-container">
+    {eventData.lecturer.map((lecturer, index) => (
+      
+      <CardUserSmall 
+        key={index} 
+        profilePicture={lecturer.profilePicture} 
+        username={lecturer.username} 
+        bio={lecturer.bio}
+        className="lecturer-card"
+      />
+    ))}
+  </div>
+)} */}
         
       </div>
     </div>
