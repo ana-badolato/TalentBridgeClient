@@ -1,4 +1,4 @@
-import "../../App.css";
+import "../../App.css"; // Asegúrate de que la ruta sea correcta
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { AuthContext } from "../../context/auth.context";
@@ -6,10 +6,9 @@ import service from "../../services/config";
 import axios from "axios";
 
 function EditUser() {
-  // Usamos el contexto para obtener el ID del usuario que está logueado
   const { loggedUserId } = useContext(AuthContext);
+  console.log("Logged User ID:", loggedUserId);
 
-  // Creamos un estado para almacenar los datos del usuario
   const [userData, setUserData] = useState({
     profilePicture: "", 
     contactEmail: "",
@@ -18,28 +17,16 @@ function EditUser() {
     skills: [],
   });
 
-  // Estado para manejar la carga de datos inicial (muestra un loader)
   const [isLoading, setIsLoading] = useState(true);
-
-  // Estado para las nuevas skills que añadimos manualmente
   const [newSkill, setNewSkill] = useState("");
-
-  // Estado para mostrar si la imagen está en proceso de subida
   const [uploadingImage, setUploadingImage] = useState(false);
-
-  // Estado para mostrar un mensaje de confirmación cuando guardamos cambios
   const [showConfirmation, setShowConfirmation] = useState(false);
-
-  // Hook para redirigir a otra página
   const navigate = useNavigate();
 
-  // busca los datos del usuario
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Llama a la API para obtener los datos del usuario logueado
         const response = await service.get(`/user/profile`);
-        // Establecemos los datos del usuario en el estado userData
         setUserData({
           profilePicture: response.data.profilePicture || "",
           contactEmail: response.data.contactEmail || "",
@@ -47,126 +34,109 @@ function EditUser() {
           bio: response.data.bio || "",
           skills: response.data.skills || [],
         });
-        setIsLoading(false); // Cambiamos el estado de carga cuando los datos se han cargado
+        setIsLoading(false);
       } catch (error) {
         console.log("Error fetching user data:", error);
       }
     };
 
-    // Solo hacemos la petición si hay un usuario logueado
     if (loggedUserId) {
       fetchUserData();
     }
-  }, [loggedUserId]); // El efecto se ejecuta cuando loggedUserId cambia
+  }, [loggedUserId]);
 
-  // Manejamos los cambios en los inputs del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Actualizamos el estado de userData con los nuevos valores
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  // Manejamos la subida de imágenes a Cloudinary
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0]; // Obtenemos el archivo seleccionado
+    const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData(); // Creamos un objeto FormData para enviar el archivo
+    const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "s3e3p4eg"); // El "preset" de Cloudinary para la subida (este es el mío propio de mi cuenta)
+    formData.append("upload_preset", "s3e3p4eg");
 
-    setUploadingImage(true); // Cambiamos el estado para mostrar que está subiendo la imagen
-
+    setUploadingImage(true);
     try {
-      // Hacemos la petición POST a Cloudinary
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload", // URL de Cloudinary con el nombre del "cloud". El mío propio de mi cuenta
+        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
         formData
       );
-      const imageUrl = response.data.secure_url; // Guardamos la URL de la imagen subida
+      const imageUrl = response.data.secure_url;
       setUserData((prevData) => ({
         ...prevData,
-        profilePicture: imageUrl, // Actualizamos el campo de imagen de perfil
+        profilePicture: imageUrl,
       }));
-      setUploadingImage(false); // Indicamos que la subida ha terminado
+      setUploadingImage(false);
     } catch (error) {
       console.error("Error uploading image:", error);
       setUploadingImage(false);
     }
   };
 
-  // Función que se llama cuando enviamos el formulario para guardar los cambios
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Hacemos la petición PUT para actualizar los datos del usuario en el backend
       await service.put(`/user/${loggedUserId}`, userData);
-      setShowConfirmation(true); // Mostramos el mensaje de confirmación
+      setShowConfirmation(true);
       setTimeout(() => {
-        setShowConfirmation(false); // Ocultamos el mensaje después de 3 segundos
+        setShowConfirmation(false);
       }, 3000);
     } catch (error) {
       console.log("Error updating profile:", error);
     }
   };
 
-  // Añadir una nueva skill al array de skills
   const handleAddSkill = () => {
     if (newSkill.trim() && !userData.skills.includes(newSkill.trim())) {
-      // Actualizamos el array de skills con la nueva skill
       setUserData((prevData) => ({
         ...prevData,
         skills: [...prevData.skills, newSkill.trim()],
       }));
-      setNewSkill(""); // Limpiamos el input de nueva skill
+      setNewSkill("");
     }
   };
 
-  // Eliminar una skill del array de skills
   const handleDeleteSkill = (skillToRemove) => {
     setUserData((prevData) => ({
       ...prevData,
-      skills: prevData.skills.filter((skill) => skill !== skillToRemove), // Filtramos las skills para eliminar la que queremos
+      skills: prevData.skills.filter((skill) => skill !== skillToRemove),
     }));
   };
 
-  // Añadir una skill al presionar Enter en el input de skills
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Evitamos que el formulario se envíe
-      handleAddSkill(); // Llamamos a la función para añadir la skill
+      e.preventDefault();
+      handleAddSkill();
     }
   };
 
-  // Función para volver al perfil del usuario
   const handleGoToProfile = () => {
     navigate(`/user/profile`);
   };
 
-  // Si está cargando, mostramos un mensaje de carga
   if (isLoading) {
     return <h3>Loading...</h3>;
   }
 
   return (
-    <div className="container-page">
+    <div className="form-page">
       <div className="container-main-content">
         <h2>Edit Profile</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            {/* Mostrar la imagen de perfil actual */}
+        <form onSubmit={handleSubmit} className="project-form"> {/* Usar la clase para el formulario */}
+          <div className="form-group">
             <img src={userData.profilePicture || ""} alt="Profile" width="150" />
-            {/* Input para subir una nueva imagen */}
             <input type="file" onChange={handleImageUpload} />
             {uploadingImage && <p>Uploading...</p>}
           </div>
 
-          <div>
+          <div className="form-group">
             <label htmlFor="contactEmail">Contact Email</label>
             <input
               type="email"
@@ -177,7 +147,7 @@ function EditUser() {
             />
           </div>
 
-          <div>
+          <div className="form-group">
             <label htmlFor="location">Location</label>
             <input
               type="text"
@@ -188,7 +158,7 @@ function EditUser() {
             />
           </div>
 
-          <div>
+          <div className="form-group">
             <label htmlFor="bio">Bio</label>
             <textarea
               id="bio"
@@ -199,7 +169,7 @@ function EditUser() {
             />
           </div>
 
-          <div>
+          <div className="form-group">
             <label htmlFor="skills">Skills</label>
             <div>
               <input
@@ -215,9 +185,7 @@ function EditUser() {
                 Add
               </button>
             </div>
-
             <ul>
-              {/* Mostramos todas las skills que tiene el usuario y añadimos un botón para eliminar cada una */}
               {userData.skills.map((skill, index) => (
                 <li key={index}>
                   {skill}{" "}
@@ -230,21 +198,18 @@ function EditUser() {
           </div>
 
           <div className="button-container">
-            {/* Botón para guardar los cambios */}
-            <button type="submit" className="button-large-blue">
+            <button type="submit" className="submit-button"> {/* Usar la clase del botón */}
               Save Changes
             </button>
-            {/* Botón para volver al perfil sin guardar */}
             <button
               type="button"
-              className="button-large-grey"
+              className="button-large-grey" // Clase para el botón de retroceso
               onClick={handleGoToProfile}
             >
               Back to Profile
             </button>
           </div>
 
-          {/* Mensaje de confirmación al guardar los cambios */}
           {showConfirmation && (
             <div className="confirmation-message">
               Profile updated successfully!

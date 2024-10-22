@@ -1,14 +1,14 @@
+/* Contenedor de la lista de miembros del equipo */
 .vertical-scroll-container {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* Borde consistente con el resto del formulario */
   margin-top: 10px;
-  width: 500px;
-  max-height: 150px;
+  width: 100%; /* Cambiado a 100% para que coincida con el ancho de otros inputs */
+  max-height: 150px; /* Altura máxima */
   overflow-y: auto; /* Habilita el desplazamiento vertical */
   background-color: var(--neutral-white);
-  height: 100px;
 }
 
 /* Customización de la barra de desplazamiento */
@@ -25,17 +25,17 @@
   background-color: #555; /* Color de la barra cuando el usuario hace hover */
 }
 
+/* Estilo para cada miembro del equipo */
 .user-item {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
-  background-color: var(--neutral-grey-light);
-  margin: 4px;
-  border-radius: 25px;
-  white-space: nowrap;
-  font-size: 12px;
+  padding: 8px 12px; /* Espaciado mejorado */
+  background-color: var(--neutral-grey-light); /* Color de fondo */
+  margin: 4px 0; /* Espaciado vertical entre chips */
+  border-radius: 25px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de fuente ajustado */
   font-weight: 500;
-  gap: 8px;
+  gap: 8px; /* Espaciado entre elementos */
   cursor: pointer; /* Hace que toda la chip sea clickeable */
   transition: background-color 0.2s ease;
 }
@@ -44,13 +44,15 @@
   background-color: #e0e0e0; /* Cambia el color cuando pasas el ratón por encima */
 }
 
+/* Estilo para la imagen de perfil */
 .profilePictureImg {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: 30px; /* Tamaño ajustado */
+  height: 30px; /* Tamaño ajustado */
+  border-radius: 50%; /* Imagen circular */
 }
 
+/* Estilo para el icono de acción */
 .action-icon {
-  width: 16px;
-  height: 16px;
+  width: 16px; /* Tamaño del icono de acción */
+  height: 16px; /* Tamaño del icono de acción */
 }
