@@ -18,6 +18,7 @@ import NewEvent from './pages/forms/NewEvent'
 import EditUser from './pages/forms/EditUser'
 import DetailsEvent from './pages/DetailsEvent'
 import EditProject from './pages/forms/EditProject'
+import DetailsProject from './pages/DetailsProject'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/editproject/:projectid" element={<EditProject/>} />
         <Route path="/newevent" element={<NewEvent />} />
         <Route path="/profile/edit" element={<EditUser />} />
+        <Route path="/project/:projectid" element={<DetailsProject/>}/>
         <Route path="/event/:eventid" element={<DetailsEvent/>}/>
         <Route path="/error" element={<Error />} />
       </Routes>
