@@ -20,7 +20,7 @@ function CardEvent({
   mainObjective,
   date,
   address,
-  atendees, // Manteniendo "atendees"
+  atendees,
   isOwnProfile,
   lecturer,
 }) {
@@ -32,13 +32,14 @@ function CardEvent({
     mainObjective,
     date,
     address,
-    atendees, // Aquí también "atendees"
+    atendees,
     lecturer,
   });
   const [loading, setLoading] = useState(!name);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado del modal
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Estado para mostrar mensaje de éxito
   const [isJoinDisabled, setIsJoinDisabled] = useState(false); // Estado para deshabilitar el botón Join
+  const [isSuccess, setIsSuccess] = useState(false); // Estado para manejar el éxito de la solicitud
 
   useEffect(() => {
     if (!name && _id) {
@@ -57,7 +58,6 @@ function CardEvent({
   }, [name, _id]);
 
   useEffect(() => {
-    // Lógica para deshabilitar el botón Join si el usuario ya es miembro
     const isOwner = isLoggedIn && String(loggedUserId) === String(eventData.owner?._id);
     const isAlreadyAttendee = eventData.atendees?.some(
       (atendeeId) => String(atendeeId) === String(loggedUserId)
@@ -78,7 +78,7 @@ function CardEvent({
     mainObjective: eventObjective,
     date: eventDate,
     address: eventAddress,
-    atendees: eventAtendees, // Aquí también "atendees"
+    atendees: eventAtendees,
     lecturer: eventLecturer,
   } = eventData;
 
@@ -95,7 +95,7 @@ function CardEvent({
     try {
       // Agregar al usuario como asistente del evento
       await service.put(`/event/${_id}/join`, {
-        atendeeId: loggedUserId, // Manteniendo "atendeeId"
+        atendeeId: loggedUserId,
       });
 
       // Enviar una notificación informativa al owner del evento
@@ -107,14 +107,17 @@ function CardEvent({
         type: "info", // Notificación de tipo informativa
       });
 
-      // Mostrar mensaje de éxito por 1.5 segundos
-      setShowSuccessMessage(true);
+      // Mostrar mensaje de éxito
+      setIsSuccess(true); // Establecer el estado de éxito
       setIsJoinDisabled(true); // Deshabilitar el botón Join
-      setTimeout(() => {
-        setShowSuccessMessage(false); // Ocultar el mensaje después de 1.5 segundos
-        setIsModalOpen(false); // Cerrar el modal
-      }, 1500);
+      setShowSuccessMessage(true);
 
+      // Esperar 1.5 segundos antes de cerrar el modal y ocultar el mensaje de éxito
+      setTimeout(() => {
+        setIsSuccess(false); // Ocultar el estado de éxito
+        setIsModalOpen(false); // Cerrar el modal
+        setShowSuccessMessage(false); // Ocultar el mensaje de éxito
+      }, 1500);
     } catch (error) {
       console.error("Error al unirse al evento", error);
     }
@@ -185,6 +188,7 @@ function CardEvent({
         onClose={handleCloseModal}
         onConfirm={handleConfirmJoin}
         message={`¿Quieres unirte al evento ${eventName}?`}
+        successMessage={isSuccess ? "Te has unido con éxito al evento" : null} // Pasar mensaje de éxito
       />
     </div>
   );
