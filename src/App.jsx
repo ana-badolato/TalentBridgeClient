@@ -19,12 +19,14 @@ import EditUser from './pages/forms/EditUser'
 import DetailsEvent from './pages/DetailsEvent'
 import EditProject from './pages/forms/EditProject'
 import DetailsProject from './pages/DetailsProject'
+import Footer from './components/Footer'
 
 function App() {
 
   return (
     <div>
       <NavBar />
+      
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/signup" element={<SignUp />} />
@@ -43,6 +45,7 @@ function App() {
         <Route path="/event/:eventid" element={<DetailsEvent/>}/>
         <Route path="/error" element={<Error />} />
       </Routes>
+      <Footer/>
     </div>
   )
 }

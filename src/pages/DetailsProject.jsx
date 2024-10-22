@@ -77,7 +77,23 @@ function DetailsProject() {
         <div>
           <h3>Meet our Team</h3>
         </div>
+
         <div>
+          {/* Renderizamos el Owner primero */}
+          <p>owner:</p>
+          {projectDetails.owner && (
+              <div className="owner-container">
+                {console.log("ID del Owner:", projectDetails.owner.username)} {/* Imprimir el ID del owner */}
+                <CardUserSmall 
+                  profilePicture={projectDetails.owner.profilePicture} 
+                  username={projectDetails.owner.username} 
+                  bio={projectDetails.owner.bio}
+                  className="owner-card"
+                />
+          </div>
+
+        )}
+          <p>Collaborators:</p>
           {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
             projectDetails.teamMembers.map((eachMember) => {
               return (
