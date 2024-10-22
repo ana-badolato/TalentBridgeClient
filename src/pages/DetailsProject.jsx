@@ -24,7 +24,7 @@ function DetailsProject() {
     try {
       const response = await service.get(`/project/${params.projectid}`)
       setProjectDetails(response.data)
-      getRelatedProjects(response.data.category) //pasa la categoria del proyecto
+      getRelatedProjects(response.data.category, response.data._id) //pasa la categoria del proyecto
       console.log(response.data.teamMembers)
     } catch (error) {
       console.log(error)
@@ -34,7 +34,7 @@ function DetailsProject() {
   const getRelatedProjects = async (category) =>{
     try {
       const response = await service.get(`/project/`)
-      const filteredProjects = response.data.filter((eachProject) => eachProject.category === category && projectDetails._id !== params.projectid)
+      const filteredProjects = response.data.filter((eachProject) => eachProject.category === category && eachProject._id !== params.projectid)
       setRelatedProjects(filteredProjects)
     } catch (error) {
       console.log(error)
@@ -79,7 +79,7 @@ function DetailsProject() {
       )}
       <p>Projects you might also like:</p>
       {relatedProjects.length > 0 ? (relatedProjects.map((eachProject, i)=> (
-        <CardProject key={i}/>
+        <CardProject key={i} {...eachProject}/>
       ))):(
         <p>No related projects found</p>
       )}
