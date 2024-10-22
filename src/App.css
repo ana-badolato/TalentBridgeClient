@@ -44,7 +44,11 @@ ol {
 }
 
 /* Common elements----------------------------------------------------------*/
-
+/* CSS para el mapa */
+.leaflet-container {
+  height: 500px; /* Ajusta la altura como desees */
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
 
 header {
   margin: 32px 0;
