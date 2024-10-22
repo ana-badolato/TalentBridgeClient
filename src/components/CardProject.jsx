@@ -25,6 +25,7 @@ function CardProject(props) {
       const fetchProjectData = async () => {
         try {
           const response = await service.get(`/project/${props.projectId}`);
+          
           setProjectData(response.data);
           setLoading(false);
           console.log("params", `params`.projectid)

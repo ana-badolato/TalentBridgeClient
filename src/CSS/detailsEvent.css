@@ -1,0 +1,6 @@
+.details-img{
+  height: 300px;
+  width: 1440px;
+  object-fit:cover;
+  margin: auto;
+}
