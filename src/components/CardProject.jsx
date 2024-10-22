@@ -65,7 +65,7 @@ function CardProject(props) {
 
   return (
     <div className="card-pr-container">
-      <Link to={`/project/${_id}`}>
+
         {/* Imagen y botones de editar/eliminar */}
         <div className="card-pr-section-img-buttons">
           <img src={image} alt={title} className="card-pr-img" />
@@ -106,7 +106,7 @@ function CardProject(props) {
             </p>
           </div>
         </div>
-      </Link>
+
 
       <hr className="hr-thin-light" />
 

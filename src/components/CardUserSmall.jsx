@@ -6,7 +6,6 @@ function CardUserSmall(props) {
 
   return (
     <div className="card-user">
-      <Link to={`/user/profile/${params.username}`}>
       <div className="card-user-top">
         <div>
 
@@ -19,7 +18,6 @@ function CardUserSmall(props) {
           {props.bio && <p className="card-user-bio">"{props.bio}"</p>}
             </div>
       </div>
-      </Link>
     </div>
   )
 }
