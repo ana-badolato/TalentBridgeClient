@@ -45,6 +45,7 @@ function App() {
         <Route path="/event/:eventid" element={<DetailsEvent/>}/>
         <Route path="/error" element={<Error />} />
       </Routes>
+      
       <Footer/>
     </div>
   )
