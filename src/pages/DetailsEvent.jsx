@@ -63,22 +63,22 @@ function DetailsEvent() {
         {eventData.owner && (
           <div className="owner-container">
              {console.log("ID del Owner:", eventData.owner.username)} {/* Imprimir el ID del owner */}
-             <Link to={`/user/profile/${eventData.owner.username}`}> 
-      <CardUserSmall 
-        profilePicture={eventData.owner.profilePicture} 
-        username={eventData.owner.username} 
-        bio={eventData.owner.bio}
-        className="owner-card"
-      />
-    </Link>
+            <CardUserSmall 
+              profilePicture={eventData.owner.profilePicture} 
+              username={eventData.owner.username} 
+              bio={eventData.owner.bio}
+
+              className="owner-card"
+
+            />
+      
           </div>
 
         )}
 
-{/* {eventData.lecturer && eventData.lecturer.length > 0 && (
+{eventData.lecturer && eventData.lecturer.length > 0 && (
   <div className="lecturer-container">
     {eventData.lecturer.map((lecturer, index) => (
-      
       <CardUserSmall 
         key={index} 
         profilePicture={lecturer.profilePicture} 
@@ -88,7 +88,7 @@ function DetailsEvent() {
       />
     ))}
   </div>
-)} */}
+)}
         
       </div>
     </div>
