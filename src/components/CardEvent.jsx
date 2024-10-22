@@ -13,7 +13,7 @@ import evDateLightImg from "../assets/icons/evDateLight.svg";
 import locationLightImg from "../assets/icons/locationLight.svg";
 
 function CardEvent({
-  eventId,
+  _id,
   posterImage,
   name,
   owner,
@@ -24,7 +24,12 @@ function CardEvent({
   isOwnProfile,
   isJoinDisabled,
   lecturer,
-}) {
+}) 
+
+{
+
+  console.log("Event ID en CardEvent:", _id);
+  console.log("_id en CardEvent:", _id);
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   const [eventData, setEventData] = useState({
     posterImage,
@@ -39,11 +44,12 @@ function CardEvent({
   const [loading, setLoading] = useState(!name); // Si no se pasa el nombre, es que no tenemos datos y los cargamos
 
   useEffect(() => {
-    if (!name && eventId) {
+    if (!name && _id) {
       // Si no hay datos y se pasa el eventId, hacemos la solicitud
       const fetchEventData = async () => {
         try {
-          const response = await service.get(`/event/${eventId}`);
+          
+          const response = await service.get(`/event/${_id}`);
           setEventData(response.data);
           setLoading(false);
         } catch (error) {
@@ -53,7 +59,7 @@ function CardEvent({
       };
       fetchEventData();
     }
-  }, [name, eventId]);
+  }, [name, _id]);
 
   if (loading) return <p>Loading event...</p>;
 
@@ -84,7 +90,7 @@ function CardEvent({
   return (
     <div className="card-event">
       <div className="card-event-content">
-        <Link to={`/event/${eventId}`}>
+        <Link to={`/event/${_id}`}>
           <img src={eventImage} alt={eventName} className="card-event-image" />
           {isOwnProfile && isOwner && (
             <div className="card-ev-section-buttons">
