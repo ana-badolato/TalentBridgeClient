@@ -3,6 +3,7 @@ import service from "../services/config"
 import { useParams } from "react-router-dom"
 import CardUserSmall from "../components/CardUserSmall";
 import CardProject from "../components/CardProject"
+import CardEventSmall from "../components/CardEventSmall";
 
 // images:
 import dateImg from "../assets/icons/date.svg";
@@ -13,12 +14,13 @@ function DetailsProject() {
   const params = useParams()
   const [projectDetails, setProjectDetails] = useState({})
 
-  //estado para guardar proyectos relacionados
+  //estado para guardar proyectos y eventos relacionados
   const [relatedProjects, setRelatedProjects] = useState([])
+  const [relatedEvents, setRelatedEvents] = useState([])
 
   useEffect(()=>{
     getData()
-  }, [])
+  }, [params.projectid])
   
   const getData = async () =>{
     try {
@@ -26,6 +28,9 @@ function DetailsProject() {
       setProjectDetails(response.data)
       getRelatedProjects(response.data.category, response.data._id) //pasa la categoria del proyecto
       console.log(response.data.teamMembers)
+            //eventos relacionados con el proyecto
+      const events = await service.get(`/project/${params.projectid}/event`);
+      setRelatedEvents(events.data);
     } catch (error) {
       console.log(error)
     }
@@ -67,22 +72,53 @@ function DetailsProject() {
           </div>
         </div>
       <p>{projectDetails.description}</p>
-      <p>Meet our Team</p>
-      {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
-        projectDetails.teamMembers.map((eachMember) => {
-          return (
-            <CardUserSmall key={eachMember._id} {...eachMember}/>
-          );
-        })
-      ) : (
-        <p>No team members assigned yet.</p>
-      )}
-      <p>Projects you might also like:</p>
-      {relatedProjects.length > 0 ? (relatedProjects.map((eachProject, i)=> (
-        <CardProject key={i} {...eachProject}/>
-      ))):(
-        <p>No related projects found</p>
-      )}
+
+      <section>
+        <div>
+          <h3>Meet our Team</h3>
+        </div>
+        <div>
+          {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
+            projectDetails.teamMembers.map((eachMember) => {
+              return (
+                <CardUserSmall key={eachMember._id} {...eachMember}/>
+              );
+            })
+          ) : (
+            <p>No team members assigned yet.</p>
+          )}
+        </div>
+      </section>
+
+      <section>
+        <div>
+          <h3>Projects you might also like:</h3>
+        </div>
+        <div>
+          {relatedProjects.length > 0 ? (relatedProjects.map((eachProject, i)=> (
+            <CardProject key={eachProject._id} {...eachProject}/>
+          ))):(
+            <p>No related projects found</p>
+          )}
+        </div>
+      </section>
+
+    <section>
+        <div>
+          <h3>Events related with this project</h3>
+        </div>
+
+        <div>
+          {relatedEvents.length > 0 ? (
+            relatedEvents.map((eachEvent) => (
+                <CardEventSmall key={eachEvent._id} {...eachEvent} />
+            ))
+          ) : (
+            <p>No events scheduled yet</p>
+          )}
+        </div>
+      </section>
+
     </div>
   )
 }
