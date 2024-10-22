@@ -93,35 +93,35 @@ function CardEvent({
 
   const handleConfirmJoin = async () => {
     try {
-      // Agregar al usuario como asistente del evento
-      await service.put(`/event/${_id}/join`, {
-        atendeeId: loggedUserId,
-      });
+        // Agregar al usuario como asistente del evento
+        await service.put(`/event/${_id}/join`, {
+            atendeeId: loggedUserId,
+        });
 
-      // Enviar una notificación informativa al owner del evento
-      await service.post("/notification", {
-        from: loggedUserId, // Usuario que se une
-        to: eventOwner._id, // Owner del evento
-        event: _id, // ID del evento
-        message: `El usuario ${loggedUserId} se ha unido al evento ${eventName}`,
-        type: "info", // Notificación de tipo informativa
-      });
+        // Enviar una notificación informativa al owner del evento
+        await service.post("/notification", {
+            from: loggedUserId, // Usuario que se une
+            to: eventOwner._id, // Owner del evento
+            event: _id, // ID del evento
+            message: `El usuario ${loggedUserId} se ha unido al evento ${eventName}`, // Mensaje de notificación
+            type: "info", // Notificación de tipo informativa
+        });
 
-      // Mostrar mensaje de éxito
-      setIsSuccess(true); // Establecer el estado de éxito
-      setIsJoinDisabled(true); // Deshabilitar el botón Join
-      setShowSuccessMessage(true);
+        // Mostrar mensaje de éxito
+        setIsSuccess(true); // Establecer el estado de éxito
+        setIsJoinDisabled(true); // Deshabilitar el botón Join
+        setShowSuccessMessage(true);
 
-      // Esperar 1.5 segundos antes de cerrar el modal y ocultar el mensaje de éxito
-      setTimeout(() => {
-        setIsSuccess(false); // Ocultar el estado de éxito
-        setIsModalOpen(false); // Cerrar el modal
-        setShowSuccessMessage(false); // Ocultar el mensaje de éxito
-      }, 1500);
+        // Esperar 1.5 segundos antes de cerrar el modal y ocultar el mensaje de éxito
+        setTimeout(() => {
+            setIsSuccess(false); // Ocultar el estado de éxito
+            setIsModalOpen(false); // Cerrar el modal
+            setShowSuccessMessage(false); // Ocultar el mensaje de éxito
+        }, 1500);
     } catch (error) {
-      console.error("Error al unirse al evento", error);
+        console.error("Error al unirse al evento", error);
     }
-  };
+};
 
   return (
     <div className="card-event">

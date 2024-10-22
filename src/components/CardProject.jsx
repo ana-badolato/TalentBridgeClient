@@ -71,22 +71,23 @@ function CardProject(props) {
 
   const handleConfirmApply = async () => {
     try {
-      await service.post("/notification", {
-        from: loggedUserId, // Usuario logueado
-        to: owner._id, // Propietario del proyecto
-        project: _id, // ID del proyecto
-        message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`,
-      });
-      setIsApplied(true); // Cambiar el estado a 'applied'
-      setIsSuccess(true); // Mostrar mensaje de éxito
-      setTimeout(() => {
-        setIsSuccess(false); // Resetear el estado de éxito
-        setIsModalOpen(false); // Cerrar el modal después de un pequeño retraso
-      }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
+        await service.post("/notification", {
+            from: loggedUserId, // Usuario logueado
+            to: owner._id, // Propietario del proyecto
+            project: _id, // ID del proyecto
+            message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`, // Mensaje de notificación
+            type: "action", // Tipo de notificación para acciones
+        });
+        setIsApplied(true); // Cambiar el estado a 'applied'
+        setIsSuccess(true); // Mostrar mensaje de éxito
+        setTimeout(() => {
+            setIsSuccess(false); // Resetear el estado de éxito
+            setIsModalOpen(false); // Cerrar el modal
+        }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
     } catch (error) {
-      console.log("Error enviando la notificación", error);
+        console.log("Error enviando la notificación", error);
     }
-  };
+};
 
   return (
     <div className="card-pr-container">
