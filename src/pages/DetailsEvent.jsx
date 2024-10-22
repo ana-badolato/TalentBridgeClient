@@ -3,6 +3,7 @@ import service from "../services/config.js";
 import { useParams } from "react-router-dom";
 import "../CSS/DetailsEvent.css";
 import CardProject from "../components/CardProject.jsx";
+import CardUserSmall from "../components/CardUserSmall.jsx";
 
 function DetailsEvent() {
   const [eventData, setEventData] = useState(null); // Inicializamos con null
@@ -54,6 +55,21 @@ function DetailsEvent() {
         {eventData.relatedProjects && (
           <CardProject {...eventData.relatedProjects} />
         )}
+
+        {/* Renderizamos el Owner primero */}
+        {eventData.owner && (
+          <div className="owner-container">
+            <CardUserSmall 
+              profilePicture={eventData.owner.profilePicture} 
+              username={eventData.owner.username} 
+              bio={eventData.owner.bio}
+              className="owner-card"
+            />
+          </div>
+
+        )}
+
+        
       </div>
     </div>
   );
