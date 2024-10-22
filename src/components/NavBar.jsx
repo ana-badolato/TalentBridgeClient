@@ -1,106 +1,40 @@
 import "../App.css";
 import "../CSS/navBar.css";
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
-import logoImg from "../assets/images/logoImg.svg"
-
+import { useState, useEffect, useContext } from "react";
+import NavbarDesktop from "./NavbarDesktop";
+import NavbarMobile from "./NavbarMobile";
+import { AuthContext } from "../context/auth.context"; // Importamos el contexto
 
 function NavBar() {
-  const navigate = useNavigate();
-  const { isLoggedIn, authenticateUser } = useContext(AuthContext);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const { isLoggedIn, username, profilePicture } = useContext(AuthContext); // Obtenemos isLoggedIn, username y profilePicture del contexto
 
-  const handleLogOut = async () => {
-    try {
-      localStorage.removeItem("authToken");
-      await authenticateUser();
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // Detectar si es móvil
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <nav className="navbar">
-      <div className="navbar-content">
-        <Link to="/" className="navbar-logo">
-          <img src={logoImg} alt="" />
-        </Link>
-
-        <Link to="/project">
-        <p>Projects</p>
-        </Link>
-        
-        <Link to="/event">
-        <p>Events</p>
-        </Link>
-
-        <Link to="/user">
-          <p>Talent</p>
-        </Link>
-
-        {!isLoggedIn && (
-          <Link to="/login">
-            <p>Log in</p>
-          </Link>
-        )}
-
-        {!isLoggedIn && (
-          <Link to="/signup" className="button-large-yellow">
-            <p>Get Started</p>
-          </Link>
-        )}
-{/*         {<div className="navbar-private">
-          {isLoggedIn && (
-            <Link to="/profile" className="icon-text-element">
-              <img src="" alt="" />
-              <p>Profile</p>
-            </Link>
-          )}} */}
-
-          
-
-          {isLoggedIn && (
-            //!cambiar div por Link cuando tengamos las páginas
-            <div className="icon-text-element">
-              <img src="" alt="" />
-              <p>
-                <span>0</span>Notifications
-              </p>
-            </div>
-          )}
-
-          {isLoggedIn && (
-            //!cambiar div por Link cuando tengamos las páginas
-            <div className="icon-text-element">
-              <img src="" alt="" />
-              <p>
-                <span>0</span>Messages
-              </p>
-            </div>
-          )}
-
-        {isLoggedIn && (
-            //!cambiar div por Link cuando tengamos las páginas
-            <Link to="/user/profile">
-            <div className="icon-text-element">
-              <img src="" alt="" />
-              <p>
-                Profile
-              </p>
-            </div>
-            </Link>
-          )}
-
-          {isLoggedIn && (
-            <Link onClick={handleLogOut} to="/" className="icon-text-element">
-              <img src="" alt="" />
-              <p>Log out</p>
-            </Link>
-          )}
-        </div>
-      {/* </div> */}
-    </nav>
+    <>
+      {isMobile ? (
+        <NavbarMobile
+          isLoggedIn={isLoggedIn}
+          profilePicture={profilePicture} // Pasamos la imagen de perfil desde el contexto
+          username={username} // Pasamos el nombre de usuario desde el contexto
+        />
+      ) : (
+        <NavbarDesktop
+          isLoggedIn={isLoggedIn}
+          profilePicture={profilePicture} // Pasamos la imagen de perfil desde el contexto
+          username={username} // Pasamos el nombre de usuario desde el contexto
+        />
+      )}
+    </>
   );
 }
 

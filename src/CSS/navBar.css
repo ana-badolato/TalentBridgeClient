@@ -1,3 +1,4 @@
+/* Estilos generales para el Navbar */
 .navbar {
   width: 100%;
   display: flex;
@@ -9,33 +10,77 @@
   background-color: var(--neutral-white);
 }
 
-.navbar-content{
+.navbar-content {
   display: flex;
-  box-sizing: border-box; 
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   width: 100%;
-  max-width: 1440px;
-  gap: 24px;
+  max-width: 1440px; /* Máximo de 1440px */
   padding: 0 16px; 
 }
 
-.navbar-private{
+.nav-left {
   display: flex;
+  align-items: center;
+  gap: 24px; 
+}
+
+.navbar-private {
+  display: flex;
+  align-items: center;
+  gap: 24px; 
+}
+
+.profile-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative; 
+}
+
+.dropdown-menu {
+  position: absolute; 
+  background-color: var(--neutral-white);
+  border: 1px solid var(--neutral-grey-light);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 10px;
+  top: 100%; 
+  right: 0; 
+}
+
+.navbar-auth{
+  display: flex;
+  align-items: center;
   gap: 24px;
 }
 
-.navbar-logo {
+/* Estilos para móvil */
+.navbar-mobile {
+  background-color: #fff;
+  padding: 10px 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-
-
-.navbar-logo a {
-  margin: 0;
-  padding: 0; 
-  display: flex;
-  align-items: center;
+.menu-icon {
+  cursor: pointer;
 }
+
+.dropdown-menu-mobile {
+  position: absolute; /* Aseguramos que el menú esté sobre otros elementos */
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Asegúrate de que el menú esté sobre otros elementos */
+}
+
+.dropdown-menu-mobile p {
+  margin: 10px 0;
+}
+
