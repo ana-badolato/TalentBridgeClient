@@ -3,8 +3,8 @@ import "../CSS/cardProject.css";
 
 import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AuthContext } from "../context/auth.context.jsx"; // Importar el contexto de autenticación
-import service from "../services/config.js"; // Importar el servicio para hacer la solicitud de datos
+import { AuthContext } from "../context/auth.context.jsx";
+import service from "../services/config.js";
 
 import applyImg from "../assets/icons/apply.svg";
 import disabledApplyImg from "../assets/icons/disabledApply.svg";
@@ -12,14 +12,17 @@ import deleteImg from "../assets/icons/delete.svg";
 import editImg from "../assets/icons/edit.svg";
 import dateImg from "../assets/icons/date.svg";
 import teamMembersImg from "../assets/icons/teamMembers.svg";
+import NotificationModal from "../Modals/NotificationModal.jsx";
 
 function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
-  const [projectData, setProjectData] = useState(props); // Si los datos son pasados, los usamos directamente
-  const [loading, setLoading] = useState(!props.title); // Si no hay datos, los cargamos
+  const [projectData, setProjectData] = useState(props);
+  const [loading, setLoading] = useState(!props.title);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [isSuccess, setIsSuccess] = useState(false); // Estado para éxito
 
-  const params = useParams()
-  // Si no se pasaron datos, los solicitamos usando projectId
+  const params = useParams();
+
   useEffect(() => {
     if (!props.title) {
       const fetchProjectData = async () => {
@@ -27,7 +30,6 @@ function CardProject(props) {
           const response = await service.get(`/project/${params.projectid}`);
           setProjectData(response.data);
           setLoading(false);
-          console.log("params", `params`.projectid)
         } catch (error) {
           console.error("Error fetching project data:", error);
           setLoading(false);
@@ -50,32 +52,51 @@ function CardProject(props) {
     _id,
   } = projectData;
 
-  // Verificar si el usuario es el owner
   const isOwner = isLoggedIn && String(loggedUserId) === String(owner?._id);
-
-  // Verificar si el usuario ya es miembro del equipo
   const isTeamMember = teamMembers.some(
     (member) => String(member._id || member) === String(loggedUserId)
   );
-
-  // Condición para deshabilitar el botón:
   const isApplyDisabled = isOwner || isTeamMember;
-
   const totalMembers = teamMembers.length + 1;
+
+  const handleApplyClick = () => {
+    setIsModalOpen(true); // Abrir el modal
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Cerrar el modal
+  };
+
+  const handleConfirmApply = async () => {
+    try {
+      await service.post("/notification", {
+        from: loggedUserId, // Usuario logueado
+        to: owner._id, // Propietario del proyecto
+        project: _id, // ID del proyecto
+        message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`,
+      });
+      setIsSuccess(true); // Mostrar mensaje de éxito
+      setTimeout(() => {
+        setIsSuccess(false); // Resetear el estado de éxito
+        setIsModalOpen(false); // Cerrar el modal después de un pequeño retraso
+      }, 1500); // Esperar 3 segundos antes de cerrar el modal
+    } catch (error) {
+      console.log("Error enviando la notificación", error);
+    }
+  };
 
   return (
     <div className="card-pr-container">
       <Link to={`/project/${_id}`}>
-        {/* Imagen y botones de editar/eliminar */}
         <div className="card-pr-section-img-buttons">
           <img src={image} alt={title} className="card-pr-img" />
           {isOwner && props.isOwnProfile && (
             <div className="card-pr-section-buttons">
               <Link to={`/editproject/${_id}`}>
-              <button className="card-pr-button">
-                <img src={editImg} alt="" />
-                <p>Edit</p>
-              </button>
+                <button className="card-pr-button">
+                  <img src={editImg} alt="" />
+                  <p>Edit</p>
+                </button>
               </Link>
               <button className="card-pr-button">
                 <img src={deleteImg} alt="" />
@@ -85,7 +106,6 @@ function CardProject(props) {
           )}
         </div>
 
-        {/* Información del proyecto */}
         <div className="card-pr-section-content">
           <h4 className="card-pr-title">{title}</h4>
           <span className="card-pr-category">{category}</span>
@@ -110,32 +130,42 @@ function CardProject(props) {
 
       <hr className="hr-thin-light" />
 
-      {/* Sección inferior con la información del propietario */}
       <div className="card-pr-section-bottom">
         <div className="card-pr-section-profile">
           <img
-            src={owner?.profilePicture} // Mostrar la imagen del owner
+            src={owner?.profilePicture}
             alt={owner?.username}
             className="card-profile-img"
           />
-{/*           <p><span>Leaded by </span>{props.owner.username.charAt(0).toUpperCase() + props.owner.username.slice(1)}</p> */}
           <p>
             <span>Leaded by </span>
             {owner?.username}
           </p>
         </div>
 
-        {/* Botón Apply deshabilitado si ya es miembro o es su propio proyecto */}
-        <button className="button-small-blue" disabled={isApplyDisabled}>
+        <button
+          className="button-small-blue"
+          disabled={isApplyDisabled}
+          onClick={handleApplyClick}
+        >
           <div className="icon-text-element">
             <img
               src={isApplyDisabled ? disabledApplyImg : applyImg}
-              alt=""
+              alt="Apply"
               className="icon"
             />
             <p>Apply</p>
           </div>
         </button>
+
+        {/* Modal de confirmación */}
+        <NotificationModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmApply}
+          message={`¿Quieres enviar la solicitud para unirte al proyecto ${title}?`}
+          successMessage={isSuccess ? "Solicitud enviada con éxito!" : null} // Pasar mensaje de éxito
+        />
       </div>
     </div>
   );

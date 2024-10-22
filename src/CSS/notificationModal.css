@@ -1,0 +1,50 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px; /* Aumentamos el ancho del modal */
+  text-align: center;
+  position: relative; /* Para asegurar que el contenido esté contenido */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between; /* Separar botones */
+  margin-top: 20px;
+  width: 100%; /* Asegura que los botones ocupen todo el ancho */
+}
+
+.button-small-yellow {
+  background-color: #fdd835;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button-small-gray {
+  background-color: #bdbdbd;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 20px; /* Aumentar espacio superior para separación */
+  font-size: 16px;  /* Aumentar el tamaño de la fuente para mayor visibilidad */
+}
