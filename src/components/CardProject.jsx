@@ -20,6 +20,7 @@ function CardProject(props) {
   const [loading, setLoading] = useState(!props.title);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
   const [isSuccess, setIsSuccess] = useState(false); // Estado para éxito
+  const [isApplied, setIsApplied] = useState(false); // Estado para gestionar si ya ha aplicado
 
   const params = useParams();
 
@@ -37,7 +38,7 @@ function CardProject(props) {
       };
       fetchProjectData();
     }
-  }, [props.title, props.projectId]);
+  }, [props.title, params.projectid]);
 
   if (loading) return <p>Loading project...</p>;
 
@@ -56,8 +57,9 @@ function CardProject(props) {
   const isTeamMember = teamMembers.some(
     (member) => String(member._id || member) === String(loggedUserId)
   );
-  const isApplyDisabled = isOwner || isTeamMember;
-  const totalMembers = teamMembers.length + 1;
+
+  // Deshabilitar el botón y cambiar el texto si el usuario ha aplicado
+  const isApplyDisabled = isOwner || isTeamMember || isApplied;
 
   const handleApplyClick = () => {
     setIsModalOpen(true); // Abrir el modal
@@ -75,11 +77,12 @@ function CardProject(props) {
         project: _id, // ID del proyecto
         message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`,
       });
+      setIsApplied(true); // Cambiar el estado a 'applied'
       setIsSuccess(true); // Mostrar mensaje de éxito
       setTimeout(() => {
         setIsSuccess(false); // Resetear el estado de éxito
         setIsModalOpen(false); // Cerrar el modal después de un pequeño retraso
-      }, 1500); // Esperar 3 segundos antes de cerrar el modal
+      }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
     } catch (error) {
       console.log("Error enviando la notificación", error);
     }
@@ -122,7 +125,7 @@ function CardProject(props) {
           <div className="icon-text-element-pr">
             <img src={teamMembersImg} alt="" />
             <p>
-              {totalMembers} <span>Members</span>
+              {teamMembers.length + 1} <span>Members</span>
             </p>
           </div>
         </div>
@@ -145,7 +148,7 @@ function CardProject(props) {
 
         <button
           className="button-small-blue"
-          disabled={isApplyDisabled}
+          disabled={isApplyDisabled} // Deshabilitar si ya ha aplicado
           onClick={handleApplyClick}
         >
           <div className="icon-text-element">
@@ -154,7 +157,7 @@ function CardProject(props) {
               alt="Apply"
               className="icon"
             />
-            <p>Apply</p>
+            <p>{isApplied ? "Applied" : "Apply"}</p> {/* Cambiar texto a "Applied" */}
           </div>
         </button>
 
