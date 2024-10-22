@@ -3,13 +3,33 @@ import "../CSS/navBar.css";
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import service from "../services/config"; // Importamos el servicio para llamadas API
 import logoImg from "../assets/images/logoImg.svg";
 import menuIcon from "../assets/icons/menu.svg"; 
 
 function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
   const navigate = useNavigate();
-  const { authenticateUser } = useContext(AuthContext);
+  const { authenticateUser, loggedUserId } = useContext(AuthContext);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await service.get(`/notification/${loggedUserId}`);
+        setNotifications(response.data);
+        setUnreadNotificationCount(response.data.length);
+      } catch (error) {
+        console.error("Error fetching notifications", error);
+      }
+    };
+
+    if (isLoggedIn && loggedUserId) {
+      fetchNotifications();
+    }
+  }, [loggedUserId, isLoggedIn]);
 
   const handleLogOut = async () => {
     try {
@@ -25,20 +45,29 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
     setMenuVisible((prev) => !prev);
   };
 
-  const handleOutsideClick = (event) => {
-    if (menuVisible && !event.target.closest('.profile-menu') && !event.target.closest('.menu-icon')) {
-      setMenuVisible(false);
+  const toggleNotificationsDropdown = () => {
+    setIsDropdownOpen((prev) => !prev); 
+  };
+
+  const handleAcceptNotification = async (notificationId) => {
+    try {
+      await service.put(`/notification/${notificationId}/accept`);
+      setNotifications(notifications.filter(notif => notif._id !== notificationId));
+      setUnreadNotificationCount(unreadNotificationCount - 1); 
+    } catch (error) {
+      console.error("Error accepting notification", error);
     }
   };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [menuVisible]);
-
-  const isMobile = window.innerWidth <= 768;
+  const handleRejectNotification = async (notificationId) => {
+    try {
+      await service.put(`/notification/${notificationId}/reject`);
+      setNotifications(notifications.filter(notif => notif._id !== notificationId));
+      setUnreadNotificationCount(unreadNotificationCount - 1); 
+    } catch (error) {
+      console.error("Error rejecting notification", error);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -48,40 +77,50 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
             <img src={logoImg} alt="Logo" />
           </Link>
 
-          {!isMobile && (
-            <>
-              <Link to="/project"><p>Projects</p></Link>
-              <Link to="/event"><p>Events</p></Link>
-              <Link to="/user"><p>Talent</p></Link>
-            </>
-          )}
+          <Link to="/project"><p>Projects</p></Link>
+          <Link to="/event"><p>Events</p></Link>
+          <Link to="/user"><p>Talent</p></Link>
         </div>
 
-        {isMobile && (
-          <img 
-            src={menuIcon} 
-            alt="Menu" 
-            className="menu-icon" 
-            onClick={toggleMenu} 
-          />
-        )}
-
-        {!isMobile && isLoggedIn && (
+        {isLoggedIn && (
           <div className="navbar-private">
-            <div className="icon-text-element"><p><span>0</span> Notifications</p></div>
-            <div className="icon-text-element"><p><span>0</span> Messages</p></div>
+            {/* Sección de Notificaciones */}
+            <div className="notifications-menu" onClick={toggleNotificationsDropdown} style={{cursor: "pointer", position: "relative"}}>
+              <p className="notifications-label">
+                <span>{unreadNotificationCount > 0 ? unreadNotificationCount : ''}</span> 
+                Notifications
+              </p>
+              <span className="dropdown-icon">&#9660;</span> {/* Icono de flecha hacia abajo */}
 
+              {/* Dropdown de notificaciones */}
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  {notifications.length === 0 ? (
+                    <p>No tienes nuevas notificaciones</p>
+                  ) : (
+                    notifications.map(notification => (
+                      <div key={notification._id} className="notification-item">
+                        <p>{notification.from.username} quiere unirse a tu proyecto {notification.project?.title}</p>
+                        <button onClick={() => handleAcceptNotification(notification._id)}>Aceptar</button>
+                        <button onClick={() => handleRejectNotification(notification._id)}>Rechazar</button>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Perfil del usuario */}
             <div className="profile-menu" style={{ position: 'relative' }}>
               <div style={{display:"flex", gap:"8px", alignItems:"center", marginRight:"8px"}}>
-
-              <img 
-                src={profilePicture || "/default-profile.png"} // Mostrar la imagen de perfil
-                alt={username} 
-                className="profile-image"
-                style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-                onClick={toggleMenu}
-              />
-              <p>{username}</p>
+                <img 
+                  src={profilePicture || "/default-profile.png"} 
+                  alt={username} 
+                  className="profile-image"
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  onClick={toggleMenu}
+                />
+                <p>{username}</p>
               </div>
               <span className="dropdown-icon" onClick={toggleMenu}>&#9660;</span>
 
@@ -106,28 +145,6 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
           </div>
         )}
       </div>
-
-      {isMobile && menuVisible && (
-        <div className="dropdown-menu">
-          <Link to="/project"><p>Projects</p></Link>
-          <Link to="/event"><p>Events</p></Link>
-          <Link to="/user"><p>Talent</p></Link>
-
-          {isLoggedIn && (
-            <div className="profile-menu">
-              <Link to="/user/profile"><p>Profile</p></Link>
-              <Link to="/" onClick={handleLogOut}><p>Log out</p></Link>
-            </div>
-          )}
-
-          {!isLoggedIn && (
-           <div>
-              <Link to="/login"><p>Log in</p></Link>
-              <Link to="/signup" className="button-large-yellow"><p>Get Started</p></Link>
-            </div>
-          )}
-        </div>
-      )}
     </nav>
   );
 }
