@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import service from "../services/config"; // Importamos el servicio para llamadas API
 import logoImg from "../assets/images/logoImg.svg";
-import menuIcon from "../assets/icons/menu.svg"; 
-import { FontWeight } from "@cloudinary/url-gen/qualifiers";
+import user from "../assets/icons/user.svg"; 
+import logout from "../assets/icons/logout.svg"
 
 function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
   const navigate = useNavigate();
@@ -167,11 +167,13 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
 
               {menuVisible && (
                 <div className="dropdown-menu">
-                  <Link to="/user/profile" onClick={() => setMenuVisible(false)}>
+                  <Link to="/user/profile" onClick={() => setMenuVisible(false)} className="icon-text-element-nav">
+                  <img src={user} alt="" />
                     <p style={{margin:"8px 0 16px 0"}}>Profile</p>
                   </Link>
                   <hr style={{ borderColor: "#f3f3f3", borderWidth: "1px", borderStyle: "solid" }} />
-                  <Link to="/" onClick={handleLogOut}>
+                  <Link to="/" onClick={handleLogOut} className="icon-text-element-nav">
+                  <img src={logout} alt="" />
                     <p style={{margin:"8px 0 16px 0"}}>Log out</p>
                   </Link>
                 </div>

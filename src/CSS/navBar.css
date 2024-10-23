@@ -136,3 +136,14 @@
   margin-top: 16px;
   justify-content: flex-end;
 }
+
+.icon-text-element-nav img{
+  margin-bottom: 8px;
+  margin-left: 16px;
+}
+
+.icon-text-element-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
