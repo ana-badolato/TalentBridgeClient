@@ -130,10 +130,12 @@ function CardEvent({
           <img src={eventImage} alt={eventName} className="card-event-image" />
           {isOwnProfile && eventOwner && (
             <div className="card-ev-section-buttons">
+              <Link to={`/editevent/${_id}`}>
               <button className="card-ev-button">
                 <img src={editImg} alt="Edit" />
                 <p>Edit</p>
               </button>
+              </Link>
               <button className="card-ev-button">
                 <img src={deleteImg} alt="Delete" />
                 <p>Delete</p>

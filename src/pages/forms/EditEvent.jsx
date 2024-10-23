@@ -9,6 +9,9 @@ import "../../CSS/formGeneric.css"; // Asegúrate de importar tu CSS
 function EditEvent() {
   const { loggedUserId } = useContext(AuthContext);
   const { eventId } = useParams(); // Obtener el ID del evento desde los parámetros de la URL
+  const [isLoading, setIsLoading] = useState(true);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [loggedUserProjects, setLoggedUserProjects] = useState([]);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [eventData, setEventData] = useState({
     name: "",
@@ -28,8 +31,6 @@ function EditEvent() {
     relatedProjects: ""
   });
 
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [loggedUserProjects, setLoggedUserProjects] = useState([]);
 
   useEffect(() => {
     const fetchUserProjects = async () => {
@@ -52,7 +53,23 @@ function EditEvent() {
     const fetchEventData = async () => {
       try {
         const response = await service.get(`/event/${eventId}`);
-        setEventData(response.data); // Llenar el formulario con los datos del evento
+        setEventData({
+          name: response.data.name || "",
+          mainObjective: response.data.mainObjective || "",
+          description: response.data.description || "",
+          date: response.data.date || "",
+          time: response.data.time ||  "",
+          address: response.data.address ||  "",
+          location: response.data.location || { lat: null, lng: null },
+          category: response.data.category || "",
+          capacity: response.data.capacity || 20,
+          price: response.data.price || 0,
+          posterImage: response.data.posterImage || "",
+          lecturer: response.data.lecturer || [],
+          attendees: response.data.attendees || [],
+          relatedProjects: response.data.relatedProjects || ""
+        }); // Llenar el formulario con los datos del evento
+        setIsLoading(false)
       } catch (error) {
         console.log("Error fetching event data:", error);
       }

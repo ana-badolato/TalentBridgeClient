@@ -6,8 +6,11 @@ import axios from "axios";
 import "../../CSS/formGeneric.css"; 
 
 function NewProject() {
+  
   const { loggedUserId } = useContext(AuthContext);
+  
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [projectData, setProjectData] = useState({
     title: "",
     mainObjective: "",
@@ -19,7 +22,6 @@ function NewProject() {
     teamMembers: []
   });
 
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

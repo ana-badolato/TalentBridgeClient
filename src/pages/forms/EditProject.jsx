@@ -9,11 +9,14 @@ import service from "../../services/config";
 import Autocomplete from "../../components/Autocomplete";
 
 function EditProject() {
+  
   const params = useParams();
   const navigate = useNavigate();
 
   const { loggedUserId } = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [projectData, setProjectData] = useState({
     title: "",
     mainObjective: "",
@@ -24,15 +27,11 @@ function EditProject() {
     teamMembers: [],
   });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        console.log("hola");
-        console.log("Fetched project data:", params._id);
+        //console.log("Fetched project data:", params._id);
         const response = await service.get(`/project/${params.projectid}`);
         setProjectData({
           title: response.data.title || "",
