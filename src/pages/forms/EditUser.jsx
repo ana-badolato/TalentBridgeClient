@@ -20,8 +20,9 @@ function EditUser() {
   const [isLoading, setIsLoading] = useState(true);
   const [newSkill, setNewSkill] = useState("");
   // const [uploadingImage, setUploadingImage] = useState(false);
+  
   const [showConfirmation, setShowConfirmation] = useState(false);
-
+  const navigate = useNavigate();
 
 //! aquí empieza código cloudinary
 const [imageUrl, setImageUrl] = useState(null); 
@@ -57,7 +58,7 @@ const handleFileUpload = async (event) => {
 };
 //! aquí termina código cloudinary
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -214,13 +215,14 @@ const handleFileUpload = async (event) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="bio">Bio</label>
+            <label htmlFor="bio">Bio <span>*</span></label>
             <textarea
               id="bio"
               name="bio"
               value={userData.bio || ""}
               onChange={handleChange}
               maxLength="250"
+              required
             />
           </div>
 
