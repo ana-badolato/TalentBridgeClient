@@ -94,9 +94,11 @@ function EditEvent() {
 
  const handleSubmit = async (e) =>{
   e.preventDefault()
+  console.log("Submitting eventData: ", eventData)
 
   try {
     await service.put(`/event/${params.eventid}`, eventData)
+ 
     setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
@@ -194,11 +196,11 @@ function EditEvent() {
           </select>
         </div>
 
-        <button type="submit" className="submit-button">Create event</button>
+        <button type="submit" className="submit-button">Save changes</button>
         
         {showConfirmation && (
           <div className="confirmation-message">
-            Event created successfully!
+            Event edited successfully!
           </div>
         )}
       </form>

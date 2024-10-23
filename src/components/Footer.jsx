@@ -7,7 +7,10 @@ function Footer() {
 
         <img src={logoImg} alt="Logo" />
 
-        <p>About us??</p>
+        <div>
+          <p>About us??</p>
+          <p>About us??</p>
+        </div>
 
         <p>Insta, FB, ...</p>
 
