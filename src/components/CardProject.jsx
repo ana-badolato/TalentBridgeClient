@@ -97,10 +97,12 @@ function CardProject(props) {
 // Nueva función para manejar la eliminación
 const handleDeleteClick = () => {
   setIsDeleteModalOpen(true); // Abrir el modal de confirmación de eliminar
+  console.log("abriendo modal eliminar")
 };
 
 const handleConfirmDelete = async () => {
   try {
+    console.log("modal abierto eliminar")
     await service.delete(`/project/${_id}`); // Llama a la ruta DELETE
     setIsSuccess(true); // Mostrar mensaje de éxito
     setTimeout(() => {
@@ -114,6 +116,7 @@ const handleConfirmDelete = async () => {
 };
 
 const handleCloseDeleteModal = () => {
+  console.log("cerramos modal eliminar")
   setIsDeleteModalOpen(false); // Cerrar el modal de eliminación
 };
 
