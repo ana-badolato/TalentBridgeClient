@@ -13,6 +13,7 @@ import editImg from "../assets/icons/edit.svg";
 import dateImg from "../assets/icons/date.svg";
 import teamMembersImg from "../assets/icons/teamMembers.svg";
 import NotificationModal from "../Modals/NotificationModal.jsx";
+import { FadeLoader } from "react-spinners";
 
 function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
@@ -45,7 +46,15 @@ function CardProject(props) {
     }
   }, [props.title, params.projectid]);
 
-  if (loading) return <p>Loading project...</p>;
+  if (loading) {
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
+  }
+ 
 
   const {
     owner,

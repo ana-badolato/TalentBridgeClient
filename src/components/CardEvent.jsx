@@ -10,6 +10,7 @@ import editImg from "../assets/icons/edit.svg";
 import evDateLightImg from "../assets/icons/evDateLight.svg";
 import locationLightImg from "../assets/icons/locationLight.svg";
 import NotificationModal from "../Modals/NotificationModal.jsx"; // Modal para la confirmación
+import { FadeLoader } from "react-spinners";
 
 function CardEvent({
   _id,
@@ -76,7 +77,14 @@ function CardEvent({
     );
   }, [eventData, loggedUserId, isOwnProfile, isLoggedIn]);
 
-  if (loading) return <p>Loading event...</p>;
+  if (loading){
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
+  } 
 
   const {
     posterImage: eventImage,

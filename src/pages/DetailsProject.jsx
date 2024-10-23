@@ -8,6 +8,7 @@ import CardEventSmall from "../components/CardEventSmall";
 // images:
 import dateImg from "../assets/icons/date.svg";
 import teamMembersImg from "../assets/icons/teamMembers.svg";
+import { FadeLoader } from "react-spinners";
 
 function DetailsProject() {
   
@@ -48,6 +49,14 @@ function DetailsProject() {
   //por si teamMembers todavia no llega de la api, que no de problemas
   const totalMembers = projectDetails.teamMembers ? projectDetails.teamMembers.length + 1 : 1;
 
+  if (!projectDetails) {
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
+  }
 
   return (
     <div>
