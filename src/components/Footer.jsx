@@ -14,14 +14,23 @@ function Footer() {
 
         <div>
           <p>Ana Badolato</p>
-          <img src={githubIcon} alt="github" style={{width: "20px"}} />
-          <img src={linkedinicon} alt="linkedin" style={{width: "20px"}}/>
+          <a href="https://github.com/ana-badolato" target="_blank" rel="noopener noreferrer">
+            <img src={githubIcon} alt="github" style={{width: "20px"}} />
+          </a>
+          <a href="https://www.linkedin.com/in/anabadolatomunuera/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedinicon} alt="linkedin" style={{width: "20px"}}/>
+          </a>
         </div>
 
         <div>
           <p>Núria Soley</p>
-          <img src={githubIcon} alt="github" style={{width: "20px"}}/>
-          <img src={linkedinicon} alt="linkedin" style={{width: "20px"}}/>
+          <a href="https://github.com/NuriaSoley" target="_blank" rel="noopener noreferrer">
+            <img src={githubIcon} alt="github" style={{width: "20px"}}/>
+          </a>
+          <a href="https://www.linkedin.com/in/n%C3%BAria-soley-arnau-905a67147/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedinicon} alt="linkedin" style={{width: "20px"}}/>
+          </a>
+
         </div>
 
         <div>
