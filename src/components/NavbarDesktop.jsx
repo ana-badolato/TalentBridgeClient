@@ -89,7 +89,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
 
           <Link to="/project"><p>Projects</p></Link>
           <Link to="/event"><p>Events</p></Link>
-          <Link to="/user"><p>Talent</p></Link>
+          <Link to="/user"><p>Talents</p></Link>
         </div>
 
         {isLoggedIn && (
@@ -106,7 +106,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
 {isDropdownOpen && (
   <div className="dropdown-menu">
     {notifications.length === 0 ? (
-      <p>No tienes nuevas notificaciones</p>
+      <p>You have no new notifications</p>
     ) : (
       notifications.map(notification => (
         <div key={notification._id} className="notification-item" style={{ position: 'relative' }}>
@@ -129,15 +129,18 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
 
           {/* Notificación de Proyecto */}
           {notification.type === "action" ? (
-            <div>
-              <p>{notification.from.username} quiere unirse a tu proyecto {notification.project?.title}</p>
-              <button onClick={() => handleAcceptNotification(notification._id)}>Aceptar</button>
-              <button onClick={() => handleRejectNotification(notification._id)}>Rechazar</button>
+            <div className="notification-details">
+              <p><span>{notification.from.username}</span>  wants to join your project <span>{notification.project?.title}</span></p>
+              <div className="buttons-notification">
+
+              <button className="button-notification-accept" onClick={() => handleAcceptNotification(notification._id)}>Accept</button>
+              <button className="button-notification-decline" onClick={() => handleRejectNotification(notification._id)}>Decline</button>
+              </div>
             </div>
           ) : (
             // Notificación de Evento
-            <div>
-              <p>{notification.from.username} se ha unido a tu evento {notification.event?.name}</p>
+            <div className="notification-details">
+              <p><span>{notification.from.username}</span> has joined your event <span>{notification.event?.name}</span></p>
             </div>
           )}
         </div>
@@ -165,10 +168,11 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
               {menuVisible && (
                 <div className="dropdown-menu">
                   <Link to="/user/profile" onClick={() => setMenuVisible(false)}>
-                    <p>Profile</p>
+                    <p style={{margin:"8px 0 16px 0"}}>Profile</p>
                   </Link>
+                  <hr style={{ borderColor: "#f3f3f3", borderWidth: "1px", borderStyle: "solid" }} />
                   <Link to="/" onClick={handleLogOut}>
-                    <p>Log out</p>
+                    <p style={{margin:"8px 0 16px 0"}}>Log out</p>
                   </Link>
                 </div>
               )}

@@ -100,3 +100,39 @@
   font-weight: 600;
   color: #fa920a;
 }
+
+.notification-details {
+  font-weight: 300;
+}
+
+.notification-details span{
+  color: var(--primary-blue-mid);
+  font-weight: 500;
+}
+
+.button-notification-accept, .button-notification-decline {
+  margin: 0;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: var(--primary-blue-mid);
+}
+
+.button-notification-accept:hover, .button-notification-decline:hover {
+  cursor: pointer;
+}
+
+.button-notification-decline {
+  background-color: var(--neutral-grey-light);
+
+}
+
+.button-notification-accept {
+  background-color: #d6eba7;
+}
+
+.buttons-notification{
+  display: flex;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
