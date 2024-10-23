@@ -6,6 +6,7 @@ import { AuthContext } from "../context/auth.context";
 import service from "../services/config"; // Importamos el servicio para llamadas API
 import logoImg from "../assets/images/logoImg.svg";
 import menuIcon from "../assets/icons/menu.svg"; 
+import { FontWeight } from "@cloudinary/url-gen/qualifiers";
 
 function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
   const navigate = useNavigate();
@@ -157,7 +158,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
                   style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                   onClick={toggleMenu}
                 />
-                <p>{username}</p>
+                <p style={{fontWeight:"600"}}>{username}</p>
               </div>
               <span className="dropdown-icon" onClick={toggleMenu}>&#9660;</span>
 

@@ -28,7 +28,7 @@
 .navbar-private {
   display: flex;
   align-items: center;
-  gap: 24px; 
+  gap: 48px; 
 }
 
 .profile-menu {
@@ -84,3 +84,19 @@
   margin: 10px 0;
 }
 
+.navbar-logo img {
+  display: block; /* Eliminar el espacio en la parte inferior de las imágenes */
+  margin: 0; /* Eliminar márgenes */
+  padding: 0; /* Eliminar relleno */
+  max-height: 60px; /* Ajustar la altura máxima si es necesario */
+}
+
+.notifications-label {
+  display: flex;
+  gap: 8px;
+}
+
+.notifications-label span {
+  font-weight: 600;
+  color: #fa920a;
+}
