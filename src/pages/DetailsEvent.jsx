@@ -78,6 +78,7 @@ function DetailsEvent() {
 
 {eventData.lecturer && eventData.lecturer.length > 0 && (
   <div className="lecturer-container">
+    {console.log("Lecturer data:", eventData.lecturer)} {/* Verificar qué datos tienes aquí */}
     {eventData.lecturer.map((lecturer, index) => (
       <CardUserSmall 
         key={index} 

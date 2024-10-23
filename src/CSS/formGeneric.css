@@ -85,3 +85,7 @@ select {
  display: flex;
  flex-direction: column;
 }
+
+.form-group span {
+  color: var(--accent-yellow);
+}
