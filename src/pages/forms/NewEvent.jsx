@@ -2,7 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config";
 import axios from "axios";
-import "../../CSS/formGeneric.css"; // Asegúrate de importar tu CSS
+import "../../CSS/formGeneric.css"; 
+import "../../CSS/autocomplete.css"; 
+import AutocompleteEvent from "../../components/AutocompleteEvent";
 
 function NewEvent() {
   const { loggedUserId } = useContext(AuthContext);
@@ -135,6 +137,12 @@ const handleFileUpload = async (event) => {
   //     setUploadingImage(false);
   //   }
   // };
+  const updateLecturers = (selectedLecturers) => {
+    setEventData((prevData) => ({
+      ...prevData,
+      lecturer: selectedLecturers,  // Actualizamos el estado de lecturers en el evento
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -239,8 +247,8 @@ const handleFileUpload = async (event) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Add a lecturer</label>
-          <input type="text" />
+          //!AutocompleteEvent aquí
+          <AutocompleteEvent updateLecturers={updateLecturers} /> 
         </div>
 
         <div className="form-group">
