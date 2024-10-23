@@ -103,7 +103,7 @@ function CardEvent({
             from: loggedUserId, // Usuario que se une
             to: eventOwner._id, // Owner del evento
             event: _id, // ID del evento
-            message: `El usuario ${loggedUserId} se ha unido al evento ${eventName}`, // Mensaje de notificación
+            message: `${loggedUserId} is attending to the event: ${eventName}`, // Mensaje de notificación
             type: "info", // Notificación de tipo informativa
         });
 
