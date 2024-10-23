@@ -21,6 +21,8 @@ function CardEvent({
   date,
   address,
   atendees,
+  capacity,
+  capacityCounter,
   isOwnProfile,
   lecturer,
 }) {
@@ -33,6 +35,8 @@ function CardEvent({
     date,
     address,
     atendees,
+    capacity,
+    capacityCounter,
     lecturer,
   });
   const [loading, setLoading] = useState(!name);
@@ -66,7 +70,7 @@ function CardEvent({
       (lecturerId) => String(lecturerId) === String(loggedUserId)
     );
 
-    setIsJoinDisabled(isOwnProfile || isAlreadyAttendee || isLecturer || isOwner);
+    setIsJoinDisabled(isOwnProfile || isAlreadyAttendee || isLecturer || isOwner || eventData.capacityCounter >= eventData.capacity);
   }, [eventData, loggedUserId, isOwnProfile, isLoggedIn]);
 
   if (loading) return <p>Loading event...</p>;
@@ -80,6 +84,8 @@ function CardEvent({
     address: eventAddress,
     atendees: eventAtendees,
     lecturer: eventLecturer,
+    capacity: eventCapacity,
+    capacityCounter: eventCapacityCounter,
   } = eventData;
 
   // Función para manejar la solicitud de unirse al evento
@@ -97,6 +103,9 @@ function CardEvent({
         await service.put(`/event/${_id}/join`, {
             atendeeId: loggedUserId,
         });
+
+        //incrementar capacityCounter en el servidor
+        await service.patch(`/event/${_id}/incrementcapacitycounter`)
 
         // Enviar una notificación informativa al owner del evento
         await service.post("/notification", {
