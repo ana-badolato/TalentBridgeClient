@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config"; 
 import axios from "axios";
+import { FadeLoader } from "react-spinners";
 
 function EditUser() {
   const { loggedUserId } = useContext(AuthContext);
@@ -160,7 +161,12 @@ const handleFileUpload = async (event) => {
   };
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
 
   return (

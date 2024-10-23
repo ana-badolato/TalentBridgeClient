@@ -9,6 +9,7 @@ import { AuthContext } from "../context/auth.context.jsx";
 import addImg from "../assets/icons/add.svg";
 import edtitImg from "../assets/icons/edit.svg";
 import messageImg from "../assets/icons/message.svg";
+import { FadeLoader } from "react-spinners";
 
 function DetailsUser() {
   const [user, setUser] = useState(null);
@@ -47,7 +48,12 @@ function DetailsUser() {
   };
 
   if (!user || !allUserProjects || !allUserEvents) {
-    return <h3>...loading</h3>;
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
 
   // Filtrar proyectos donde el usuario es owner o collaborator

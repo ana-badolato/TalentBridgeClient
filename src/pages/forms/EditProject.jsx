@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import service from "../../services/config";
 import Autocomplete from "../../components/Autocomplete";
 import axios from "axios";
+import { FadeLoader } from "react-spinners";
 
 function EditProject() {
   const params = useParams();
@@ -156,8 +157,14 @@ function EditProject() {
   };
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
+
   return (
     <div className="form-page">
       <form onSubmit={handleSubmit} className="project-form">

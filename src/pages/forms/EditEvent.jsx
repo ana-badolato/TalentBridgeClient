@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config"; 
 import axios from "axios";
 import "../../CSS/formGeneric.css"; // Asegúrate de importar tu CSS
+import { FadeLoader } from "react-spinners";
 
 function EditEvent() {
   
@@ -170,7 +171,12 @@ function EditEvent() {
   };
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
 
   return (

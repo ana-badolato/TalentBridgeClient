@@ -5,6 +5,7 @@ import service from "../services/config.js";
 import { useParams, Link } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardUserSmall from "../components/CardUserSmall.jsx";
+import { FadeLoader } from "react-spinners";
 
 
 function DetailsEvent() {
@@ -30,7 +31,12 @@ function DetailsEvent() {
 
   // Si los datos aún están cargando, mostramos un mensaje de carga
   if (loading) {
-    return <p>Loading event data...</p>;
+    return (
+      <>
+      <h4>...loading</h4>
+      <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
 
   // Si no hay datos de eventData, mostramos un mensaje de error o fallback
