@@ -8,7 +8,7 @@ function NewEvent() {
   const { loggedUserId } = useContext(AuthContext);
   console.log("Logged User ID:", loggedUserId);
 
-  const [uploadingImage, setUploadingImage] = useState(false);
+  // const [uploadingImage, setUploadingImage] = useState(false);
   const [eventData, setEventData] = useState({
     name: "",
     mainObjective: "",
@@ -28,6 +28,42 @@ function NewEvent() {
   });
 
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+//! aquí empieza código cloudinary
+const [imageUrl, setImageUrl] = useState(null); 
+const [isUploading, setIsUploading] = useState(false);
+// below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
+const handleFileUpload = async (event) => {
+  if (!event.target.files[0]) {
+    return;
+  }
+
+  setIsUploading(true); // Iniciar la animación de carga
+
+  const uploadData = new FormData();
+  uploadData.append("image", event.target.files[0]);
+
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+
+    const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
+    setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+
+    // Aquí es donde actualizas el estado de userData con la URL de la imagen
+    setEventData((prevData) => ({
+      ...prevData,
+      posterImage: uploadedImageUrl,  // Actualiza el campo de la imagen en el proyecto
+    }));
+
+    setIsUploading(false); // Detener la animación de carga
+  } catch (error) {
+    console.error("Error subiendo la imagen:", error);
+    navigate("/error");
+  }
+};
+//! aquí termina código cloudinary
+
+
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -74,31 +110,31 @@ function NewEvent() {
     fetchUserProjects();
   }, [loggedUserId]);
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "s9t7p5jy");
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "s9t7p5jy");
 
-    setUploadingImage(true);
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload",
-        formData
-      );
-      const imageUrl = response.data.secure_url;
-      setEventData((prevData) => ({
-        ...prevData,
-        posterImage: imageUrl,
-      }));
-      setUploadingImage(false);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setUploadingImage(false);
-    }
-  };
+  //   setUploadingImage(true);
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload",
+  //       formData
+  //     );
+  //     const imageUrl = response.data.secure_url;
+  //     setEventData((prevData) => ({
+  //       ...prevData,
+  //       posterImage: imageUrl,
+  //     }));
+  //     setUploadingImage(false);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     setUploadingImage(false);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -140,13 +176,14 @@ function NewEvent() {
         <h3>New Event</h3>
         <div className="form-group">
           <label htmlFor="">Poster Image</label>
-          <input name="posterImage" type="file" onChange={handleImageUpload} />
-          {uploadingImage && <p>Uploading...</p>}
+ 
+          {/* {uploadingImage && <p>Uploading...</p>} */}
           {eventData.posterImage && ( // Mostrar la imagen actual si existe
-            <img src={eventData.posterImage} alt="Uploaded" className="uploaded-image" />
+            <img src={imageUrl || eventData.posterImage || ""} alt="posterImage" className="uploaded-image" style={{ maxHeight:"200px", width:"100%", objectFit:"cover" }}/>
           )}
+        <input name="posterImage" type="file" onChange={handleFileUpload} />
         </div>
-
+        {isUploading ? <h3>... uploading image</h3> : null}
         <div className="form-group">
           <label htmlFor="">Title</label>
           <input name="name" type="text" value={eventData.name} onChange={handleChange} />

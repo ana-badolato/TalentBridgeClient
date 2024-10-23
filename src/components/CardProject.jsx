@@ -2,7 +2,7 @@ import "../App.css";
 import "../CSS/cardProject.css";
 
 import { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import service from "../services/config.js";
 
@@ -22,7 +22,12 @@ function CardProject(props) {
   const [isSuccess, setIsSuccess] = useState(false); // Estado para éxito
   const [isApplied, setIsApplied] = useState(false); // Estado para gestionar si ya ha aplicado
 
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const params = useParams();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     if (!props.title) {
@@ -89,6 +94,31 @@ function CardProject(props) {
     }
 };
 
+// Nueva función para manejar la eliminación
+const handleDeleteClick = () => {
+  setIsDeleteModalOpen(true); // Abrir el modal de confirmación de eliminar
+};
+
+const handleConfirmDelete = async () => {
+  try {
+    await service.delete(`/project/${_id}`); // Llama a la ruta DELETE
+    setIsSuccess(true); // Mostrar mensaje de éxito
+    setTimeout(() => {
+      setIsSuccess(false);
+      setIsDeleteModalOpen(false); // Cerrar el modal
+      navigate("/projects"); // Redirigir a la página de proyectos
+    }, 1500);
+  } catch (error) {
+    console.log("Error eliminando el proyecto", error);
+  }
+};
+
+const handleCloseDeleteModal = () => {
+  setIsDeleteModalOpen(false); // Cerrar el modal de eliminación
+};
+
+
+
   return (
     <div className="card-pr-container">
       <Link to={`/project/${_id}`}>
@@ -102,7 +132,7 @@ function CardProject(props) {
                   <p>Edit</p>
                 </button>
               </Link>
-              <button className="card-pr-button">
+              <button className="card-pr-button" onClick={handleDeleteClick}>
                 <img src={deleteImg} alt="" />
                 <p>Delete</p>
               </button>
@@ -169,6 +199,16 @@ function CardProject(props) {
           onConfirm={handleConfirmApply}
           message={`¿Quieres enviar la solicitud para unirte al proyecto ${title}?`}
           successMessage={isSuccess ? "Solicitud enviada con éxito!" : null} // Pasar mensaje de éxito
+        />
+
+
+        {/* Modal de confirmación para eliminar */}
+        <NotificationModal
+          isOpen={isDeleteModalOpen}
+          onClose={handleCloseDeleteModal}
+          onConfirm={handleConfirmDelete}
+          message={`¿Estás seguro de que quieres eliminar el proyecto ${title}?`}
+          successMessage={isSuccess ? "Proyecto eliminado con éxito!" : null}
         />
       </div>
     </div>

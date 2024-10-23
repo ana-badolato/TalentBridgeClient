@@ -1,5 +1,5 @@
 .index-header {
-  background-image: url('../assets/images/headers/headerHome.png');
+  background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679583/rvuigbncq5sjjxplbsiw.png');
   background-size: fill; /* Mantén la imagen en proporción */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* No repitas la imagen */
@@ -68,7 +68,7 @@
 /* Cambiar la imagen de fondo en versión móvil */
 @media screen and (max-width: 768px) {
   .header-index {
-    background-image: url('../assets/images/headers/headerHomeM.png'); /* Imagen para móviles */
+    background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679582/rz9t4m4uozs5eyawefw3.png'); /* Imagen para móviles */
     height: 60vh; /* Ocupa menos espacio en la pantalla móvil */
   }
 

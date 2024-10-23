@@ -19,8 +19,44 @@ function EditUser() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [newSkill, setNewSkill] = useState("");
-  const [uploadingImage, setUploadingImage] = useState(false);
+  // const [uploadingImage, setUploadingImage] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+
+//! aquí empieza código cloudinary
+const [imageUrl, setImageUrl] = useState(null); 
+const [isUploading, setIsUploading] = useState(false);
+// below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
+const handleFileUpload = async (event) => {
+  if (!event.target.files[0]) {
+    return;
+  }
+
+  setIsUploading(true); // Iniciar la animación de carga
+
+  const uploadData = new FormData();
+  uploadData.append("image", event.target.files[0]);
+
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+
+    const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
+    setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+
+    // Aquí es donde actualizas el estado de userData con la URL de la imagen
+    setUserData((prevData) => ({
+      ...prevData,
+      profilePicture: uploadedImageUrl,  // Actualiza el campo de la imagen de perfil
+    }));
+
+    setIsUploading(false); // Detener la animación de carga
+  } catch (error) {
+    console.error("Error subiendo la imagen:", error);
+    navigate("/error");
+  }
+};
+//! aquí termina código cloudinary
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,31 +89,31 @@ function EditUser() {
     }));
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "s3e3p4eg");
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "s3e3p4eg");
 
-    setUploadingImage(true);
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
-        formData
-      );
-      const imageUrl = response.data.secure_url;
-      setUserData((prevData) => ({
-        ...prevData,
-        profilePicture: imageUrl,
-      }));
-      setUploadingImage(false);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setUploadingImage(false);
-    }
-  };
+  //   setUploadingImage(true);
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
+  //       formData
+  //     );
+  //     const imageUrl = response.data.secure_url;
+  //     setUserData((prevData) => ({
+  //       ...prevData,
+  //       profilePicture: imageUrl,
+  //     }));
+  //     setUploadingImage(false);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     setUploadingImage(false);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,11 +166,28 @@ function EditUser() {
         <h2>Edit Profile</h2>
 
         <form onSubmit={handleSubmit} className="project-form"> {/* Usar la clase para el formulario */}
-          <div className="form-group">
-            <img src={userData.profilePicture || ""} alt="Profile" width="150" />
-            <input type="file" onChange={handleImageUpload} />
-            {uploadingImage && <p>Uploading...</p>}
-          </div>
+        <div className="form-group">
+  {/* Mostrar la imagen nueva si existe, de lo contrario mostrar la imagen de perfil actual */}
+  <img 
+    src={imageUrl || userData.profilePicture || ""} 
+    alt="Profile" 
+    width="150"
+    height="150"
+    style={{objectFit:"cover", borderRadius:"50%"}}
+  />
+  <input 
+    type="file"  
+    name="image" 
+    onChange={handleFileUpload} 
+    disabled={isUploading} 
+  />
+</div>
+
+          {/* to render a loading message or spinner while uploading the picture */}
+          {isUploading ? <h3>... uploading image</h3> : null}
+
+          {/* below line will render a preview of the image from cloudinary */}
+          {/* {imageUrl ? (<div><img src={imageUrl} alt="img" width={200} /></div>) : null} */}
 
           <div className="form-group">
             <label htmlFor="contactEmail">Contact Email</label>

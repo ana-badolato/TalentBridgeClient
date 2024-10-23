@@ -7,6 +7,9 @@ import { AuthContext } from "../../context/auth.context";
 import { useNavigate, useParams } from "react-router-dom";
 import service from "../../services/config";
 import Autocomplete from "../../components/Autocomplete";
+import axios from "axios";
+
+
 
 function EditProject() {
   
@@ -14,9 +17,8 @@ function EditProject() {
   const navigate = useNavigate();
 
   const { loggedUserId } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(true);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+
   
   const [projectData, setProjectData] = useState({
     title: "",
@@ -28,6 +30,43 @@ function EditProject() {
     teamMembers: [],
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+  // const [uploadingImage, setUploadingImage] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  //! aquí empieza código cloudinary
+const [imageUrl, setImageUrl] = useState(null); 
+const [isUploading, setIsUploading] = useState(false);
+// below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
+const handleFileUpload = async (event) => {
+  if (!event.target.files[0]) {
+    return;
+  }
+
+  setIsUploading(true); // Iniciar la animación de carga
+
+  const uploadData = new FormData();
+  uploadData.append("image", event.target.files[0]);
+
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+
+    const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
+    setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+
+    // Aquí es donde actualizas el estado de userData con la URL de la imagen
+    setProjectData((prevData) => ({
+      ...prevData,
+      image: uploadedImageUrl,  // Actualiza el campo de la imagen en el proyecto
+    }));
+
+    setIsUploading(false); // Detener la animación de carga
+  } catch (error) {
+    console.error("Error subiendo la imagen:", error);
+    navigate("/error");
+  }
+};
+//! aquí termina código cloudinary
 
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -65,31 +104,31 @@ function EditProject() {
     }));
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "s3e3p4eg");
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "s3e3p4eg");
 
-    setUploadingImage(true);
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
-        formData
-      );
-      const imageUrl = response.data.secure_url;
-      setProjectData((prevData) => ({
-        ...prevData,
-        image: imageUrl,
-      }));
-      setUploadingImage(false);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setUploadingImage(false);
-    }
-  };
+  //   setUploadingImage(true);
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
+  //       formData
+  //     );
+  //     const imageUrl = response.data.secure_url;
+  //     setProjectData((prevData) => ({
+  //       ...prevData,
+  //       image: imageUrl,
+  //     }));
+  //     setUploadingImage(false);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     setUploadingImage(false);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,13 +166,15 @@ function EditProject() {
         <div>
           {projectData.image && (
             <img
-              src={projectData.image}
+              src={imageUrl || projectData.image || ""}
               alt="Project"
-              style={{ width: "200px" }}
+              style={{ maxHeight:"200px", width:"100%", objectFit:"cover" }}
             />
           )}
-          <input name="image" type="file" onChange={handleImageUpload} />
+          <input name="image" type="file" onChange={handleFileUpload} 
+    disabled={isUploading}  />
         </div>
+        {isUploading ? <h3>... uploading image</h3> : null}
         <div>
           <label htmlFor="title">Title: </label>
           <input
