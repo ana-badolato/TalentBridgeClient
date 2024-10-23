@@ -21,6 +21,7 @@ import EditProject from './pages/forms/EditProject'
 import EditEvent from "./pages/forms/EditEvent"
 import DetailsProject from './pages/DetailsProject'
 import Footer from './components/Footer'
+import CardCategory from './components/CardCategory'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/user/profile/:username" element={<DetailsUser/>}/>
         <Route path="/user" element={<AllUsers/>}/>
         <Route path="/profile/edit" element={<EditUser />} />
+        <Route path="/category/:category" element={<CardCategory/>}/>
 
         {/*Project routes*/}        
         <Route path="/project" element={<AllProjects/>}/>

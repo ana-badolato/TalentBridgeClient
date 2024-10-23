@@ -15,7 +15,7 @@ function ListProjects(props) {
 
   const getData = async () => {
     try {
-      const response = await service(`/project/`);
+      const response = await service.get(`/project/`);
       setAllProjects(response.data);
     } catch (error) {
       console.log(error);
