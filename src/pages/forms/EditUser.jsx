@@ -171,7 +171,9 @@ const handleFileUpload = async (event) => {
   <img 
     src={imageUrl || userData.profilePicture || ""} 
     alt="Profile" 
-    width="150" 
+    width="150"
+    height="150"
+    style={{objectFit:"cover", borderRadius:"50%"}}
   />
   <input 
     type="file"  
