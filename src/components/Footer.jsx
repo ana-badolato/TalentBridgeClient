@@ -1,7 +1,7 @@
 import "../CSS/footer.css"
 import logoImg from "../assets/images/logoImg.svg";
 import githubIcon from "../assets/icons/githubIcon.svg"
-import linkedinicon from "../assets/icons/linkedinicon.svg"
+import linkedinicon from "../assets/icons/linkedinIcon.svg"
 import xIcon from "../assets/icons/xIcon.svg"
 import tiktokIcon from "../assets/icons/tiktokIcon.svg"
 
