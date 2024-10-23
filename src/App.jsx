@@ -22,6 +22,7 @@ import EditEvent from "./pages/forms/EditEvent"
 import DetailsProject from './pages/DetailsProject'
 import Footer from './components/Footer'
 import CardCategory from './components/CardCategory'
+import NotFound from './pages/NotFound'
 
 function App() {
 
@@ -52,7 +53,8 @@ function App() {
         <Route path="/editevent/:eventid" element={<EditEvent/>}/>
 
         {/*Error and noutfound */}
-        <Route path="/error" element={<Error />} />
+        <Route path="/error" element={<Error />}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
       
       <Footer/>
