@@ -123,6 +123,7 @@ const handleFileUpload = async (event) => {
       setTimeout(() => {
         setShowConfirmation(false);
       }, 3000);
+      
     } catch (error) {
       console.log("Error updating profile:", error);
     }
@@ -154,6 +155,7 @@ const handleFileUpload = async (event) => {
 
   const handleGoToProfile = () => {
     navigate(`/user/profile`);
+    window.location.reload();
   };
 
   if (isLoading) {

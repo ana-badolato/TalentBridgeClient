@@ -1,7 +1,13 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import '../CSS/notificationModal.css'; // Ajustamos la ruta
 
 function NotificationModal({ isOpen, onClose, onConfirm, message, successMessage }) {
+
+  useEffect(() => {
+    console.log("Modal isOpen:", isOpen);
+  }, [isOpen]);
+
   if (!isOpen) return null; // Si el modal no está abierto, no mostramos nada
 
   const handleConfirm = (e) => {

@@ -58,6 +58,8 @@ function CardProject(props) {
     _id,
   } = projectData;
 
+
+
   const isOwner = isLoggedIn && String(loggedUserId) === String(owner?._id);
   const isTeamMember = teamMembers.some(
     (member) => String(member._id || member) === String(loggedUserId)
@@ -94,21 +96,24 @@ function CardProject(props) {
     }
 };
 
-// Nueva función para manejar la eliminación
-const handleDeleteClick = () => {
+const handleDeleteClick = (e) => {
+  e.preventDefault(); // Prevenir que se ejecute el comportamiento predeterminado del <Link>
+  e.stopPropagation(); // Detener la propagación del evento al contenedor <Link>
   setIsDeleteModalOpen(true); // Abrir el modal de confirmación de eliminar
-  console.log("abriendo modal eliminar")
+  console.log("abriendo modal eliminar");
 };
 
 const handleConfirmDelete = async () => {
   try {
     console.log("modal abierto eliminar")
     await service.delete(`/project/${_id}`); // Llama a la ruta DELETE
+    console.log("Proyecto eliminado con éxito");
     setIsSuccess(true); // Mostrar mensaje de éxito
     setTimeout(() => {
       setIsSuccess(false);
       setIsDeleteModalOpen(false); // Cerrar el modal
-      navigate("/projects"); // Redirigir a la página de proyectos
+      navigate("/user/profile"); 
+      window.location.reload();
     }, 1500);
   } catch (error) {
     console.log("Error eliminando el proyecto", error);
@@ -135,10 +140,11 @@ const handleCloseDeleteModal = () => {
                   <p>Edit</p>
                 </button>
               </Link>
-              <button className="card-pr-button" onClick={handleDeleteClick}>
-                <img src={deleteImg} alt="" />
-                <p>Delete</p>
-              </button>
+              <button className="card-pr-button" onClick={(e) => handleDeleteClick(e)}>
+  <img src={deleteImg} alt="" />
+  <p>Delete</p>
+</button>
+
             </div>
           )}
         </div>
@@ -212,6 +218,8 @@ const handleCloseDeleteModal = () => {
           onConfirm={handleConfirmDelete}
           message={`¿Estás seguro de que quieres eliminar el proyecto ${title}?`}
           successMessage={isSuccess ? "Proyecto eliminado con éxito!" : null}
+
+          
         />
       </div>
     </div>
