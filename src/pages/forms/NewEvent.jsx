@@ -5,12 +5,12 @@ import axios from "axios";
 import "../../CSS/formGeneric.css"; 
 import "../../CSS/autocomplete.css"; 
 import AutocompleteEvent from "../../components/AutocompleteEvent";
+import { useNavigate } from "react-router-dom";
 
 function NewEvent() {
   const { loggedUserId } = useContext(AuthContext);
   console.log("Logged User ID:", loggedUserId);
 
-  // const [uploadingImage, setUploadingImage] = useState(false);
   const [eventData, setEventData] = useState({
     name: "",
     mainObjective: "",
@@ -30,44 +30,43 @@ function NewEvent() {
   });
 
   const [showConfirmation, setShowConfirmation] = useState(false);
+const navigate=useNavigate()
+  //! Aquí empieza código cloudinary
+  const [imageUrl, setImageUrl] = useState(null); 
+  const [isUploading, setIsUploading] = useState(false);
 
-//! aquí empieza código cloudinary
-const [imageUrl, setImageUrl] = useState(null); 
-const [isUploading, setIsUploading] = useState(false);
-// below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
-const handleFileUpload = async (event) => {
-  if (!event.target.files[0]) {
-    return;
-  }
+  const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
 
-  setIsUploading(true); // Iniciar la animación de carga
+    setIsUploading(true);
 
-  const uploadData = new FormData();
-  uploadData.append("image", event.target.files[0]);
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
 
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+      const uploadedImageUrl = response.data.imageUrl;
 
-    const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
-    setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+      setImageUrl(uploadedImageUrl);
+      setEventData((prevData) => ({
+        ...prevData,
+        posterImage: uploadedImageUrl,
+      }));
 
-    // Aquí es donde actualizas el estado de userData con la URL de la imagen
-    setEventData((prevData) => ({
-      ...prevData,
-      posterImage: uploadedImageUrl,  // Actualiza el campo de la imagen en el proyecto
-    }));
+      setIsUploading(false);
+    } catch (error) {
+      console.error("Error subiendo la imagen:", error);
+      navigate("/error");
+    }
+  };
+  //! Aquí termina código cloudinary
+  const handleGoToProfile = () => {
+    navigate(`/user/profile`);
+  };
 
-    setIsUploading(false); // Detener la animación de carga
-  } catch (error) {
-    console.error("Error subiendo la imagen:", error);
-    navigate("/error");
-  }
-};
-//! aquí termina código cloudinary
-
-
-
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData((prevData) => ({
       ...prevData,
@@ -83,15 +82,14 @@ const handleFileUpload = async (event) => {
       const data = await response.json();
       if (data.length > 0) {
         const { lat, lon } = data[0];
-        setEventData((prevData) => ({
-          ...prevData,
-          location: { lat: parseFloat(lat), lng: parseFloat(lon) }
-        }));
+        return { lat: parseFloat(lat), lng: parseFloat(lon) };
       } else {
         console.log("No coordinates found for the address.");
+        return { lat: null, lng: null };
       }
     } catch (error) {
       console.error("Error fetching coordinates:", error);
+      return { lat: null, lng: null };
     }
   };
 
@@ -112,41 +110,20 @@ const handleFileUpload = async (event) => {
     fetchUserProjects();
   }, [loggedUserId]);
 
-  // const handleImageUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", "s9t7p5jy");
-
-  //   setUploadingImage(true);
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload",
-  //       formData
-  //     );
-  //     const imageUrl = response.data.secure_url;
-  //     setEventData((prevData) => ({
-  //       ...prevData,
-  //       posterImage: imageUrl,
-  //     }));
-  //     setUploadingImage(false);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     setUploadingImage(false);
-  //   }
-  // };
   const updateLecturers = (selectedLecturers) => {
     setEventData((prevData) => ({
       ...prevData,
-      lecturer: selectedLecturers,  // Actualizamos el estado de lecturers en el evento
+      lecturer: selectedLecturers,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, mainObjective, description, date, time, address, location, category, capacity, price, posterImage, owner, lecturer, attendees, relatedProjects } = eventData;
+    
+    const { name, mainObjective, description, date, time, address, category, capacity, price, posterImage, owner, lecturer, attendees, relatedProjects } = eventData;
+
+    // Obtener coordenadas de la dirección
+    const location = await getCoordinates(address);
 
     const newEvent = {
       name,
@@ -155,7 +132,7 @@ const handleFileUpload = async (event) => {
       date,
       time,
       address,
-      location,
+      location,  // Añadimos las coordenadas obtenidas
       category,
       capacity,
       price,
@@ -184,22 +161,21 @@ const handleFileUpload = async (event) => {
         <h3>New Event</h3>
         <div className="form-group">
           <label htmlFor="">Poster Image</label>
- 
-          {/* {uploadingImage && <p>Uploading...</p>} */}
-          {eventData.posterImage && ( // Mostrar la imagen actual si existe
+
+          {eventData.posterImage && (
             <img src={imageUrl || eventData.posterImage || ""} alt="posterImage" className="uploaded-image" style={{ maxHeight:"200px", width:"100%", objectFit:"cover" }}/>
           )}
-        <input name="posterImage" type="file" onChange={handleFileUpload} />
+          <input name="posterImage" type="file" onChange={handleFileUpload}/>
         </div>
         {isUploading ? <h3>... uploading image</h3> : null}
         <div className="form-group">
-          <label htmlFor="">Title</label>
-          <input name="name" type="text" value={eventData.name} onChange={handleChange} />
+          <label htmlFor="">Title <span>*</span></label>
+          <input name="name" type="text" value={eventData.name} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Main Objective</label>
-          <textarea name="mainObjective" maxLength={250} value={eventData.mainObjective} onChange={handleChange} />
+          <label htmlFor="">Main Objective <span>*</span></label>
+          <textarea name="mainObjective" maxLength={250} value={eventData.mainObjective} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
@@ -208,24 +184,23 @@ const handleFileUpload = async (event) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Date</label>
-          <input name="date" type="date" value={eventData.date} onChange={handleChange} />
+          <label htmlFor="">Date <span>*</span></label>
+          <input name="date" type="date" value={eventData.date} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Time</label>
-          <input name="time" type="time" value={eventData.time} onChange={handleChange} />
+          <label htmlFor="">Time <span>*</span></label>
+          <input name="time" type="time" value={eventData.time} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Address</label>
-          <input name="address" type="text" value={eventData.address} onChange={handleChange} />
-          <button type="button" onClick={() => getCoordinates(eventData.address)}>Obtain coordinates</button>
+          <label htmlFor="">Address <span>*</span></label>
+          <input name="address" type="text" value={eventData.address} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="">Category</label>
-          <select name="category" value={eventData.category} onChange={handleChange}>
+          <label htmlFor="">Category <span>*</span></label>
+          <select name="category" value={eventData.category} onChange={handleChange} required>
             <option value="">Select a Category</option>
             <option value="Technology & Innovation">Technology & Innovation</option>
             <option value="Sustainability & Environment">Sustainability & Environment</option>
@@ -247,7 +222,6 @@ const handleFileUpload = async (event) => {
         </div>
 
         <div className="form-group">
-          //!AutocompleteEvent aquí
           <AutocompleteEvent updateLecturers={updateLecturers} /> 
         </div>
 
@@ -261,9 +235,18 @@ const handleFileUpload = async (event) => {
               </option>
             ))}
           </select>
+          <p className="required-fields">(*) Required Fields</p>
         </div>
 
         <button type="submit" className="submit-button">Create event</button>
+
+       <button
+              type="button"
+              className="button-large-grey" // Clase para el botón de retroceso
+              onClick={handleGoToProfile}
+            >
+              Back to Profile
+            </button>
         
         {showConfirmation && (
           <div className="confirmation-message">
