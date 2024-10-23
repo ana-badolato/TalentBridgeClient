@@ -17,6 +17,7 @@ function EditProject() {
   const [isLoading, setIsLoading] = useState(true);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  
   const [projectData, setProjectData] = useState({
     title: "",
     mainObjective: "",

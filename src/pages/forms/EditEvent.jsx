@@ -7,13 +7,18 @@ import axios from "axios";
 import "../../CSS/formGeneric.css"; // Asegúrate de importar tu CSS
 
 function EditEvent() {
+  
+  const params = useParams()
+
+  //auth context
   const { loggedUserId } = useContext(AuthContext);
-  const { eventId } = useParams(); // Obtener el ID del evento desde los parámetros de la URL
+
+  //estados
   const [isLoading, setIsLoading] = useState(true);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [loggedUserProjects, setLoggedUserProjects] = useState([]);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const [eventData, setEventData] = useState({
+  const [eventData, setEventData] = useState ({
     name: "",
     mainObjective: "",
     description: "",
@@ -29,56 +34,55 @@ function EditEvent() {
     lecturer: [],
     attendees: [],
     relatedProjects: ""
-  });
+  })
+
+  useEffect(()=>{
+    if (loggedUserId){
+      fetchUserProjects()
+      fetchEventData()
+    }
+  }, [params.eventid])
 
 
-  useEffect(() => {
-    const fetchUserProjects = async () => {
-      if (!loggedUserId) {
-        console.log("No valid loggedUserId found");
-        return;
-      }
-      try {
-        const response = await service.get(`project/user/projectsuser`);
-        setLoggedUserProjects(response.data);
-      } catch (error) {
-        console.log("Error fetching user projects:", error);
-      }
-    };
+  const fetchUserProjects = async () => {
+    if (!loggedUserId) {
+      console.log("No valid loggedUserId found");
+      return;
+    }
+    try {
+      const response = await service.get(`project/user/projectsuser`);
+      setLoggedUserProjects(response.data);
+    } catch (error) {
+      console.log("Error fetching user projects:", error);
+    }
+  };
 
-    fetchUserProjects();
-  }, [loggedUserId]);
+  const fetchEventData = async () =>{
+    try {
+      const response = await service.get(`/event/${params.eventid}`)
+      setEventData({
+        name: response.data.name || "",
+        mainObjective: response.data.mainObjective || "",
+        description: response.data.description || "",
+        date: response.data.date || "",
+        time: response.data.time || "",
+        address: response.data.address || "",
+        location: response.data.location || { lat: null, lng: null },
+        category: response.data.category || "",
+        capacity: response.data.capacity || 20,
+        price: response.data.price || 0,
+        posterImage: response.data.posterImage || "",
+        lecturer: response.data.lecturer || [],
+        attendees: response.data.attendees || [],
+        relatedProjects: response.data.relatedProjects || ""
+      })
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  useEffect(() => {
-    const fetchEventData = async () => {
-      try {
-        const response = await service.get(`/event/${eventId}`);
-        setEventData({
-          name: response.data.name || "",
-          mainObjective: response.data.mainObjective || "",
-          description: response.data.description || "",
-          date: response.data.date || "",
-          time: response.data.time ||  "",
-          address: response.data.address ||  "",
-          location: response.data.location || { lat: null, lng: null },
-          category: response.data.category || "",
-          capacity: response.data.capacity || 20,
-          price: response.data.price || 0,
-          posterImage: response.data.posterImage || "",
-          lecturer: response.data.lecturer || [],
-          attendees: response.data.attendees || [],
-          relatedProjects: response.data.relatedProjects || ""
-        }); // Llenar el formulario con los datos del evento
-        setIsLoading(false)
-      } catch (error) {
-        console.log("Error fetching event data:", error);
-      }
-    };
-
-    fetchEventData();
-  }, [eventId]);
-
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData((prevData) => ({
       ...prevData,
@@ -86,97 +90,37 @@ function EditEvent() {
     }));
   };
 
-  const getCoordinates = async (address) => {
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
-      );
-      const data = await response.json();
-      if (data.length > 0) {
-        const { lat, lon } = data[0];
-        setEventData((prevData) => ({
-          ...prevData,
-          location: { lat: parseFloat(lat), lng: parseFloat(lon) }
-        }));
-      } else {
-        console.log("No coordinates found for the address.");
-      }
-    } catch (error) {
-      console.error("Error fetching coordinates:", error);
-    }
-  };
+ //!añadir aqui nueva función para editar la imagen del evento
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+ const handleSubmit = async (e) =>{
+  e.preventDefault()
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "s9t7p5jy");
-
-    setUploadingImage(true);
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload",
-        formData
-      );
-      const imageUrl = response.data.secure_url;
-      setEventData((prevData) => ({
-        ...prevData,
-        posterImage: imageUrl,
-      }));
-      setUploadingImage(false);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setUploadingImage(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { name, mainObjective, description, date, time, address, location, category, capacity, price, posterImage, owner, lecturer, attendees, relatedProjects } = eventData;
-
-    const updatedEvent = {
-      name,
-      mainObjective,
-      description,
-      date,
-      time,
-      address,
-      location,
-      category,
-      capacity,
-      price,
-      posterImage,
-      owner,
-      lecturer,
-      attendees,
-      relatedProjects: relatedProjects || null
-    };
-
-    console.log("Updated Event Data to be sent:", updatedEvent);
-    try {
-      await service.put(`/event/${eventId}`, updatedEvent);
-      setShowConfirmation(true);
+  try {
+    await service.put(`/event/${params.eventid}`, eventData)
+    setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
       }, 3000);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } catch (error) {
+    console.log(error)
+  }
+ }
+
+ if (isLoading) {
+  return <h3>Loading...</h3>;
+}
 
   return (
     <div className="new-event-container">
       <form onSubmit={handleSubmit} className="project-form">
-        <h3>Edit Event</h3>
+        <h3>New Event</h3>
         <div className="form-group">
-          <label htmlFor="">Poster Image</label>
+{/*           <label htmlFor="">Poster Image</label>
           <input name="posterImage" type="file" onChange={handleImageUpload} />
           {uploadingImage && <p>Uploading...</p>}
           {eventData.posterImage && ( // Mostrar la imagen actual si existe
             <img src={eventData.posterImage} alt="Uploaded" className="uploaded-image" />
-          )}
+          )} */}
         </div>
 
         <div className="form-group">
@@ -250,11 +194,11 @@ function EditEvent() {
           </select>
         </div>
 
-        <button type="submit" className="submit-button">Update Event</button>
+        <button type="submit" className="submit-button">Create event</button>
         
         {showConfirmation && (
           <div className="confirmation-message">
-            Event updated successfully!
+            Event created successfully!
           </div>
         )}
       </form>
