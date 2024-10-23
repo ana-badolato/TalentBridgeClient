@@ -1,4 +1,4 @@
-import "../CSS/DetailsEvent.css";
+import "../CSS/detailsEvent.css";
 import "../CSS/cardUser.css";
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
