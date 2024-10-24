@@ -24,13 +24,13 @@
 }
 
 .card-profile{
-  border: solid black 5px;
   border-radius: 25px;
   background-color: #110F34;
   color: #F8F9FC;
   display: flex;
   align-items: center;
   height: 375px;
+  margin-top: 32px;
 }
 
 .profile-picture{
@@ -49,7 +49,6 @@
   
 }
 
-
 .tag-skills {
   display: inline-block;
   font-size: 14px;
@@ -61,4 +60,59 @@
   text-align: center;
   color: #110F34;
   margin:4px;
+}
+
+.tabs{
+  margin-bottom: px;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .card-profile {
+    display: block; /* Cambiar a block para que los elementos se apilen */
+    text-align: center; /* Centrar el contenido */
+    height: auto; /* Ajustar la altura automáticamente */
+  }
+
+  .profile-picture {
+    width: 200px; /* Reducir el tamaño de la imagen */
+    padding: 20px; /* Ajustar el padding para que la imagen no sea demasiado grande */
+    margin: 0 auto; /* Asegurar que la imagen esté centrada */
+  }
+
+  .profile-info {
+    margin-top: 20px; /* Añadir espacio entre la imagen y la info */
+  }
+
+  .tag-skills {
+    max-width: 100%; /* Ajustar las habilidades para que ocupen el ancho completo */
+  }
+}
+
+/* Media query para pantallas de tablet (entre 768px y 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card-profile {
+    display: flex; /* Mantener el diseño en filas */
+    flex-direction: column; /* Colocar imagen y texto uno encima del otro */
+    align-items: center; /* Centrar los elementos verticalmente */
+    height: auto;
+  }
+
+  .profile-picture {
+    width: 250px; /* Reducir un poco el tamaño de la imagen para tablets */
+    padding: 30px;
+  }
+
+  .profile-info {
+    margin-top: 15px;
+    text-align: center; /* Asegurar que el texto esté centrado en tablets */
+  }
+
+  .tag-skills {
+    max-width: 100%; /* Hacer que las habilidades ocupen todo el ancho en tablets */
+  }
+
+  .infoButton {
+    padding-top: 15px; /* Ajustar el espaciado del botón */
+  }
 }
