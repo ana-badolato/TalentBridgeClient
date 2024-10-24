@@ -18,15 +18,12 @@ import { Link, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes instalado 'react-spinners'
 import SectionTalent from "../components/SectionTalent.jsx";
 
-<<<<<<< HEAD
-=======
 import addImg from "../assets/icons/add.svg";
 
 
 
 
 
->>>>>>> 58e6bdd5eac0e00eb7f327e176ad7d694858e98f
 function Index() {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);

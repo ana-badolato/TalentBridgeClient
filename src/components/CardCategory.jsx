@@ -23,12 +23,9 @@ import communityHeader from "../assets/images/headers/communityHeader.svg"
 import educationHeader from "../assets/images/headers/educationHeader.svg"
 import sustainabilityHeader from "../assets/images/headers/sustainabilityHeader.svg"
 import healthHeader from "../assets/images/headers/healthHeader.svg"
-<<<<<<< HEAD
 import SearchBar from "./SearchBar.jsx";
 import Filter from "./Filter.jsx";
-=======
 import addImg from "../assets/icons/add.svg";
->>>>>>> 58e6bdd5eac0e00eb7f327e176ad7d694858e98f
 
 function CardCategory() {
 
@@ -77,11 +74,7 @@ function CardCategory() {
     <div className="container-page">
       <div className="container-main-content">
       <div className="filters">
-<<<<<<< HEAD
-
-=======
         
->>>>>>> 58e6bdd5eac0e00eb7f327e176ad7d694858e98f
       </div>
       <section>
         {headerImage && (
