@@ -25,10 +25,11 @@ h3 {
 
 /* Estilos para etiquetas */
 label {
-  font-weight: bold;
+  font-weight: 500;
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: var(--primary-blue-mid);
+  margin-bottom: 8px;
 }
 
 /* Estilo para campos de texto e input */

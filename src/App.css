@@ -272,10 +272,75 @@ header {
   color: var(--primary-blue-mid)
 }
 
+.custom-pagination{
+  margin-top: 96px;
+}
 
+/* Contenedores generales */
+.search-container, .filter-container {
+  flex: 1 1 48%; /* Ambos contenedores ocuparán el 48% del ancho en pantallas grandes */
+  min-width: 25%; /* Ambos inputs deben tener un ancho mínimo del 25% */
+}
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
+/* Contenedor de la barra de búsqueda */
+.searchBar {
+  position: relative; /* Posicionamiento relativo para la lupa */
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+}
+
+/* Input de búsqueda */
+.searchBar input {
+  width: 100%; /* El input ocupa todo el ancho disponible dentro del contenedor */
+  padding: 10px 40px 10px 16px; /* Padding para que el icono no se superponga con el texto */
+  font-size: 14px;
+  box-sizing: border-box; /* Asegura que el padding no añada más ancho */
+}
+
+/* Icono de lupa dentro del input */
+.search-icon {
+  position: absolute;
+  right: 16px; /* Posiciona la lupa a la derecha dentro del input */
+  top: 50%;
+  transform: translateY(-50%); /* Centra verticalmente el icono dentro del input */
+  height: 20px;
+  width: 20px;
+}
+
+/* Estilo del select de filtro */
+.filter-container select {
+  width: 100%; /* El select ocupa todo el ancho del contenedor */
+  padding: 10px 16px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Flexbox para la distribución de los contenedores */
+.filter-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva fila si no caben */
+  gap: 16px; /* Espacio entre los inputs */
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .filter-group {
+    flex-wrap: nowrap; /* Mantén los elementos en fila en pantallas grandes */
   }
 }
+
+@media (max-width: 768px) {
+  .filter-group {
+    flex-wrap: wrap; /* Permite que los inputs se muevan a una nueva fila en pantallas pequeñas */
+  }
+
+  .filter-group .filter {
+    flex: 1 1 100%; /* En pantallas pequeñas, los inputs ocupan el 100% del ancho */
+  }
+
+  body {
+    font-size: 14px; /* Tamaño de fuente en pantallas móviles */
+  }
+}
+
+
+

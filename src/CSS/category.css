@@ -18,3 +18,10 @@
   font-size: 48px;
   text-align: center;
 }
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+  .title-category {
+    font-size: 32px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+  }
+}

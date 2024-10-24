@@ -1,17 +1,28 @@
+import searchImg from "../assets/icons/search.svg"
 
 function SearchBar(props) {
-  
-  const { searchValue, setSearchValue } = props
+  const { searchValue, setSearchValue } = props;
 
-   const handleSearchChange = (e) =>{
-     setSearchValue(e.target.value)
-   }
-  
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
-    <div>
-      <input onChange={handleSearchChange} value={searchValue}/>
+    <div className="search-container">
+      <label htmlFor="">Search</label>
+      <div className="searchBar">
+        <input
+          placeholder="Introduce your search here"
+          className="filter"
+          onChange={handleSearchChange}
+          value={searchValue}
+        />
+        <div className="search-icon">
+          <img src={searchImg} alt="search icon" />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;

@@ -23,11 +23,13 @@ function AllProjects() {
           </div>
         
       </section>
+      <hr className="hr-thin-light" style={{ marginBottom: "24px" }} />
 
-
+      <div className="filter-group">
+        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+        <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/>
+      </div>
       
-      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
-      <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/>
       <ListProjects searchValue={searchValue} categoryFilter={categoryFilter} />
     </div>
     {isLoggedIn && (
