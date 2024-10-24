@@ -22,3 +22,20 @@
   width: 100%; /* Ocupa todo el ancho del contenedor */
   text-align: center; /* Alinea el botón en el centro */
 }
+
+.card{
+  border: solid black 5px;
+  border-radius: 25px;
+  background-color: #110F34;
+  color: #F8F9FC;
+  display: flex;
+  align-items: center;
+  height: 375px;
+}
+
+.profile-picture{
+  border-radius: 50%;
+  padding: 40px;
+  width: 350px;
+}
+

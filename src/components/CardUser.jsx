@@ -35,6 +35,7 @@ function CardUser(props) {
           </div>
       </Link>
       <div className="button-container">
+            <Link to={`/sendemail/${props.username}`}>
       <button
           className="button-small-blue"
           style={{ width: "auto", padding: "8px 16px", alignSelf: "flex-end" }} // Ajusta el ancho y padding
@@ -48,6 +49,7 @@ function CardUser(props) {
             <p>Send Message</p>
           </div>
         </button>
+            </Link>
         </div>
     </div>
   );

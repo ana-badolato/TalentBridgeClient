@@ -130,26 +130,34 @@ function DetailsUser() {
     <div className="container-page">
       <div className="container-main-content">
         {/* User Info */}
-        <section>
-          <p>Detail User</p>
-          <img src={user.profilePicture} alt="User Profile" />
-          <p>{user.username}</p>
-          <p>BIO: {user.bio}</p>
-          <p>Tags: {user.skills}</p>
+        <section className="card">
+          <div>
+            <img src={user.profilePicture} className="profile-picture" alt="User Profile" />
+          </div>
+         
+          <div>
+            <div className="profile-info">
+              <h4 style={{fontWeight: "600px"}}>{user.username}</h4>
+              <p style={{fontStyle: "italic", fontWeight: "300px"}}>{user.bio}</p>
+              {user.skills.map((eachSkill) => (
+                <p className="tag-xl">{eachSkill}</p>
+              ))}
+            </div>
 
-          {/* Mostrar botón condicionalmente */}
-          
-            <button className="button-large-yellow">
-              <div className="icon-text-element">
-                <img src={messageImg} alt="" />
-                <p>Send Message</p>
-              </div>
-            </button>
+            {/* Mostrar botón condicionalmente */}
+            
+              <button className="button-large-yellow">
+                <div className="icon-text-element">
+                  <img src={messageImg} alt="" />
+                  <p>Send Message</p>
+                </div>
+              </button>
+          </div>
         </section>
 
         {/* Projects Section */}
         <section>
-          <p>Projects</p>
+          <h1>Projects</h1>
           <div className="tabs">
             <p
               className={showOwnerProjects ? "active-tab" : ""}

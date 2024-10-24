@@ -11,6 +11,7 @@ function AuthWrapper(props) {
   const [isValidatingToken, setIsValidatingToken] = useState(true)
   const [username, setUsername] = useState(""); // Nuevo estado para almacenar el nombre de usuario
   const [profilePicture, setProfilePicture] = useState(""); // Nuevo estado para almacenar la imagen de perfil
+  const [contactEmail, setContactEmail] = useState("")
 
   useEffect(()=>{
     authenticateUser()
@@ -25,6 +26,7 @@ function AuthWrapper(props) {
       setUsername(response.data.username); // Guardamos el username del usuario
       setProfilePicture(response.data.profilePicture); // 
       setIsValidatingToken(false)
+      setContactEmail(response.data.contactEmail)
 
     } catch (error) {
       console.log(error)
@@ -41,6 +43,7 @@ function AuthWrapper(props) {
     loggedUserId,
     username,
     profilePicture,
+    contactEmail,
     authenticateUser
   }
 
