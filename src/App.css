@@ -322,6 +322,30 @@ header {
   margin-bottom: 32px;
 }
 
+/* Clase específica para ajustar el ancho de la barra de búsqueda en AllUsers */
+.half-width-search {
+  width: 50%; /* Ajusta el ancho al 50% */
+
+}
+
+.half-width-search .searchBar {
+  width: 100%; /* Asegura que el input dentro del contenedor ocupe el 100% del contenedor */
+}
+
+/* Estilos globales que se mantienen */
+.search-container, .filter-container {
+  flex: 1 1 48%; /* Otros contenedores seguirán comportándose igual */
+  min-width: 25%; /* Ancho mínimo del 25% */
+}
+
+
+
+
+.leaflet-container {
+  border-radius: 15px; /* Aplica el borde redondeado a todo el contenedor de Leaflet */
+  overflow: hidden; /* Evita que el contenido se desborde fuera del contenedor redondeado */
+}
+
 @media (min-width: 768px) {
   .filter-group {
     flex-wrap: nowrap; /* Mantén los elementos en fila en pantallas grandes */

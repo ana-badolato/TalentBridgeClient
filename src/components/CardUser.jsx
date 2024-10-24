@@ -35,7 +35,10 @@ function CardUser(props) {
           </div>
       </Link>
       <div className="button-container">
-      <button className="button-small-blue" >
+      <button
+          className="button-small-blue"
+          style={{ width: "auto", padding: "8px 16px", alignSelf: "flex-end" }} // Ajusta el ancho y padding
+        >
           <div className="icon-text-element">
             <img
               src={messageLightImg}

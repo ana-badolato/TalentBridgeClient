@@ -8,7 +8,8 @@ import art from "../assets/icons/art.svg";
 import community from "../assets/icons/community.svg";
 import education from "../assets/icons/education.svg";
 import health from "../assets/icons/health.svg";
-import CallToAction from "../components/CallToAction.jsx"
+import CallToAction from "../components/CallToAction.jsx";
+import CallToActionLogged from "../components/CallToActionLogged.jsx";
 import { useState, useEffect, useContext } from "react";
 import service from "../services/config.js";
 import CardProject from "../components/CardProject.jsx";
@@ -19,10 +20,6 @@ import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes 
 import SectionTalent from "../components/SectionTalent.jsx";
 
 import addImg from "../assets/icons/add.svg";
-
-
-
-
 
 function Index() {
   const navigate = useNavigate();
@@ -44,7 +41,7 @@ function Index() {
       selectRandomProjects(response.data);
     } catch (error) {
       console.log(error);
-      navigate("/error")
+      navigate("/error");
     }
     setLoadingProjects(false);
   };
@@ -61,7 +58,7 @@ function Index() {
       filterAndSortEvents(response.data);
     } catch (error) {
       console.log("Error al obtener eventos:", error);
-      navigate("/error")
+      navigate("/error");
     }
     setLoadingEvents(false);
   };
@@ -85,10 +82,21 @@ function Index() {
       <div className="container-main-content">
         <header className="index-header">
           <h1>
-            Building a future through <Link to="/user" className="aurora">talent</Link>,{" "}
+            Building a future through{" "}
+            <Link to="/user" className="aurora">
+              talent
+            </Link>
+            ,{" "}
             <span className="break-line">
-              one <Link to="/project" className="aurora">project</Link> and{" "}
-              <Link to="/event" className="aurora">event</Link> at a time
+              one{" "}
+              <Link to="/project" className="aurora">
+                project
+              </Link>{" "}
+              and{" "}
+              <Link to="/event" className="aurora">
+                event
+              </Link>{" "}
+              at a time
             </span>
           </h1>
         </header>
@@ -171,62 +179,96 @@ function Index() {
             )}
           </section>
           <Link to="/project">
-          <p style={{fontWeight:"600", textDecoration:"underline", textAlign:"right"}}>See all &gt;
-          </p></Link>
+            <p
+              style={{
+                fontWeight: "600",
+                textDecoration: "underline",
+                textAlign: "right",
+              }}
+            >
+              See all &gt;
+            </p>
+          </Link>
         </div>
 
         <SectionTalent />
 
-
-          <h2 className="index-title">Upcoming Events</h2>
-          <div className="main-section-index"></div>
+        <h2 className="index-title">Upcoming Events</h2>
+        <div className="main-section-index"></div>
         <section className="event-list">
-            {loadingEvents ? (
-              <>
-                <h4>...loading events</h4>
-                <FadeLoader color="#FFBE1A" />
-              </>
-            ) : upcomingEvents.length > 0 ? (
-              upcomingEvents.map((eachEvent) => (
-                <CardEvent key={eachEvent._id} {...eachEvent} />
-              ))
-            ) : (
-              <p>No upcoming events available</p>
-            )}
-
+          {loadingEvents ? (
+            <>
+              <h4>...loading events</h4>
+              <FadeLoader color="#FFBE1A" />
+            </>
+          ) : upcomingEvents.length > 0 ? (
+            upcomingEvents.map((eachEvent) => (
+              <CardEvent key={eachEvent._id} {...eachEvent} />
+            ))
+          ) : (
+            <p>No upcoming events available</p>
+          )}
         </section>
         <Link to="/event">
-          <p style={{fontWeight:"600", textDecoration:"underline", textAlign:"right"}}>See all &gt;
-          </p></Link>
-      <CallToAction />
+          <p
+            style={{
+              fontWeight: "600",
+              textDecoration: "underline",
+              textAlign: "right",
+            }}
+          >
+            See all &gt;
+          </p>
+        </Link>
+        {isLoggedIn ? <CallToActionLogged /> : <CallToAction />}
       </div>
       {isLoggedIn && (
-  <div className="buttons-fixed" style={{position:"fixed", bottom:"64px", right:"32px"}}>
-    {/* Botón "Add Project" */}
-    <Link to="/newproject">
-      <div className="add-project-container">
-        <button className="button-large-blue" style={{width:"130px",zIndex:"10", marginBottom:"-16px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}}>
-          <div className="icon-text-element">
-            <img src={addImg} alt="" />
-            <p>Add Project</p>
-          </div>
-        </button>
-      </div>
-    </Link>
+        <div
+          className="buttons-fixed"
+          style={{ position: "fixed", bottom: "64px", right: "32px" }}
+        >
+          {/* Botón "Add Project" */}
+          <Link to="/newproject">
+            <div className="add-project-container">
+              <button
+                className="button-large-blue"
+                style={{
+                  width: "130px",
+                  zIndex: "10",
+                  marginBottom: "-16px",
+                  boxShadow: "0px 4px 10px rgba(200, 200, 200, 0.2)",
+                }}
+              >
+                <div className="icon-text-element">
+                  <img src={addImg} alt="" />
+                  <p>Add Project</p>
+                </div>
+              </button>
+            </div>
+          </Link>
 
-    {/* Botón "Add Event" */}
-    <Link to="/newevent">
-      <div className="add-event-container">
-        <button className="button-large-blue" style={{width:"130px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}} >
-          <div className="icon-text-element" style={{display:"flex", alignItems:"center"}}>
-            <img src={addImg} alt="" />
-            <p>Add Event</p>
-          </div>
-        </button>
-      </div>
-    </Link>
-  </div>
-)}
+          {/* Botón "Add Event" */}
+          <Link to="/newevent">
+            <div className="add-event-container">
+              <button
+                className="button-large-blue"
+                style={{
+                  width: "130px",
+                  boxShadow: "0px 4px 10px rgba(200, 200, 200, 0.2)",
+                }}
+              >
+                <div
+                  className="icon-text-element"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <img src={addImg} alt="" />
+                  <p>Add Event</p>
+                </div>
+              </button>
+            </div>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

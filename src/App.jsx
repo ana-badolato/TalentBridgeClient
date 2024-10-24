@@ -23,13 +23,14 @@ import DetailsProject from './pages/DetailsProject'
 import Footer from './components/Footer'
 import CardCategory from './components/CardCategory'
 import NotFound from './pages/NotFound'
-
+import ScrollToTop from './components/ScrollToTop'
 function App() {
 
   return (
     <div>
       <NavBar />
-      
+          {/* Scroll to Top component here */}
+          <ScrollToTop />  {/* Esto asegura que el scroll se reinicie en cada cambio de ruta */}
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/signup" element={<SignUp />} />

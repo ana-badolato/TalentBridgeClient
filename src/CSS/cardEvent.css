@@ -1,7 +1,7 @@
 /* Contenedor general de la tarjeta */
 .card-event {
-  flex: 1 1 25%; /* 25% del ancho disponible */
-  max-width: 25%; /* Limita el ancho máximo de la tarjeta a 25% */
+  flex: 1 1 23.5%; /* 25% del ancho disponible */
+  max-width: 23.5%; /* Limita el ancho máximo de la tarjeta a 25% */
   position: relative;
   border-radius: 5px;
   display: flex;

@@ -6,6 +6,8 @@ import addImg from "../assets/icons/add.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import projectsImg from "../assets/icons/projects.svg"
+import CallToAction from "../components/CallToAction.jsx";
+import CallToActionLogged from "../components/CallToActionLogged.jsx";
 
 function AllProjects() {
 
@@ -31,6 +33,7 @@ function AllProjects() {
       </div>
       
       <ListProjects searchValue={searchValue} categoryFilter={categoryFilter} />
+      {isLoggedIn ? <CallToActionLogged /> : <CallToAction />}
     </div>
     {isLoggedIn && (
   <div className="buttons-fixed" style={{position:"fixed", bottom:"64px", right:"32px"}}>

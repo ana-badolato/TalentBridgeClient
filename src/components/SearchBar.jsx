@@ -10,7 +10,7 @@ function SearchBar(props) {
   return (
     <div className="search-container">
       <label htmlFor="">Search</label>
-      <div className="searchBar">
+      <div className="searchBar custom-width">
         <input
           placeholder="Introduce your search here"
           className="filter"

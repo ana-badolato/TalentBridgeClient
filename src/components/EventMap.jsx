@@ -21,7 +21,7 @@ const EventMap = ({ events }) => {
   );
 
   return (
-    <MapContainer center={[37.9799827, -0.6664249]} zoom={6} style={{ height: "500px", width: "100%" }}>
+    <MapContainer center={[37.9799827, -0.6664249]} zoom={6} style={{ height: "500px", width: "100%", marginBottom:"46px" , borderRadius:"15px", overflow:"hidden"}}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

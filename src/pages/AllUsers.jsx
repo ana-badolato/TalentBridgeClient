@@ -6,6 +6,9 @@ import { AuthContext } from "../context/auth.context.jsx";
 import addImg from "../assets/icons/add.svg";
 import usersImg from "../assets/icons/talent.svg"
 
+import CallToAction from "../components/CallToAction.jsx";
+import CallToActionLogged from "../components/CallToActionLogged.jsx";
+
 function AllUsers() {
   
   const [searchValue, setSearchValue] = useState("")
@@ -22,8 +25,15 @@ function AllUsers() {
         </div>
       
     </section>
-      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
-      <ListUser searchValue={searchValue}/> {/*Solo pasamos el valor de la búsqueda */}
+    <hr className="hr-thin-light" style={{ marginBottom: "24px" }} />
+    <div className="filter-group half-width-search">
+    <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+      </div>
+    <ListUser searchValue={searchValue}/> {/*Solo pasamos el valor de la búsqueda */}
+
+    {isLoggedIn ? <CallToActionLogged /> : <CallToAction />}
+
+
     </div>
     {isLoggedIn && (
   <div className="buttons-fixed" style={{position:"fixed", bottom:"64px", right:"32px"}}>

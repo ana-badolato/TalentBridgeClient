@@ -11,7 +11,7 @@ function Pagination({ currentPage, totalPages, onPageChange, nextLabel = "Next",
   };
 
   return (
-    <div style={{marginTop:"32px"}}>
+    <div style={{marginTop:"32px", marginBottom:"48px"}}>
 
     <div className={`pagination-controls ${className}`}>
       <button onClick={goToPreviousPage} disabled={currentPage === 1}>
