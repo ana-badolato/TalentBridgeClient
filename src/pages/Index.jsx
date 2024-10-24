@@ -1,5 +1,5 @@
 import "../App.css";
-import "../CSS/index.css";
+import "../CSS/home.css";
 
 //images
 import tech from "../assets/icons/tech.svg";
@@ -8,62 +8,71 @@ import art from "../assets/icons/art.svg";
 import community from "../assets/icons/community.svg";
 import education from "../assets/icons/education.svg";
 import health from "../assets/icons/health.svg";
-
+import CallToAction from "../components/CallToAction.jsx"
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardProject from "../components/CardProject.jsx";
-import CardEvent from "../components/CardEvent.jsx"; // Asegúrate de que este componente esté en la ruta correcta
-import { useNavigate } from "react-router-dom";
+import CardEvent from "../components/CardEvent.jsx";
+
+import { Link, useNavigate } from "react-router-dom";
+import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes instalado 'react-spinners'
+import SectionTalent from "../components/SectionTalent.jsx";
+
+
+
+
+
+
 
 function Index() {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);
-  const [randomProjects, setRandomProjects] = useState([]); // Estado para los 6 proyectos aleatorios
-  const [upcomingEvents, setUpcomingEvents] = useState([])
+  const [randomProjects, setRandomProjects] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(true); // Para manejar la carga de proyectos
+  const [loadingEvents, setLoadingEvents] = useState(true); // Para manejar la carga de eventos
 
   useEffect(() => {
     getData();
-    getEvents()
+    getEvents();
   }, []);
 
   const getData = async () => {
     try {
-      const response = await service.get("/project/"); // Asegúrate de que esta ruta esté bien configurada
+      const response = await service.get("/project/");
       setAllProjects(response.data);
-
-      // Llamar a la función para seleccionar 6 proyectos aleatorios
       selectRandomProjects(response.data);
     } catch (error) {
       console.log(error);
     }
+    setLoadingProjects(false);
   };
 
-  // Función para seleccionar 6 proyectos aleatorios
   const selectRandomProjects = (projects) => {
-    let shuffled = projects.sort(() => 0.5 - Math.random()); // Mezcla el array de proyectos
-    let selected = shuffled.slice(0, 6); // Selecciona los primeros 6 proyectos mezclados
-    console.log(selected);
-    setRandomProjects(selected); // Actualiza el estado con los proyectos seleccionados
+    let shuffled = projects.sort(() => 0.5 - Math.random());
+    let selected = shuffled.slice(0, 6);
+    setRandomProjects(selected);
   };
 
-  const getEvents = async () =>{
+  const getEvents = async () => {
     try {
-      const events = await service.get("/event/")
-      filterAndSortEvents(events.data)
+      const response = await service.get("/event/");
+      filterAndSortEvents(response.data);
     } catch (error) {
-      console.log(error)
+      console.log("Error al obtener eventos:", error);
     }
-  }
+    setLoadingEvents(false);
+  };
 
-  //filtrar y ordenar eventos
-  const filterAndSortEvents = (events) =>{
-    const currentDate = new Date ()//fecha actual
+  const filterAndSortEvents = (events) => {
+    const currentDate = new Date();
     const upcoming = events
-      .filter(eachEvent => new Date (eachEvent.date)>currentDate) // filtra solo eventos futuros
-      .sort((a,b)=> new Date(a.date) - new Date(b.date)) //ordena por data ascendente
-      .slice(0,6) //solo los 6 primeros
-    setUpcomingEvents(upcoming)
-  }
+      .filter((eachEvent) => new Date(eachEvent.date) > currentDate)
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+      .slice(0, 6);
+
+    setUpcomingEvents(upcoming);
+  };
 
   const handleOnClick = (category) => {
     navigate(`/category/${category}`);
@@ -74,52 +83,122 @@ function Index() {
       <div className="container-main-content">
         <header className="index-header">
           <h1>
-            Search for <span className="aurora">projects</span> that inspire
-            <span className="break-line">talent and innovation</span>
+            Building a future through <Link to="/user" className="aurora">talent</Link>,{" "}
+            <span className="break-line">
+              one <Link to="/project" className="aurora">project</Link> and{" "}
+              <Link to="/event" className="aurora">event</Link> at a time
+            </span>
           </h1>
         </header>
 
         <div className="index-categories">
-          {/* Aquí puedes añadir las categorías, filtros, etc */}
-          <section>
-            <button onClick={() => handleOnClick("Technology & Innovation")}>
-              Technology & Innovation <img src={tech} />
-            </button>
-            <button onClick={() => handleOnClick("Sustainability & Environment")}>
-              Sustainability & Environment <img src={sustainability} />
-            </button>
-            <button onClick={() => handleOnClick("Art & Creativity")}>
-              Art & Creativity <img src={art} />
-            </button>
-            <button onClick={() => handleOnClick("Health & Wellness")}>
-              Health & Wellness <img src={health} />
-            </button>
-            <button onClick={() => handleOnClick("Education & Training")}>
-              Education & Training <img src={education} />
-            </button>
-            <button onClick={() => handleOnClick("Community & Social Impact")}>
-              Community & Social Impact <img src={community} />
-            </button>
-          </section>
+          <button
+            onClick={() => handleOnClick("Technology & Innovation")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Technology &<span style={{ display: "block" }}>Innovation</span>
+            </p>
+            <img src={tech} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Sustainability & Environment")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Sustainability &
+              <span style={{ display: "block" }}>Environment</span>
+            </p>
+            <img src={sustainability} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Art & Creativity")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Art &<span style={{ display: "block" }}>Creativity</span>
+            </p>
+            <img src={art} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Health & Wellness")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Health &<span style={{ display: "block" }}>Wellness</span>
+            </p>
+            <img src={health} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Education & Training")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Education &<span style={{ display: "block" }}>Training</span>
+            </p>
+            <img src={education} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Community & Social Impact")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Community &<span style={{ display: "block" }}>Social Impact</span>
+            </p>
+            <img src={community} />
+          </button>
         </div>
+
         <h2 className="index-title">Projects</h2>
-        <section className="project-list">
-          {randomProjects.map((eachProject) => (
-            <CardProject key={eachProject._id} {...eachProject} />
-          ))}
-        </section>
+        <div className="main-section-index">
+          <section className="project-list">
+            {loadingProjects ? (
+              <>
+                <h4>...loading projects</h4>
+                <FadeLoader color="#FFBE1A" />
+              </>
+            ) : (
+              randomProjects.map((eachProject) => (
+                <CardProject key={eachProject._id} {...eachProject} />
+              ))
+            )}
+          </section>
+          <Link to="/project">
+          <p style={{fontWeight:"600", textDecoration:"underline", textAlign:"right"}}>See all &gt;
+          </p></Link>
+        </div>
 
-        <section>
+        <SectionTalent />
+
+
           <h2 className="index-title">Upcoming Events</h2>
-          <div>
-            {upcomingEvents.map((eachEvent) =>(
-              <CardEvent key={eachEvent._id} {...eachEvent}/>
-            ))}
-          </div>
-    
+          <div className="main-section-index"></div>
+        <section className="event-list">
+            {loadingEvents ? (
+              <>
+                <h4>...loading events</h4>
+                <FadeLoader color="#FFBE1A" />
+              </>
+            ) : upcomingEvents.length > 0 ? (
+              upcomingEvents.map((eachEvent) => (
+                <CardEvent key={eachEvent._id} {...eachEvent} />
+              ))
+            ) : (
+              <p>No upcoming events available</p>
+            )}
 
         </section>
+        <Link to="/event">
+          <p style={{fontWeight:"600", textDecoration:"underline", textAlign:"right"}}>See all &gt;
+          </p></Link>
+      <CallToAction />
       </div>
+
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.call-container{
+  background-color: var(--accent-yellow);
+  height: 360px;
+  border-radius: 25px;
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.call-container h2{
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.call-subtitle{
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 32px;
+}

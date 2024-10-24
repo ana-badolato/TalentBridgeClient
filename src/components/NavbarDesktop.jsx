@@ -158,10 +158,10 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
                   src={profilePicture || "/default-profile.png"} 
                   alt={username} 
                   className="profile-image"
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit:"cover" }}
                   onClick={toggleMenu}
                 />
-                <p style={{fontWeight:"600"}}>{username}</p>
+                <p style={{fontWeight:"600"}} onClick={toggleMenu}>{username}</p>
               </div>
               <span className="dropdown-icon" onClick={toggleMenu}>&#9660;</span>
 

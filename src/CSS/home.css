@@ -1,6 +1,6 @@
 .index-header {
   background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679583/rvuigbncq5sjjxplbsiw.png');
-  background-size: fill; /* Mantén la imagen en proporción */
+  background-size: cover; /* Mantén la imagen en proporción */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* No repitas la imagen */
   width: 100%; /* Asegura que ocupe todo el ancho disponible */
@@ -16,9 +16,9 @@
 }
 
 .index-header h1 {
-  font-size: 48px; /* Ajusta el tamaño del texto según tu diseño */
-  line-height: 1.2;
-  font-weight: 400;
+  font-size: 64px; /* Ajusta el tamaño del texto según tu diseño */
+  line-height: 1.7;
+  font-weight: 600;
 }
 
 .aurora {
@@ -44,8 +44,46 @@
 .index-title {
   font-size: 32px;
   font-weight: 600;
+  margin-top: 64px;
 }
 
+.index-categories {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.category-tag {
+  height: 255px;
+  min-width: 204px;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--neutral-grey-light);
+  padding: 0 12px;
+  transition: transform 0.3s ease;
+}
+
+.category-tag:hover {
+  cursor: pointer;
+  transform: translateY(-10px);
+}
+
+.category-tag img {
+ width: 100%;
+}
+
+.category-tag-content{
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--primary-blue-mid);
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 32px;
+    font-family: var(--font-main);
+}
 
 @keyframes auroraEffect {
   0% {
@@ -61,6 +99,11 @@
 }
 
 
+.main-section-index{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
 
 
 
@@ -74,5 +117,23 @@
 
   .header-index h1 {
     font-size: 1.8rem; /* Reduce el tamaño de la fuente en dispositivos móviles */
+  }
+
+  .category-tag {
+    height: auto;
+    padding-top: 16px;
+
+  }
+
+.category-tag-content p {
+  font-size: 20px;
+}
+   /* Ocultar imagen del botón de categoría en versión móvil */
+   .category-tag img {
+    display: none; /* Esconde la imagen en pantallas móviles */
+  }
+
+  .index-header h1 {
+    font-size: 32px;
   }
 }
