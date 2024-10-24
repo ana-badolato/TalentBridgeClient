@@ -130,6 +130,9 @@ header {
   box-sizing: border-box; /* Para que el ancho respete los márgenes y el padding */
   margin-top: 16px;
 }
+
+
+
 /*Lists---------------------------------------------------------*/
 
 .project-list, .event-list {
@@ -243,17 +246,21 @@ header {
 }
 
 .pagination-controls button {
-  margin: 0 10px;
-  padding: 4px 8px;
-  font-size: 12px;
-  min-width: 64px;
+  margin: 0 16px;
+  padding: 4px 0;
+  min-width: 32px;
+  height: 32px;
   background-color: var(--neutral-grey-dark);
   color: var(--neutral-white);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 14;
+  font-weight: 600;
 }
+
+
 
 .pagination-controls button:disabled {
   background-color: #f0f0f0;
@@ -262,7 +269,7 @@ header {
 
 .pagination-controls span {
   font-size: 12px;
-  color: #333;
+  color: var(--primary-blue-mid)
 }
 
 

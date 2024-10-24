@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardProject from "./CardProject.jsx";
+import Pagination from "./Pagination.jsx";
 
 function ListProjects(props) {
   const [allProjects, setAllProjects] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);  // Página actual
-  const projectsPerPage = 9;  // Número de proyectos por página
+  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const projectsPerPage = props.projectsPerPage || 9;  // Número de proyectos por página (por defecto 9)
 
   const { searchValue, categoryFilter } = props;
 
@@ -37,40 +38,30 @@ function ListProjects(props) {
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
 
-  // Funciones para cambiar de página
-  const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  // Función para cambiar de página
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
     <div>
-
+      {/* Renderizando los proyectos */}
       <div className="project-list">
-        {currentProjects.map((eachProject) => {
-          return (
-            <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject} />
-          );
-        })}
+        {currentProjects.map((eachProject) => (
+          <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject} />
+        ))}
       </div>
 
-      {/* Controles de paginación */}
-      <div className="pagination-controls">
-        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-          Previous
-        </button>
-
-        <span>Page {currentPage} of {totalPages}</span>
-
-        <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
-      </div>
+      {/* Asegurándome de llamar al componente de Paginación */}
+      <Pagination
+  currentPage={currentPage}
+  totalPages={totalPages}
+  onPageChange={onPageChange}
+  nextLabel=">"         // Usa directamente el símbolo de mayor que
+  prevLabel="<"     // Usa directamente el símbolo de menor que
+  className="custom-pagination"  // Clase CSS personalizada para la paginación
+/>
     </div>
-
   );
 }
 
