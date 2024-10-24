@@ -9,7 +9,7 @@
   background-color: var(--primary-blue-mid);
   height: 360px;
   border-radius: 25px;
-  
+  margin-top: 48px;
 }
 
 /* Contenedor del carrusel */
@@ -23,12 +23,14 @@
 .slider-track {
   display: flex;
   gap: 20px; /* Espacio entre las tarjetas */
-  width: calc(200%); /* Duplica el ancho para el efecto continuo */
-  animation: scroll 30s linear infinite; /* Animación de desplazamiento continuo */
+  flex-wrap: nowrap; /* Asegura que las tarjetas no se envuelvan */
+  animation: scroll 10s linear infinite; /* Animación de desplazamiento continuo */
+  /* En lugar de usar un ancho fijo (como 300%), lo puedes dejar flexible */
 }
 
 /* Estilo de cada tarjeta de usuario */
 .card-user-slider {
+  min-width: 400px;
   width: 400px; /* Ajustamos el tamaño de la tarjeta */
   color: var(--neutral-white);
   background-color: var(--primary-blue-dark); /* Asegúrate de que la tarjeta tenga un fondo visible */

@@ -23,7 +23,9 @@ function SectionTalent() {
 
   return (
     <div className="section-talent-container">
+      {/* Mantener la clase de título para el estilo */}
       <p className="title-talents">Our Talents</p>
+
       {allUsers.length > 0 ? (
         <div className="slider">
           <div className="slider-track">

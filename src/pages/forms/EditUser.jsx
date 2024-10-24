@@ -221,14 +221,13 @@ const handleFileUpload = async (event) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="bio">Bio <span>*</span></label>
+            <label htmlFor="bio">Bio</label>
             <textarea
               id="bio"
               name="bio"
               value={userData.bio || ""}
               onChange={handleChange}
               maxLength="250"
-              required
             />
           </div>
 
