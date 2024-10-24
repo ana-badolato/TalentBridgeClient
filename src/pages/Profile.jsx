@@ -154,7 +154,7 @@ function Profile() {
           <div className="infoButton">
             <div className="profile-info">
               <p style={{ fontSize: "35px" }}>{user.username}</p>
-              <p>{user.bio}</p>
+              <p style={{ fontStyle: "italic", padding: "10px"}}>{user.bio}</p>
               {user.skills.map((eachSkill) => (
                 <p className="tag-skills">{eachSkill}</p>
               ))}
