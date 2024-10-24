@@ -19,16 +19,14 @@ function CardProject(props) {
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   const [projectData, setProjectData] = useState(props);
   const [loading, setLoading] = useState(!props.title);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
-  const [isSuccess, setIsSuccess] = useState(false); // Estado para éxito
-  const [isApplied, setIsApplied] = useState(false); // Estado para gestionar si ya ha aplicado
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const params = useParams();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (!props.title) {
@@ -40,7 +38,7 @@ function CardProject(props) {
         } catch (error) {
           console.error("Error fetching project data:", error);
           setLoading(false);
-          navigate("/error")
+          navigate("/error");
         }
       };
       fetchProjectData();
@@ -50,12 +48,11 @@ function CardProject(props) {
   if (loading) {
     return (
       <>
-      <h4>...loading</h4>
-      <FadeLoader color="#FFBE1A" />
+        <h4>...loading</h4>
+        <FadeLoader color="#FFBE1A" />
       </>
-    )
+    );
   }
- 
 
   const {
     owner,
@@ -68,82 +65,77 @@ function CardProject(props) {
     _id,
   } = projectData;
 
-
-
   const isOwner = isLoggedIn && String(loggedUserId) === String(owner?._id);
   const isTeamMember = teamMembers.some(
     (member) => String(member._id || member) === String(loggedUserId)
   );
 
-  // Deshabilitar el botón y cambiar el texto si el usuario ha aplicado
   const isApplyDisabled = isOwner || isTeamMember || isApplied;
 
   const handleApplyClick = () => {
-    if(!isLoggedIn){
-      navigate("/login")
-      return
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
     }
-    setIsModalOpen(true); // Abrir el modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Cerrar el modal
+    setIsModalOpen(false);
   };
 
   const handleConfirmApply = async () => {
     try {
-        await service.post("/notification", {
-            from: loggedUserId, // Usuario logueado
-            to: owner._id, // Propietario del proyecto
-            project: _id, // ID del proyecto
-            message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`, // Mensaje de notificación
-            type: "action", // Tipo de notificación para acciones
-        });
-        setIsApplied(true); // Cambiar el estado a 'applied'
-        setIsSuccess(true); // Mostrar mensaje de éxito
-        setTimeout(() => {
-            setIsSuccess(false); // Resetear el estado de éxito
-            setIsModalOpen(false); // Cerrar el modal
-        }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
+      await service.post("/notification", {
+        from: loggedUserId,
+        to: owner._id,
+        project: _id,
+        message: `El usuario ${loggedUserId} quiere unirse al proyecto ${title}`,
+        type: "action",
+      });
+      setIsApplied(true);
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setIsModalOpen(false);
+      }, 1500);
     } catch (error) {
-        console.log("Error enviando la notificación", error);
-        navigate("/error")
+      console.log("Error enviando la notificación", error);
+      navigate("/error");
     }
-};
+  };
 
-const handleDeleteClick = (e) => {
-  e.preventDefault(); // Prevenir que se ejecute el comportamiento predeterminado del <Link>
-  e.stopPropagation(); // Detener la propagación del evento al contenedor <Link>
-  setIsDeleteModalOpen(true); // Abrir el modal de confirmación de eliminar
-  console.log("abriendo modal eliminar");
-};
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDeleteModalOpen(true);
+    console.log("abriendo modal eliminar");
+  };
 
-const handleConfirmDelete = async () => {
-  try {
-    console.log("modal abierto eliminar")
-    console.log("ID del proyecto que se va a eliminar:", _id); // Verificar si el ID es correcto
-    console.log("Intentando eliminar proyecto..."); // Asegurarse de que el flujo sigue
-    await service.delete(`/project/${_id}`); // Llama a la ruta DELETE
-    console.log("Proyecto eliminado con éxito");
-    setIsSuccess(true); // Mostrar mensaje de éxito
-    setTimeout(() => {
-      setIsSuccess(false);
-      setIsDeleteModalOpen(false); // Cerrar el modal
-      navigate("/user/profile"); 
-      window.location.reload();
-    }, 1500);
-  } catch (error) {
-    console.log("Error eliminando el proyecto", error);
-    navigate("/error")
-  }
-};
+  const handleConfirmDelete = async () => {
+    try {
+      console.log("modal abierto eliminar");
+      console.log("ID del proyecto que se va a eliminar:", _id);
+      console.log("Intentando eliminar proyecto...");
+      await service.delete(`/project/${_id}`);
+      console.log("Proyecto eliminado con éxito");
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setIsDeleteModalOpen(false);
+        navigate("/user/profile");
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      console.log("Error eliminando el proyecto", error);
+      navigate("/error");
+    }
+  };
 
-const handleCloseDeleteModal = () => {
-  console.log("cerramos modal eliminar")
-  setIsDeleteModalOpen(false); // Cerrar el modal de eliminación
-};
-
-
+  const handleCloseDeleteModal = () => {
+    console.log("cerramos modal eliminar");
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <div className="card-pr-container">
@@ -158,11 +150,13 @@ const handleCloseDeleteModal = () => {
                   <p>Edit</p>
                 </button>
               </Link>
-              <button className="card-pr-button" onClick={(e) => handleDeleteClick(e)}>
-  <img src={deleteImg} alt="" />
-  <p>Delete</p>
-</button>
-
+              <button
+                className="card-pr-button"
+                onClick={(e) => handleDeleteClick(e)}
+              >
+                <img src={deleteImg} alt="" />
+                <p>Delete</p>
+              </button>
             </div>
           )}
         </div>
@@ -206,7 +200,7 @@ const handleCloseDeleteModal = () => {
 
         <button
           className="button-small-blue"
-          disabled={isApplyDisabled} // Deshabilitar si ya ha aplicado
+          disabled={isApplyDisabled}
           onClick={handleApplyClick}
         >
           <div className="icon-text-element">
@@ -215,29 +209,24 @@ const handleCloseDeleteModal = () => {
               alt="Apply"
               className="icon"
             />
-            <p>{isApplied ? "Applied" : "Apply"}</p> {/* Cambiar texto a "Applied" */}
+            <p>{isApplied ? "Applied" : "Apply"}</p>
           </div>
         </button>
 
-        {/* Modal de confirmación */}
         <NotificationModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onConfirm={handleConfirmApply}
           message={`¿Quieres enviar la solicitud para unirte al proyecto ${title}?`}
-          successMessage={isSuccess ? "Solicitud enviada con éxito!" : null} // Pasar mensaje de éxito
+          successMessage={isSuccess ? "Solicitud enviada con éxito!" : null}
         />
 
-
-        {/* Modal de confirmación para eliminar */}
         <NotificationModal
           isOpen={isDeleteModalOpen}
           onClose={handleCloseDeleteModal}
           onConfirm={handleConfirmDelete}
           message={`¿Estás seguro de que quieres eliminar el proyecto ${title}?`}
           successMessage={isSuccess ? "Proyecto eliminado con éxito!" : null}
-
-          
         />
       </div>
     </div>

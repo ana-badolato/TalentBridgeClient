@@ -3,13 +3,12 @@ import "../CSS/navBar.css";
 import { useState, useEffect, useContext } from "react";
 import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
-import { AuthContext } from "../context/auth.context"; // Importamos el contexto
+import { AuthContext } from "../context/auth.context";
 
 function NavBar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const { isLoggedIn, username, profilePicture } = useContext(AuthContext); // Obtenemos isLoggedIn, username y profilePicture del contexto
+  const { isLoggedIn, username, profilePicture } = useContext(AuthContext);
 
-  // Detectar si es móvil
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -24,14 +23,14 @@ function NavBar() {
       {isMobile ? (
         <NavbarMobile
           isLoggedIn={isLoggedIn}
-          profilePicture={profilePicture} // Pasamos la imagen de perfil desde el contexto
-          username={username} // Pasamos el nombre de usuario desde el contexto
+          profilePicture={profilePicture}
+          username={username}
         />
       ) : (
         <NavbarDesktop
           isLoggedIn={isLoggedIn}
-          profilePicture={profilePicture} // Pasamos la imagen de perfil desde el contexto
-          username={username} // Pasamos el nombre de usuario desde el contexto
+          profilePicture={profilePicture}
+          username={username}
         />
       )}
     </>

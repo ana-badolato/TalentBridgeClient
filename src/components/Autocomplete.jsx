@@ -2,7 +2,7 @@ import "../App.css";
 import "../CSS/autocomplete.css";
 import { useEffect, useState } from "react";
 import service from "../services/config.js";
-import addImg from "../assets/icons/add.svg"; // Icono para añadir usuarios
+import addImg from "../assets/icons/add.svg";
 import { useNavigate } from "react-router-dom";
 
 function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
@@ -11,7 +11,7 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
   const [allUsers, setAllUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState(initialSelectedUsers); // Lista de usuarios seleccionados
+  const [selectedUsers, setSelectedUsers] = useState(initialSelectedUsers);
 
   useEffect(() => {
     getData();
@@ -39,7 +39,6 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
     setFilteredUsers(usersFiltered);
   };
 
-  // Función para mover el usuario a la lista de seleccionados
   const addUser = (user) => {
     const newSelectedUsers = [...selectedUsers, user]
     setSelectedUsers(newSelectedUsers);
@@ -49,7 +48,6 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
     updateTeamMembers(newSelectedUsers)
   };
 
-  // Función para remover el usuario de la lista de seleccionados y devolverlo a los disponibles
   const removeUser = (user) => {
     const newSelectedUsers = selectedUsers.filter((selectedUsers)=> selectedUsers.username !==user.username)
     setSelectedUsers(newSelectedUsers)
@@ -67,7 +65,6 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
         placeholder="Write their name"
       />
 
-      {/* Lista de usuarios disponibles */}
       {filteredUsers.length > 0 && (
         <div className="vertical-scroll-container">
           {filteredUsers.map((eachUser, i) => (
@@ -77,14 +74,13 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
               <img
                 src={addImg}
                 alt="Add"
-                onClick={() => addUser(eachUser)} // Mueve el usuario a la lista de seleccionados
+                onClick={() => addUser(eachUser)}
               />
             </div>
           ))}
         </div>
       )}
 
-      {/* Lista de usuarios seleccionados */}
       {selectedUsers.length > 0 && (
         <div>
           <h3>Selected Team Members:</h3>
@@ -96,7 +92,7 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
                 <img
                   src={addImg}
                   alt="Remove"
-                  onClick={() => removeUser(eachUser)} // Remueve el usuario de la lista de seleccionados
+                  onClick={() => removeUser(eachUser)}
                 />
               </div>
             ))}

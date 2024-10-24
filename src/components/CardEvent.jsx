@@ -1,7 +1,7 @@
 import "../App.css";
 import "../CSS/cardEvent.css";
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Importamos useNavigate para redirigir después de eliminar
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import service from "../services/config.js";
 
@@ -9,7 +9,7 @@ import deleteImg from "../assets/icons/delete.svg";
 import editImg from "../assets/icons/edit.svg";
 import evDateLightImg from "../assets/icons/evDateLight.svg";
 import locationLightImg from "../assets/icons/locationLight.svg";
-import NotificationModal from "../Modals/NotificationModal.jsx"; // Modal para la confirmación
+import NotificationModal from "../Modals/NotificationModal.jsx";
 import { FadeLoader } from "react-spinners";
 
 function CardEvent({
@@ -40,12 +40,12 @@ function CardEvent({
     lecturer,
   });
   const [loading, setLoading] = useState(!name);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal para confirmar unirse
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Modal para confirmar eliminar
-  const [isSuccess, setIsSuccess] = useState(false); // Estado para manejar el éxito de la solicitud
-  const [isJoinDisabled, setIsJoinDisabled] = useState(false); // Estado para deshabilitar el botón Join
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isJoinDisabled, setIsJoinDisabled] = useState(false);
 
-  const navigate = useNavigate(); // Para redirigir después de eliminar
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!name && _id) {
@@ -57,7 +57,7 @@ function CardEvent({
         } catch (error) {
           console.error("Error fetching event data:", error);
           setLoading(false);
-          navigate("/error")
+          navigate("/error");
         }
       };
       fetchEventData();
@@ -65,7 +65,8 @@ function CardEvent({
   }, [name, _id]);
 
   useEffect(() => {
-    const isOwner = isLoggedIn && String(loggedUserId) === String(eventData.owner?._id);
+    const isOwner =
+      isLoggedIn && String(loggedUserId) === String(eventData.owner?._id);
     const isAlreadyAttendee = eventData.atendees?.some(
       (atendeeId) => String(atendeeId) === String(loggedUserId)
     );
@@ -74,18 +75,22 @@ function CardEvent({
     );
 
     setIsJoinDisabled(
-      isOwnProfile || isAlreadyAttendee || isLecturer || isOwner || eventData.capacityCounter >= eventData.capacity
+      isOwnProfile ||
+        isAlreadyAttendee ||
+        isLecturer ||
+        isOwner ||
+        eventData.capacityCounter >= eventData.capacity
     );
   }, [eventData, loggedUserId, isOwnProfile, isLoggedIn]);
 
-  if (loading){
+  if (loading) {
     return (
       <>
-      <h4>...loading</h4>
-      <FadeLoader color="#FFBE1A" />
+        <h4>...loading</h4>
+        <FadeLoader color="#FFBE1A" />
       </>
-    )
-  } 
+    );
+  }
 
   const {
     posterImage: eventImage,
@@ -100,30 +105,26 @@ function CardEvent({
     capacityCounter: eventCapacityCounter,
   } = eventData;
 
-  // Función para manejar la solicitud de unirse al evento
   const handleJoinClick = () => {
-    if(!isLoggedIn){
-      navigate("/login")
-      return
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
     }
-    setIsModalOpen(true); // Mostrar el modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Cerrar el modal
+    setIsModalOpen(false);
   };
 
   const handleConfirmJoin = async () => {
     try {
-      // Agregar al usuario como asistente del evento
       await service.put(`/event/${_id}/join`, {
         atendeeId: loggedUserId,
       });
 
-      // Incrementar capacityCounter en el servidor
       await service.patch(`/event/${_id}/incrementcapacitycounter`);
 
-      // Enviar una notificación informativa al owner del evento
       await service.post("/notification", {
         from: loggedUserId,
         to: eventOwner._id,
@@ -132,44 +133,42 @@ function CardEvent({
         type: "info",
       });
 
-      setIsSuccess(true); // Éxito
-      setIsJoinDisabled(true); // Deshabilitar el botón Join
+      setIsSuccess(true);
+      setIsJoinDisabled(true);
       setTimeout(() => {
         setIsSuccess(false);
         setIsModalOpen(false);
-        
       }, 1500);
     } catch (error) {
       console.error("Error al unirse al evento", error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
-  // Función para eliminar un evento
   const handleDeleteClick = (e) => {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del <Link>
-    e.stopPropagation(); // Detener la propagación del evento
-    setIsDeleteModalOpen(true); // Abrir el modal de confirmación
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDeleteModalOpen(true);
   };
 
   const handleConfirmDelete = async () => {
     try {
       await service.delete(`/event/${_id}`);
-      setIsSuccess(true); // Mostrar mensaje de éxito
+      setIsSuccess(true);
       setTimeout(() => {
         setIsSuccess(false);
-        setIsDeleteModalOpen(false); // Cerrar el modal
-        navigate("/user/profile"); 
-        window.location.reload(); // Recargar la página
+        setIsDeleteModalOpen(false);
+        navigate("/user/profile");
+        window.location.reload();
       }, 1500);
     } catch (error) {
       console.error("Error eliminando el evento", error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
   const handleCloseDeleteModal = () => {
-    setIsDeleteModalOpen(false); // Cerrar el modal de eliminación
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -223,17 +222,16 @@ function CardEvent({
             </div>
           </div>
         </Link>
-        {/* Botón de unirse */}
+
         <button
           className="button-small-yellow"
-          disabled={isJoinDisabled} // Botón deshabilitado
+          disabled={isJoinDisabled}
           onClick={handleJoinClick}
         >
-          {isSuccess ? "Unido" : "Join"} {/* Mostrar mensaje si ya se unió */}
+          {isSuccess ? "Unido" : "Join"}
         </button>
       </div>
 
-      {/* Modal de confirmación para unirse */}
       <NotificationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -242,7 +240,6 @@ function CardEvent({
         successMessage={isSuccess ? "Te has unido con éxito al evento" : null}
       />
 
-      {/* Modal de confirmación para eliminar */}
       <NotificationModal
         isOpen={isDeleteModalOpen}
         onClose={handleCloseDeleteModal}

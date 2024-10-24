@@ -55,25 +55,40 @@ function Footer() {
               />
             </a>
           </div>
-          </div>
-         {/* Redes Sociales Globales */}
+        </div>
+
         <div className="socialMedia">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={xIcon} alt="X (Twitter)" style={{ width: "20px" }} />
           </a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://tiktok.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={tiktokIcon} alt="TikTok" style={{ width: "20px" }} />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={linkedinicon} alt="LinkedIn" style={{ width: "20px" }} />
           </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={githubIcon} alt="GitHub" style={{ width: "20px" }} />
           </a>
         </div>
-        </div>
       </div>
-  
+    </div>
   );
 }
 

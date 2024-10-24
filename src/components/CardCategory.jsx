@@ -8,8 +8,8 @@ import service from "../services/config.js";
 import CardProject from "./CardProject";
 import CallToAction from "./CallToAction.jsx";
 import CardEvent from "./CardEvent";
-import NoContentBox from "./NoContentBox";  // Importamos el componente NoContentBox
-import Pagination from "./Pagination";  // Importamos el componente de paginación
+import NoContentBox from "./NoContentBox";
+import Pagination from "./Pagination";
 import { AuthContext } from "../context/auth.context.jsx";
 
 // images
@@ -37,12 +37,11 @@ function CardCategory() {
   const [categoryProjects, setCategoryProjects] = useState([]);
   const [categoryEvents, setCategoryEvents] = useState([]);
 
-  // Paginación para proyectos y eventos
   const [currentProjectPage, setCurrentProjectPage] = useState(1);
-  const projectsPerPage = 6;  // Mostramos 6 proyectos por página
+  const projectsPerPage = 6;
 
   const [currentEventPage, setCurrentEventPage] = useState(1);
-  const eventsPerPage = 8;  // Mostramos 8 eventos por página
+  const eventsPerPage = 8;
 
   useEffect(() => {
     getData();
@@ -50,10 +49,14 @@ function CardCategory() {
 
   const getData = async () => {
     try {
-      const responseProjects = await service.get(`/project/category/${params.category}`);
+      const responseProjects = await service.get(
+        `/project/category/${params.category}`
+      );
       setCategoryProjects(responseProjects.data);
 
-      const responseEvents = await service.get(`/event/category/${params.category}`);
+      const responseEvents = await service.get(
+        `/event/category/${params.category}`
+      );
       setCategoryEvents(responseEvents.data);
     } catch (error) {
       console.log(error);
@@ -65,7 +68,6 @@ function CardCategory() {
     navigate(`/category/${category}`);
   };
 
-  // Mapeo de imágenes de cabecera
   const headerImages = {
     "Technology & Innovation": techHeader,
     "Sustainability & Environment": sustainabilityHeader,
@@ -78,17 +80,23 @@ function CardCategory() {
   const headerImage = headerImages[params.category] || null;
   const { isLoggedIn } = useContext(AuthContext);
 
-  // Lógica de paginación para proyectos
-  const totalProjectPages = Math.ceil(categoryProjects.length / projectsPerPage);
+  const totalProjectPages = Math.ceil(
+    categoryProjects.length / projectsPerPage
+  );
   const indexOfLastProject = currentProjectPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = categoryProjects.slice(indexOfFirstProject, indexOfLastProject);
+  const currentProjects = categoryProjects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
 
-  // Lógica de paginación para eventos
   const totalEventPages = Math.ceil(categoryEvents.length / eventsPerPage);
   const indexOfLastEvent = currentEventPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = categoryEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+  const currentEvents = categoryEvents.slice(
+    indexOfFirstEvent,
+    indexOfLastEvent
+  );
 
   return (
     <div className="container-page">
@@ -108,7 +116,6 @@ function CardCategory() {
         </section>
 
         <div className="index-categories">
-          {/* Botones de categorías */}
           <button
             onClick={() => handleOnClick("Technology & Innovation")}
             className="category-tag"
@@ -124,7 +131,8 @@ function CardCategory() {
             className="category-tag"
           >
             <p className="category-tag-content">
-              Sustainability &<span style={{ display: "block" }}>Environment</span>
+              Sustainability &
+              <span style={{ display: "block" }}>Environment</span>
             </p>
             <img src={sustainability} />
           </button>
@@ -170,7 +178,10 @@ function CardCategory() {
           </button>
         </div>
 
-        <hr className="hr-thin-light" style={{ marginBottom: "24px", marginTop: "48px" }} />
+        <hr
+          className="hr-thin-light"
+          style={{ marginBottom: "24px", marginTop: "48px" }}
+        />
         <div className="filter-group half-width-search">
           <SearchBar
             searchValue={searchValue}
@@ -178,10 +189,9 @@ function CardCategory() {
           />
         </div>
 
-        {/* Sección de proyectos */}
         <h2 className="index-title">Projects</h2>
         {currentProjects.length === 0 ? (
-          <NoContentBox />  // Mostramos NoContentBox si no hay proyectos
+          <NoContentBox />
         ) : (
           <div className="main-section-index">
             <section style={{ marginTop: "32px" }} className="project-list">
@@ -200,10 +210,9 @@ function CardCategory() {
           </div>
         )}
 
-        {/* Sección de eventos */}
         <h2 className="index-title">Events</h2>
         {currentEvents.length === 0 ? (
-          <NoContentBox />  // Mostramos NoContentBox si no hay eventos
+          <NoContentBox />
         ) : (
           <div className="main-section-index">
             <section style={{ marginTop: "32px" }} className="event-list">

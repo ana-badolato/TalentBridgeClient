@@ -7,7 +7,7 @@ function Filter(props) {
     "Art & Creativity",
     "Health & Wellness",
     "Education & Training",
-    "Community & Social Impact"
+    "Community & Social Impact",
   ];
 
   const handleSelect = (event) => {
@@ -17,11 +17,7 @@ function Filter(props) {
   return (
     <div className="filter-container">
       <label htmlFor="">Filter by Category</label>
-      <select
-        className="filter"
-        value={categoryFilter}
-        onChange={handleSelect}
-      >
+      <select className="filter" value={categoryFilter} onChange={handleSelect}>
         {categories.map((eachCategory, i) => (
           <option key={i} value={eachCategory}>
             {eachCategory}
