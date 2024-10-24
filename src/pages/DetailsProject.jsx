@@ -4,9 +4,11 @@ import { useNavigate, useParams } from "react-router-dom"
 import CardUserSmall from "../components/CardUserSmall";
 import CardProject from "../components/CardProject"
 import CardEventSmall from "../components/CardEventSmall";
-
+import "../App.css"
+import "../CSS/detailsProject.css"
 // images:
 import dateImg from "../assets/icons/date.svg";
+import applyImg from "../assets/icons/apply.svg";
 import teamMembersImg from "../assets/icons/teamMembers.svg";
 import { FadeLoader } from "react-spinners";
 
@@ -62,12 +64,17 @@ function DetailsProject() {
   }
 
   return (
-    <div>
+    <div className="container-page">
+      <div className="container-main-content">
+      <img src={projectDetails.image} alt="project-image" className="project-img"/>
+      
+      <div className="details-project-main">
 
-      <img src={projectDetails.image} alt="project-image" style={{width: "200px"}}/>
-      <p>{projectDetails.title}</p>
-      <p>{projectDetails.mainObjective}</p>
-      <p>{projectDetails.category}</p>
+
+      <section className="pr-details-left">
+      <p className="index-title" style={{marginTop:"16px"}}>{projectDetails.title}</p>
+      <p className="main-objective">{projectDetails.mainObjective}</p>
+      <p className="tag-xl">{projectDetails.category}</p>
 
       <div className="card-pr-section-properties">
           <div className="icon-text-element-pr">
@@ -83,57 +90,18 @@ function DetailsProject() {
             </p>
           </div>
         </div>
-      <p>{projectDetails.description}</p>
+      <p className="description">{projectDetails.description}</p>
 
-      <section>
-        <div>
-          <h3>Meet our Team</h3>
-        </div>
 
-        <div>
-          {/* Renderizamos el Owner primero */}
-          <p>owner:</p>
-          {projectDetails.owner && (
-              <div className="owner-container">
-                {console.log("ID del Owner:", projectDetails.owner.username)} {/* Imprimir el ID del owner */}
-                <CardUserSmall 
-                  profilePicture={projectDetails.owner.profilePicture} 
-                  username={projectDetails.owner.username} 
-                  bio={projectDetails.owner.bio}
-                  className="owner-card"
-                />
-          </div>
-
-        )}
-          <p>Collaborators:</p>
-          {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
-            projectDetails.teamMembers.map((eachMember) => {
-              return (
-                <CardUserSmall key={eachMember._id} {...eachMember}/>
-              );
-            })
-          ) : (
-            <p>No team members assigned yet.</p>
-          )}
-        </div>
+      <button className="apply-button">
+        <img src={applyImg} alt="" />
+        <p>Apply</p>
+      </button>
       </section>
 
-      <section>
+      <section className="pr-details-right">
         <div>
-          <h3>Projects you might also like:</h3>
-        </div>
-        <div>
-          {relatedProjects.length > 0 ? (relatedProjects.map((eachProject, i)=> (
-            <CardProject key={eachProject._id} {...eachProject}/>
-          ))):(
-            <p>No related projects found</p>
-          )}
-        </div>
-      </section>
-
-    <section>
-        <div>
-          <h3>Events related with this project</h3>
+          <h3 className="details-section">Events related with this project</h3>
         </div>
 
         <div>
@@ -147,6 +115,55 @@ function DetailsProject() {
         </div>
       </section>
 
+</div>
+
+
+      <section>
+        <div>
+          <h3 className="details-section">Meet our Team</h3>
+        </div>
+
+        <div className="project-people">
+          {/* Renderizamos el Owner primero */}
+          {projectDetails.owner && (
+              <div className="owner-container" style={{border:"2px solid #ffbe1a", borderRadius:"10px"}}>
+                {console.log("ID del Owner:", projectDetails.owner.username)} {/* Imprimir el ID del owner */}
+                <CardUserSmall 
+                  profilePicture={projectDetails.owner.profilePicture} 
+                  username={projectDetails.owner.username} 
+                  bio={projectDetails.owner.bio}
+                  className="owner-card"
+                />
+              </div>
+
+        )}
+          {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
+            projectDetails.teamMembers.map((eachMember) => {
+              return (
+                <CardUserSmall key={eachMember._id} {...eachMember} />
+              );
+            })
+          ) : (
+            <p>No team members assigned yet.</p>
+          )}
+        </div>
+      </section>
+
+      <section>
+        <div>
+          <h3 className="details-section">Projects you might also like</h3>
+        </div>
+        <div className="project-list">
+          {relatedProjects.length > 0 ? (relatedProjects.map((eachProject, i)=> (
+            <CardProject key={eachProject._id} {...eachProject}/>
+          ))):(
+            <p>No related projects found</p>
+          )}
+        </div>
+      </section>
+
+    
+      </div>
     </div>
   )
 }
