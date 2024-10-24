@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function CardUserSmall(props) {
   return (
-    <div className="card-user">
+    <div className="card-user-small">
       <Link to={`/user/profile/${props.username}`}>
         <div className="card-user-top">
           <div>

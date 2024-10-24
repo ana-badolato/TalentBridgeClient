@@ -296,3 +296,10 @@
     position: relative;
   }
 }
+
+/* Card event Small --------------------------------*/
+.card-event-small{
+  background-color: var(--neutral-grey-light);
+  padding: 16px;
+  border-radius: 10px;
+}

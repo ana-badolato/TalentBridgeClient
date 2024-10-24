@@ -97,3 +97,31 @@
   }
 }
 
+/* Card user small ----------------------------------------*/
+
+.card-user-small {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 8px;
+  flex: 1 1 calc(25% - 20px); /* 4 tarjetas por fila, restando el gap */
+  max-width: calc(25% - 20px); /* Limitar el ancho a 25% */
+  min-width: 324.75px; /* Limitar el tamaño mínimo de las tarjetas para evitar que se encojan */
+  height: 128px;
+  background-color: var(--neutral-grey-extralight);
+  box-sizing: border-box; /* Asegurar que el padding y el borde no afecten el ancho */
+}
+
+.details-section{
+  text-align: left;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--primary-blue-mid);
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.project-people{
+  margin: 0;
+ 
+}
