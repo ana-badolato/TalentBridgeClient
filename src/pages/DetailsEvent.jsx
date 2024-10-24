@@ -6,7 +6,10 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardUserSmall from "../components/CardUserSmall.jsx";
 import { FadeLoader } from "react-spinners";
+import applyImg from "../assets/icons/apply.svg";
 
+import evDateImg from "../assets/icons/evDate.svg";
+import locationImg from "../assets/icons/location.svg";
 
 function DetailsEvent() {
   const navigate = useNavigate()
@@ -51,53 +54,69 @@ function DetailsEvent() {
     <div className="container-page">
       <div className="container-main-content">
         {/* Detalles del evento */}
-        <img src={eventData.posterImage} alt="" className="details-img" />
-        <h1>{eventData.name}</h1>
-        <h2>{eventData.mainObjective}</h2>
-        <p>{eventData.description}</p>
-        <p>{eventData.date}</p>
-        <p>{eventData.time}</p>
-        <p>{eventData.address}</p>
-        <p>{eventData.category}</p>
-        <p>Capacity: {eventData.capacityCounter} / {eventData.capacity}</p>   
-        <p>{eventData.price === 0 ? "Free" : `$${eventData.price}`}</p>   
+        <img src={eventData.posterImage} alt="" className="project-img" />
 
+        <div className="details-project-main">
+          
+          <section className="pr-details-left" >
+        
+        <p className="details-section">{eventData.name}</p>
+        <p className="main-objective" style={{marginTop:"-16px"}}>{eventData.mainObjective}</p>
+        
+
+
+        <div className="card-ev-properties" style={{marginTop:"8px"}}>
+                <div className="icon-text-element" >
+                  <img src={evDateImg} alt="" />
+                  <p>{new Date(eventData.date).toLocaleDateString()} <span> | </span>{eventData.time}</p>
+                </div>
+                <p>|</p>
+                <div className="icon-text-element">
+                  <img src={locationImg} alt="" />
+                  <p className="card-ev-address-overlay">{eventData.address}</p>
+                </div>
+                <p>|</p>
+                <p style={{fontWeight:"600"}}>Capacity <span style={{marginLeft:"8px", fontWeight:"400"}}> {eventData.capacityCounter} / {eventData.capacity}
+                  </span></p>  
+                  <p>|</p> 
+                <p>{eventData.price === 0 ? "Free" : `$${eventData.price}`}</p>   
+              </div>
+
+        <p className="tag-xl" style={{marginBottom:"8px"}}>{eventData.category}</p>
+        <p style={{marginBottom:"8px", fontSize:"18px"}}>{eventData.description}</p>
+       
+        <button className="apply-button">
+        <img src={applyImg} alt="" />
+        <p>Join</p>
+      </button>
+        </section>
+
+    <section className="pr-details-right" style={{marginTop:"32px"}}>
         {/* Verificamos que relatedProjects exista antes de renderizar */}
         {eventData.relatedProjects && (
           <CardProject {...eventData.relatedProjects} />
         )}
+    </section>
+          </div>
 
+          <div>
+          <h3 className="details-section">Meet our Team</h3>
+        </div>
+    <div className="project-people">
         {/* Renderizamos el Owner primero */}
         {eventData.owner && (
-          <div className="owner-container">
+          <div className="owner-container" style={{border:"2px solid #ffbe1a", borderRadius:"10px"}}>
              {console.log("ID del Owner:", eventData.owner.username)} {/* Imprimir el ID del owner */}
             <CardUserSmall 
               profilePicture={eventData.owner.profilePicture} 
               username={eventData.owner.username} 
               bio={eventData.owner.bio}
-
               className="owner-card"
-
             />
-      
           </div>
-
         )}
-
-{eventData.lecturer && eventData.lecturer.length > 0 && (
-  <div className="lecturer-container">
-    {console.log("Lecturer data:", eventData.lecturer)} {/* Verificar qué datos tienes aquí */}
-    {eventData.lecturer.map((lecturer, index) => (
-      <CardUserSmall 
-        key={index} 
-        profilePicture={lecturer.profilePicture} 
-        username={lecturer.username} 
-        bio={lecturer.bio}
-        className="lecturer-card"
-      />
-    ))}
   </div>
-)}
+
         
       </div>
     </div>

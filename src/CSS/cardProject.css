@@ -1,5 +1,13 @@
 .card-pr-container {
   flex: 1 1 400px; /*ancho base para las cards */
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+  position: relative; /* Necesario para el posicionamiento de los botones */
+}
+
+.card-pr-container-column {
+  flex: 1 1 400px; /*ancho base para las cards */
   max-width: 32%;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
