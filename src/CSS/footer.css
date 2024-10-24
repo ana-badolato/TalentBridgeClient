@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background-color: var(--neutral-grey-light); /* Aquí ajustas el color de fondo que desees */
+  background-color: var(--neutral-grey-light); 
   height: 150px;
   display: flex;
   align-items: center;
@@ -9,11 +9,11 @@
 .footer-content {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Para alinear verticalmente el contenido */
+  align-items: center; 
   padding: 16px;
-  max-width: 1440px; /* Limitar el ancho máximo del contenido */
-  margin: 0 auto; /* Centrar el contenido horizontalmente */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible dentro del contenedor */
+  max-width: 1440px; 
+  margin: 0 auto; 
+  width: 100%; 
 }
 
 .developers {
@@ -31,7 +31,7 @@
   gap: 12px;
 }
 
-/* Estilos solo para pantallas pequeñas */
+
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;

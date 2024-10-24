@@ -12,17 +12,17 @@
 }
 
 .pr-details-left {
-  flex-grow: 3;  /* Ocupará 3 partes del espacio */
-  flex-basis: 75%;  /* Establece un tamaño base del 75% */
+  flex-grow: 3;  
+  flex-basis: 75%;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: flex-start; /* Asegura que los elementos de la izquierda se alineen al principio */
+  align-items: flex-start; 
 }
 
 .pr-details-right {
-  flex-grow: 1;  /* Ocupará 1 parte del espacio */
-  flex-basis: 25%;  /* Establece un tamaño base del 25% */
+  flex-grow: 1; 
+  flex-basis: 25%;  
 }
 
 .main-objective {
@@ -74,21 +74,19 @@
 
 .button-container {
   display: flex;
-  justify-content: flex-start; /* Alinea el botón a la izquierda */
-  margin-left: 0; /* Elimina cualquier margen que pueda estar empujando el botón */
+  justify-content: flex-start; 
+  margin-left: 0;
 }
-
-
 
 .project-people {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 16px; /* Espacio entre el owner y los colaboradores */
+  gap: 16px;
 }
 
 .owner-container {
-  flex-basis: 25%; /* El owner ocupará el 25% del espacio */
+  flex-basis: 25%; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,14 +95,14 @@
 }
 
 .collaborators-container {
-  flex-basis: 75%; /* Los colaboradores ocuparán el 75% restante */
+  flex-basis: 75%; 
   display: flex;
-  flex-wrap: wrap; /* Permite que los colaboradores se ajusten si hay muchos */
-  gap: 16px; /* Espacio entre las tarjetas de los colaboradores */
+  flex-wrap: wrap; 
+  gap: 16px; 
 }
 
 .collaborator-card {
-  flex-basis: calc(33.33% - 16px); /* Cada colaborador ocupará un tercio del espacio restante */
+  flex-basis: calc(33.33% - 16px); 
   max-width: 200px;
   display: flex;
   align-items: center;
@@ -113,6 +111,6 @@
 
 @media (max-width: 768px) {
   .owner-container, .collaborator-card {
-    flex-basis: 100%; /* En pantallas pequeñas, ambos ocuparán todo el ancho */
+    flex-basis: 100%;
   }
 }

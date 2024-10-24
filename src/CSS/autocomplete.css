@@ -1,59 +1,54 @@
-/* Contenedor de la lista de miembros del equipo */
 .vertical-scroll-container {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  border: 1px solid #ccc; /* Borde consistente con el resto del formulario */
+  border: 1px solid #ccc; 
   margin-top: 10px;
-  width: 100%; /* Cambiado a 100% para que coincida con el ancho de otros inputs */
-  max-height: 150px; /* Altura máxima */
-  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  width: 100%; 
+  max-height: 150px; 
+  overflow-y: auto; 
   background-color: var(--neutral-white);
   gap: 8px;
 }
 
-/* Customización de la barra de desplazamiento */
 .vertical-scroll-container::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra de desplazamiento */
+  width: 8px; 
 }
 
 .vertical-scroll-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color de la barra de desplazamiento */
-  border-radius: 4px; /* Bordes redondeados para la barra */
+  background-color: #888; 
+  border-radius: 4px; 
 }
 
 .vertical-scroll-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Color de la barra cuando el usuario hace hover */
+  background-color: #555; 
 }
 
-/* Estilo para cada miembro del equipo */
 .user-item {
   display: flex;
   align-items: center;
-  padding: 8px 12px; /* Espaciado mejorado */
-  background-color: var(--neutral-grey-light); /* Color de fondo */
-  margin: 4px 0; /* Espaciado vertical entre chips */
-  border-radius: 25px; /* Bordes redondeados */
-  font-size: 14px; /* Tamaño de fuente ajustado */
+  padding: 8px 12px; 
+  background-color: var(--neutral-grey-light); 
+  margin: 4px 0; 
+  border-radius: 25px; 
+  font-size: 14px; 
   font-weight: 500;
-  gap: 8px; /* Espaciado entre elementos */
-  cursor: pointer; /* Hace que toda la chip sea clickeable */max-height: 40px;
+  gap: 8px; 
+  cursor: pointer; max-height: 40px;
   transition: background-color 0.2s ease;
 }
 
 .user-item:hover {
-  background-color: #e0e0e0; /* Cambia el color cuando pasas el ratón por encima */
+  background-color: #e0e0e0; 
 }
 
-/* Estilo para la imagen de perfil */
 .profilePictureImg {
-  width: 30px; /* Tamaño ajustado */
-  height: 30px; /* Tamaño ajustado */
-  border-radius: 50%; /* Imagen circular */
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50%;
 }
 
-/* Estilo para el icono de acción */
 .action-icon {
-  width: 16px; /* Tamaño del icono de acción */
-  height: 16px; /* Tamaño del icono de acción */
+  width: 16px;
+  height: 16px;
 }

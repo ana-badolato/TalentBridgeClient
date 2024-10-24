@@ -21,7 +21,6 @@
   margin-bottom: 32px;
 }
 
-
 .call-container-nocontent{
   background-color: var(--neutral-grey-light);
   min-height: 360px;
@@ -44,18 +43,18 @@
 
 @media (max-width: 768px) {
   .call-text h2 {
-    font-size: 24px; /* Tamaño de fuente más pequeño en móviles */
+    font-size: 24px; 
     margin-bottom: 12px;
   }
 
   .call-text .call-subtitle {
-    font-size: 14px; /* Tamaño de subtítulo más pequeño en móviles */
+    font-size: 14px; 
     margin-bottom: 16px;
   }
 
   .button-large-blue {
-    font-size: 14px; /* Tamaño de texto del botón más pequeño en móviles */
+    font-size: 14px; 
     padding: 10px 14px;
-    width: 160px; /* Ajuste del ancho del botón en móviles */
+    width: 160px; 
   }
 }

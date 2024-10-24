@@ -1,32 +1,30 @@
 import { useEffect, useState } from "react";
 import "../App.css";
-import "../CSS/sectionTalent.css"; // Asegúrate de tener aquí los estilos del carrusel
-import CardUserSlider from "../components/CardUserSlider.jsx"; // Importa la tarjeta individual
-import service from "../services/config.js"; // Servicio para hacer las llamadas a la API
+import "../CSS/sectionTalent.css";
+import CardUserSlider from "../components/CardUserSlider.jsx";
+import service from "../services/config.js";
 import { useNavigate } from "react-router-dom";
 
 function SectionTalent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     getData();
   }, []);
 
-  // Función para obtener la lista de usuarios desde el backend
   const getData = async () => {
     try {
       const response = await service.get("/user/");
-      setAllUsers(response.data); // Guardar los usuarios en el estado
+      setAllUsers(response.data);
     } catch (error) {
       console.log(error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
   return (
     <div className="section-talent-container">
-      {/* Mantener la clase de título para el estilo */}
       <p className="title-talents">Our Talents</p>
 
       {allUsers.length > 0 ? (
@@ -35,14 +33,14 @@ function SectionTalent() {
             {allUsers.map((user) => (
               <CardUserSlider key={user._id} {...user} />
             ))}
-            {/* Duplicamos el contenido para crear el efecto continuo */}
+
             {allUsers.map((user) => (
               <CardUserSlider key={`${user._id}-duplicate`} {...user} />
             ))}
           </div>
         </div>
       ) : (
-        <p>Cargando usuarios...</p> // Mensaje mientras se cargan los usuarios
+        <p>Loading talents...</p>
       )}
     </div>
   );
