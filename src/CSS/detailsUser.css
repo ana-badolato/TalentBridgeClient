@@ -37,6 +37,8 @@
   border-radius: 50%;
   padding: 40px;
   width: 350px;
+  height: 350px;
+  object-fit: cover;
 }
 
 .profile-info p{
@@ -45,6 +47,7 @@
 
 .infoButton button{
   margin-bottom: 10px;
+  margin-right: auto;
 }
 
 .tag-skills {
@@ -74,6 +77,8 @@
 
   .profile-picture {
     width: 200px; /* Reducir el tamaño de la imagen */
+    height: 200px;
+    object-fit: cover;
     padding: 20px; /* Ajustar el padding para que la imagen no sea demasiado grande */
     margin: 0 auto; /* Asegurar que la imagen esté centrada */
   }
@@ -98,6 +103,8 @@
 
   .profile-picture {
     width: 250px; /* Reducir un poco el tamaño de la imagen para tablets */
+    height: 250px;
+    object-fit: cover;
     padding: 30px;
   }
 
