@@ -33,7 +33,7 @@ function Footer() {
               />
             </a>
           </div>
-<p>|</p>
+
           <div className="dev">
             <p>Núria Soley</p>
             <a

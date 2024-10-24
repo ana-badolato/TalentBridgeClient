@@ -1,0 +1,49 @@
+
+.not-found-main{
+  background-image: url("../assets//images/notfound.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 75vh;
+  color: #F8F9FC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Espaciado entre los elementos */
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.not-found-container h3 {
+  margin-top: 20px;
+}
+
+.lower-content {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén apilados */
+  align-items: center; /* Centra el contenido horizontalmente */
+  margin-bottom: 50px; /* Espacio extra al final para separarlo del footer */
+}
+
+.lower-content p {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.lower-content button {
+  margin-top: 20px; /* Añade espacio entre el botón y los párrafos */
+}
+
+.not-found-text{
+  background-color: rgba(17, 15, 54, 0.7);
+  padding: 16px;
+  border-radius: 10px;
+}
+

@@ -1,23 +1,26 @@
 import { Link } from "react-router-dom"
+import errorImg from "../assets/images/error.svg"
 
 function Error() {
   return (
-    <div>
-      <section>
-        <h3>Oops, something went wrong!</h3>
-      </section>
+    <div className="not-found-main" style={{backgroundImage: `url(${errorImg})`}}>
+      <div className="not-found-container">
+        <div>
+        <h3 className="details-section" style={{  color: "#F8F9FC", fontSize: "40px"}}>Oops, something went wrong!</h3>
+        </div>
 
-      <section>
+        <div className="lower-content">
+          <div className="not-found-text">
         <p>Even the best projects face a few bumps.</p>
         <p>Let's get you back to discovering new talent and opportunities</p>
-      </section>
+        </div>
 
-      <section>
         <Link to="/">
-          <button>Back to home</button>
+          <button className="button-large-yellow">Back to home</button>
         </Link>
-      </section>
-
+        </div>
+        
+      </div>
     </div>
   )
 }
