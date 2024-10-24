@@ -15,16 +15,16 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 400px; /* Aumentamos el ancho del modal */
+  width: 400px; 
   text-align: center;
-  position: relative; /* Para asegurar que el contenido esté contenido */
+  position: relative; 
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: space-between; /* Separar botones */
+  justify-content: space-between; 
   margin-top: 20px;
-  width: 100%; /* Asegura que los botones ocupen todo el ancho */
+  width: 100%; 
 }
 
 .button-small-yellow {
@@ -46,8 +46,8 @@
 .success-message {
   color: green;
   font-weight: bold;
-  margin-top: 20px; /* Aumentar espacio superior para separación */
-  font-size: 16px;  /* Aumentar el tamaño de la fuente para mayor visibilidad */
+  margin-top: 20px; 
+  font-size: 16px; 
 }
 
 .span-counter span{
@@ -55,12 +55,11 @@
   color: rgb(255, 153, 0);
 }
 
-/* Asegurarnos de que el área de notificaciones esté en fila */
 .notifications-menu {
-  display: flex;              /* Alineamos los hijos en fila */
-  align-items: center;        /* Centra verticalmente el contenido */
-  cursor: pointer;            /* Hacer el área clicable */
-  gap: 8px;                   /* Añadir espacio entre el texto y el icono */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
 }
 
 .notifications-label {

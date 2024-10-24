@@ -3,12 +3,12 @@
   flex-direction: column;
   padding: 16px;
   border-radius: 8px;
-  flex: 1 1 calc(25% - 20px); /* 4 tarjetas por fila, restando el gap */
-  max-width: calc(25% - 20px); /* Limitar el ancho a 25% */
-  min-width: 324.75px; /* Limitar el tamaño mínimo de las tarjetas para evitar que se encojan */
+  flex: 1 1 calc(25% - 20px);
+  max-width: calc(25% - 20px); 
+  min-width: 324.75px;
   height: 280px;
   background-color: var(--neutral-grey-extralight);
-  box-sizing: border-box; /* Asegurar que el padding y el borde no afecten el ancho */
+  box-sizing: border-box; 
 }
 
 .owner-card{
@@ -38,25 +38,23 @@
   font-weight: 300;
   margin-top: 4px;
   line-height: 1.2;
-
-  /* Propiedades para elipsis en 3 líneas */
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limitar a 3 líneas con prefijo */
-  line-clamp: 3; /* Propiedad estándar para compatibilidad */
+  -webkit-line-clamp: 3; 
+  line-clamp: 3; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .card-user-skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px; /* Espacio entre las chips */
+  gap: 8px;
   margin-top: 12px;
-  max-height: calc(2 * 24px + 8px); /* Limitar a 2 filas de tags, ajustando la altura según las tags (24px es la altura de cada tag + 8px de gap) */
-  overflow: hidden; /* Ocultar las tags que no caben en las dos líneas */
-  position: relative; /* Si quieres agregar un indicador de overflow como '...' */
+  max-height: calc(2 * 24px + 8px);
+  overflow: hidden; 
+  position: relative;
 }
-
 
 .chip {
   background-color:#cbced4;
@@ -74,42 +72,36 @@
 }
 
 .button-container {
-  margin-top: auto; /* Empuja el botón hacia abajo */
+  margin-top: auto; 
   display: flex;
-  justify-content: flex-end; /* Alinea el botón a la derecha */
-  padding-top: 16px; /* Espacio entre el contenido y el botón */
+  justify-content: flex-end; 
+  padding-top: 16px; 
 }
 
 
-
-/* Responsividad */
 @media (max-width: 1024px) {
   .card-user {
-    flex: 1 1 calc(50% - 20px); /* 2 tarjetas por fila en pantallas medianas */
+    flex: 1 1 calc(50% - 20px); 
     max-width: calc(50% - 20px);
   }
 }
 
 @media (max-width: 768px) {
   .card-user {
-    flex: 1 1 100%; /* 1 tarjeta por fila en pantallas pequeñas */
+    flex: 1 1 100%;
     max-width: 100%;
   }
 }
-
-/* Card user small ----------------------------------------*/
 
 .card-user-small {
   display: flex;
   flex-direction: column;
   padding: 16px;
   border-radius: 8px;
-
- 
-  width: 330px; /* Limitar el tamaño mínimo de las tarjetas para evitar que se encojan */
+  width: 330px; 
   height: 128px;
   background-color: var(--neutral-grey-extralight);
-  box-sizing: border-box; /* Asegurar que el padding y el borde no afecten el ancho */
+  box-sizing: border-box; 
 }
 
 .details-section{
@@ -123,5 +115,4 @@
 
 .project-people{
   margin: 0;
- 
 }

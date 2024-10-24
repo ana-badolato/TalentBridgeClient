@@ -4,7 +4,6 @@ const service = axios.create({
   baseURL: `${import.meta.env.VITE_SERVER_URL}/api`
 })
 
-// añade el token a todas las llamadas que se hagan con este servicio de axios
 service.interceptors.request.use((config) => {
 
   const storedToken = localStorage.getItem("authToken")

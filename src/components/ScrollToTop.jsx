@@ -5,7 +5,7 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Mueve la ventana al principio de la página
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return null;

@@ -1,22 +1,21 @@
 .card-pr-container {
-  flex: 1 1 400px; /*ancho base para las cards */
+  flex: 1 1 400px; 
   max-width: 100%;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
-  position: relative; /* Necesario para el posicionamiento de los botones */
+  position: relative; 
 }
 
 .card-pr-container-column {
-  flex: 1 1 400px; /*ancho base para las cards */
+  flex: 1 1 400px; 
   max-width: 32%;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
-  position: relative; /* Necesario para el posicionamiento de los botones */
+  position: relative; 
 }
 
-/* Control del tamaño de la imagen */
 .card-pr-img {
-  will-change: transform; /* Optimiza la transformación */
+  will-change: transform;
   width: 100%;
   object-fit: cover;
   height: 240px;
@@ -34,7 +33,6 @@
   border-radius: 10px;
 }
 
-/* Estilos para los botones (Edit/Delete) sobre la imagen */
 .card-pr-section-buttons {
   position: absolute;
   top: 8px;
@@ -64,7 +62,6 @@
   background-color: rgba(248, 249, 252, 1);
 }
 
-/* Ajustes para el contenido inferior (perfil y botón Apply) */
 .card-pr-section-bottom {
   display: flex;
   justify-content: space-between;
@@ -76,17 +73,17 @@
   font-weight: 600;
   margin: 8px 0 16px 0;
   text-overflow: ellipsis;
-  overflow: hidden; /* Oculta cualquier texto que sobrepase el límite */
-  white-space: normal; /* Permite que el texto rompa en varias líneas */
-  display: -webkit-box; /* Establece un contenedor flexible */
-  -webkit-line-clamp: 2; /* Limita el contenido a 2 líneas (para WebKit) */
-  line-clamp: 2; /* Añade la propiedad estándar */
-  -webkit-box-orient: vertical; /* Orienta el contenedor en forma vertical */
-  line-height: 1.2em; /* Define la altura de la línea */
+  overflow: hidden; 
+  white-space: normal; 
+  display: -webkit-box; 
+  -webkit-line-clamp: 2; 
+  line-clamp: 2; 
+  -webkit-box-orient: vertical; 
+  line-height: 1.2em; 
   height: calc(
     1.2em * 2
-  ); /* Fija la altura a 2 líneas, incluso si el contenido es más corto */
-  max-height: calc(1.2em * 2); /* Limita la altura a 2 líneas */
+  ); 
+  max-height: calc(1.2em * 2); 
 }
 
 .card-pr-category {
@@ -101,17 +98,17 @@
   font-weight: 300;
   margin-top: 16px;
   text-overflow: ellipsis;
-  overflow: hidden; /* Oculta el contenido que exceda el límite */
-  white-space: normal; /* Permite que el texto ocupe varias líneas */
-  display: -webkit-box; /* Establece un contenedor flexible */
-  -webkit-line-clamp: 3; /* Limita el contenido a 3 líneas (para WebKit) */
-  line-clamp: 3; /* Añade la propiedad estándar */
-  -webkit-box-orient: vertical; /* Orienta el contenedor en forma vertical */
-  line-height: 1.3em; /* Define la altura de cada línea */
+  overflow: hidden; 
+  white-space: normal; 
+  display: -webkit-box; 
+  -webkit-line-clamp: 3; 
+  line-clamp: 3; 
+  -webkit-box-orient: vertical; 
+  line-height: 1.3em; 
   height: calc(
     1.3em * 3
-  ); /* Fija la altura a 3 líneas, incluso si el contenido es más corto */
-  max-height: calc(1.3em * 3); /* Limita la altura a 3 líneas */
+  ); 
+  max-height: calc(1.3em * 3);
 }
 
 .card-pr-section-profile {
@@ -159,18 +156,16 @@
   height: 16px;
 }
 
-/* Ajuste en pantallas medianas: 2 cards por fila */
 @media (max-width: 1024px) {
   .card-pr-container {
-    flex: 1 1 45%; /* Ajuste para 2 cards por fila */
+    flex: 1 1 45%; 
     max-width: 45%;
   }
 }
 
-/* Ajuste en pantallas pequeñas/móviles: 1 card por fila */
 @media (max-width: 768px) {
   .card-pr-container {
-    flex: 1 1 100%; /* 1 card por fila */
+    flex: 1 1 100%; 
     max-width: 100%;
   }
 }

@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(3 * 300px + 2 * 16px); /* Ancho de 3 cards + gaps */
-  height: 300px; /* Alto equivalente a una card */
+  width: calc(3 * 300px + 2 * 16px); 
+  height: 300px; 
   background-color: var(--neutral-grey-light);
   border-radius: 10px;
 }
@@ -17,10 +17,10 @@
 
 .add-project-container,
 .add-event-container {
-  display: block; /* Asegura que ocupe todo el ancho de su contenedor */
+  display: block; 
   margin-top: 24px;
-  width: 100%; /* Ocupa todo el ancho del contenedor */
-  text-align: center; /* Alinea el botón en el centro */
+  width: 100%;
+  text-align: center; 
 }
 
 .card-profile{
@@ -67,42 +67,42 @@
   margin-bottom: px;
 }
 
-/* Media query para pantallas pequeñas */
+
 @media (max-width: 768px) {
   .card-profile {
-    display: block; /* Cambiar a block para que los elementos se apilen */
-    text-align: center; /* Centrar el contenido */
-    height: auto; /* Ajustar la altura automáticamente */
+    display: block; 
+    text-align: center; 
+    height: auto; 
   }
 
   .profile-picture {
-    width: 200px; /* Reducir el tamaño de la imagen */
+    width: 200px; 
     height: 200px;
     object-fit: cover;
-    padding: 20px; /* Ajustar el padding para que la imagen no sea demasiado grande */
-    margin: 0 auto; /* Asegurar que la imagen esté centrada */
+    padding: 20px; 
+    margin: 0 auto; 
   }
 
   .profile-info {
-    margin-top: 20px; /* Añadir espacio entre la imagen y la info */
+    margin-top: 20px; 
   }
 
   .tag-skills {
-    max-width: 100%; /* Ajustar las habilidades para que ocupen el ancho completo */
+    max-width: 100%;
   }
 }
 
-/* Media query para pantallas de tablet (entre 768px y 1024px) */
+
 @media (min-width: 768px) and (max-width: 1024px) {
   .card-profile {
-    display: flex; /* Mantener el diseño en filas */
-    flex-direction: column; /* Colocar imagen y texto uno encima del otro */
-    align-items: center; /* Centrar los elementos verticalmente */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     height: auto;
   }
 
   .profile-picture {
-    width: 250px; /* Reducir un poco el tamaño de la imagen para tablets */
+    width: 250px; 
     height: 250px;
     object-fit: cover;
     padding: 30px;
@@ -110,14 +110,14 @@
 
   .profile-info {
     margin-top: 15px;
-    text-align: center; /* Asegurar que el texto esté centrado en tablets */
+    text-align: center; 
   }
 
   .tag-skills {
-    max-width: 100%; /* Hacer que las habilidades ocupen todo el ancho en tablets */
+    max-width: 100%;
   }
 
   .infoButton {
-    padding-top: 15px; /* Ajustar el espaciado del botón */
+    padding-top: 15px; 
   }
 }

@@ -1,5 +1,3 @@
-// Pagination.jsx
-import React from "react";
 
 function Pagination({ currentPage, totalPages, onPageChange, nextLabel = "Next", prevLabel = "Previous", className }) {
   const goToNextPage = () => {

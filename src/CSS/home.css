@@ -1,12 +1,12 @@
 .index-header {
   background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679583/rvuigbncq5sjjxplbsiw.png');
-  background-size: cover; /* Mantén la imagen en proporción */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* No repitas la imagen */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-  height: 50vh; /* Ajusta la altura a un valor proporcional. Esto puede cambiar según la proporción que desees. */
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 50vh; 
   max-width: 100vw;
-  min-height: 400px; /* Un valor mínimo para la altura, por ejemplo */
+  min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,22 +16,22 @@
 }
 
 .index-header h1 {
-  font-size: 64px; /* Ajusta el tamaño del texto según tu diseño */
+  font-size: 64px; 
   line-height: 1.7;
   font-weight: 600;
 }
 
 .aurora {
-  font-weight: 600; /* Aseguramos que se aplique el font-weight correctamente */
+  font-weight: 600;
   position: relative;
   font-size: inherit;
   color: white;
   background: linear-gradient(
     90deg, 
     var(--accent-yellow), 
-    #ff9d00, /* Naranja cálido */
-    #ff7b00, /* Naranja fuerte */
-    #ffdf80, /* Amarillo suave */
+    #ff9d00, 
+    #ff7b00, 
+    #ffdf80, 
     var(--accent-yellow)
   );
   background-size: 200%;
@@ -95,7 +95,7 @@
 }
 
 .break-line {
-  display: block; /* Esto actúa como un salto de línea */
+  display: block;
 }
 
 
@@ -106,17 +106,14 @@
 }
 
 
-
-
-/* Cambiar la imagen de fondo en versión móvil */
 @media screen and (max-width: 768px) {
   .header-index {
-    background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679582/rz9t4m4uozs5eyawefw3.png'); /* Imagen para móviles */
-    height: 60vh; /* Ocupa menos espacio en la pantalla móvil */
+    background-image: url('https://res.cloudinary.com/drqiultmd/image/upload/v1729679582/rz9t4m4uozs5eyawefw3.png');
+    height: 60vh;
   }
 
   .header-index h1 {
-    font-size: 1.8rem; /* Reduce el tamaño de la fuente en dispositivos móviles */
+    font-size: 1.8rem; 
   }
 
   .category-tag {
@@ -128,9 +125,9 @@
 .category-tag-content p {
   font-size: 20px;
 }
-   /* Ocultar imagen del botón de categoría en versión móvil */
+
    .category-tag img {
-    display: none; /* Esconde la imagen en pantallas móviles */
+    display: none;
   }
 
   .index-header h1 {

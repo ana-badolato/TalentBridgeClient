@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Espaciado entre los elementos */
+  justify-content: space-between;
   flex-grow: 1;
   padding: 20px;
 }
@@ -27,9 +27,9 @@
 
 .lower-content {
   display: flex;
-  flex-direction: column; /* Asegura que los elementos estén apilados */
-  align-items: center; /* Centra el contenido horizontalmente */
-  margin-bottom: 50px; /* Espacio extra al final para separarlo del footer */
+  flex-direction: column; 
+  align-items: center; 
+  margin-bottom: 50px; 
 }
 
 .lower-content p {
@@ -38,7 +38,7 @@
 }
 
 .lower-content button {
-  margin-top: 20px; /* Añade espacio entre el botón y los párrafos */
+  margin-top: 20px; 
 }
 
 .not-found-text{
