@@ -35,6 +35,7 @@ function CardUser(props) {
           </div>
       </Link>
       <div className="button-container">
+            <Link to={`/sendemail/${props.username}`}>
       <button className="button-small-blue" >
           <div className="icon-text-element">
             <img
@@ -45,6 +46,7 @@ function CardUser(props) {
             <p>Send Message</p>
           </div>
         </button>
+            </Link>
         </div>
     </div>
   );

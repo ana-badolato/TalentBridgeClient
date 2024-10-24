@@ -23,6 +23,7 @@ import DetailsProject from './pages/DetailsProject'
 import Footer from './components/Footer'
 import CardCategory from './components/CardCategory'
 import NotFound from './pages/NotFound'
+import EmailForm from './pages/forms/EmailForm'
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/user" element={<AllUsers/>}/>
         <Route path="/profile/edit" element={<EditUser />} />
         <Route path="/category/:category" element={<CardCategory/>}/>
+        <Route path="/sendemail/:userid" element={<EmailForm/>}/>
 
         {/*Project routes*/}        
         <Route path="/project" element={<AllProjects/>}/>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.21.0",
+    "@sendgrid/mail": "^8.1.4",
     "axios": "^1.7.7",
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
