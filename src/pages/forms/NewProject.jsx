@@ -70,32 +70,6 @@ function NewProject() {
     }));
   };
 
-  // const handleImageUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", "s9t7p5jy");
-
-  //   // setUploadingImage(true);
-
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.cloudinary.com/v1_1/dvfrtqmex/image/upload",
-  //       formData
-  //     );
-  //     const imageUrl = response.data.secure_url;
-  //     setProjectData((prevData) => ({
-  //       ...prevData,
-  //       image: imageUrl,
-  //     }));
-  //     // setUploadingImage(false);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     // setUploadingImage(false);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,7 +115,7 @@ function NewProject() {
   };
 
   return (
-    <div className="new-project-container">
+    <div className="new-project-container" style={{height:"80vh"}}>
       <form onSubmit={handleSubmit} className="project-form">
         <h3>New Project</h3>
         <div className="image-upload">
@@ -254,7 +228,8 @@ function NewProject() {
           type="button"
           className="button-large-grey"
           onClick={handleGoToProfile}
-        >
+          style={{width:"100%"}}>
+        
           Back to Profile
         </button>
 
