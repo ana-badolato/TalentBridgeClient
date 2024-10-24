@@ -167,7 +167,8 @@ function EditEvent() {
       setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
-      }, 3000);
+        navigate(`/user/profile`);
+      }, 1500);
     } catch (error) {
       console.log(error);
       navigate("/error")
@@ -248,10 +249,7 @@ function EditEvent() {
           <input name="price" type="number" value={eventData.price} onChange={handleChange} />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="">Add a lecturer</label>
-          <input type="text" />
-        </div>
+
 
         <div className="form-group">
           <label htmlFor="">Related project:</label>
@@ -263,17 +261,31 @@ function EditEvent() {
               </option>
             ))}
           </select>
-          <p className="required-fields">(<span>*</span>) Required Fields</p>
+          <p style={{marginTop:"8px"}} className="required-fields">(<span>*</span>) Required Fields</p>
         </div>
 
         <button type="submit" className="submit-button">Save changes</button>
         <button
-          type="button"
-          className="button-large-grey" // Clase para el botón de retroceso
-          onClick={handleGoToProfile}
-        >
-          Back to Profile
-        </button>
+  type="button"
+  className="button-large-grey"
+  onClick={handleGoToProfile}
+  style={{
+    width: "100%", // El botón ocupará todo el ancho
+    backgroundColor: "#bdbdbd", // Gris claro
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    marginTop: "16px",
+    color: "#fff", // Texto blanco
+    textAlign: "center", // Centrar el texto horizontalmente
+    display: "flex", // Usamos flexbox para centrar
+    justifyContent: "center", // Centramos horizontalmente
+    alignItems: "center", // Centramos verticalmente
+  }}
+>
+  Back to Profile
+</button>
         {showConfirmation && (
           <div className="confirmation-message">
             Event edited successfully!
