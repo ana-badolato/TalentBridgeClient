@@ -97,7 +97,7 @@ function EditUser() {
         setShowConfirmation(false);
         navigate("/user/profile"); // Navegar a la página del perfil
         window.location.reload();  // Refrescar la página
-      }, 3000);
+      }, 1500);
     } catch (error) {
       console.log("Error updating profile:", error);
       navigate("/error");
@@ -257,20 +257,26 @@ function EditUser() {
               Save Changes
             </button>
             <button
-              type="button"
-              onClick={handleGoToProfile}
-              style={{
-                width: "100%", // El botón gris ocupará todo el ancho
-                backgroundColor: "#bdbdbd", // Gris claro
-                padding: "10px 20px",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                marginTop: "16px",
-              }}
-            >
-              Back to Profile
-            </button>
+  type="button"
+  className="button-large-grey"
+  onClick={handleGoToProfile}
+  style={{
+    width: "100%", // El botón ocupará todo el ancho
+    backgroundColor: "#bdbdbd", // Gris claro
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    marginTop: "16px",
+    color: "#fff", // Texto blanco
+    textAlign: "center", // Centrar el texto horizontalmente
+    display: "flex", // Usamos flexbox para centrar
+    justifyContent: "center", // Centramos horizontalmente
+    alignItems: "center", // Centramos verticalmente
+  }}
+>
+  Back to Profile
+</button>
           </div>
 
           {showConfirmation && (

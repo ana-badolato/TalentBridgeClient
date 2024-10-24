@@ -100,7 +100,8 @@ function NewProject() {
       setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
-      }, 3000);
+        navigate(`/user/profile`);
+      }, 1500);
     } catch (error) {
       console.log(error);
       navigate("/error")
@@ -217,7 +218,7 @@ function NewProject() {
           <Autocomplete updateTeamMembers={updateTeamMembers} />
         </div>
 
-        <p className="required-fields">
+        <p className="required-fields" style={{marginBottom:"8px"}}>
           (<span>*</span>) Required Fields
         </p>
         <button type="submit" className="submit-button">

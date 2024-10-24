@@ -9,6 +9,7 @@
   max-height: 150px; /* Altura máxima */
   overflow-y: auto; /* Habilita el desplazamiento vertical */
   background-color: var(--neutral-white);
+  gap: 8px;
 }
 
 /* Customización de la barra de desplazamiento */
@@ -36,7 +37,7 @@
   font-size: 14px; /* Tamaño de fuente ajustado */
   font-weight: 500;
   gap: 8px; /* Espaciado entre elementos */
-  cursor: pointer; /* Hace que toda la chip sea clickeable */
+  cursor: pointer; /* Hace que toda la chip sea clickeable */max-height: 40px;
   transition: background-color 0.2s ease;
 }
 

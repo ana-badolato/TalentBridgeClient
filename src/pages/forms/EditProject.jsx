@@ -139,7 +139,8 @@ function EditProject() {
       setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
-      }, 3000);
+        navigate(`/user/profile`);
+      }, 1500);
     } catch (error) {
       console.log("Error updating project:", error);
       navigate("/error")
@@ -278,17 +279,33 @@ function EditProject() {
 
         <div className="button-container">
           {/* Botón para guardar los cambios */}
-          <button type="submit" className="button-large-blue">
-            Save Changes
-          </button>
-          {/* Botón para volver al perfil sin guardar */}
-          <button
-            type="button"
-            className="button-large-grey"
-            onClick={handleGoToProfile}
-          >
-            Back to Profile
-          </button>
+          
+
+          <button type="submit" className="submit-button">
+          Save changes
+        </button>
+
+        <button
+  type="button"
+  className="button-large-grey"
+  onClick={handleGoToProfile}
+  style={{
+    width: "100%", // El botón ocupará todo el ancho
+    backgroundColor: "#bdbdbd", // Gris claro
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    marginTop: "16px",
+    color: "#fff", // Texto blanco
+    textAlign: "center", // Centrar el texto horizontalmente
+    display: "flex", // Usamos flexbox para centrar
+    justifyContent: "center", // Centramos horizontalmente
+    alignItems: "center", // Centramos verticalmente
+  }}
+>
+  Back to Profile
+</button>
         </div>
 
         {/* Mensaje de confirmación al guardar los cambios */}
