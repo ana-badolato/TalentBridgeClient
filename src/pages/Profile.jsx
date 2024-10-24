@@ -20,11 +20,11 @@ function Profile() {
   const [showEventType, setShowEventType] = useState("owner");
 
   // Estados para la paginación
-  const [projectPage, setProjectPage] = useState(1); // Página actual de proyectos
-  const projectsPerPage = 6; // Proyectos por página
+  const [projectPage, setProjectPage] = useState(1);
+  const projectsPerPage = 6;
 
-  const [eventPage, setEventPage] = useState(1); // Página actual de eventos
-  const eventsPerPage = 8; // Eventos por página
+  const [eventPage, setEventPage] = useState(1);
+  const eventsPerPage = 8;
 
   const params = useParams();
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
@@ -58,7 +58,6 @@ function Profile() {
     );
   }
 
-  // Filtrar proyectos donde el usuario es owner o collaborator
   const ownerProjects = allUserProjects.filter(
     (project) => String(project.owner._id || project.owner) === String(user._id)
   );
@@ -66,7 +65,6 @@ function Profile() {
     project.teamMembers.includes(user._id)
   );
 
-  // Filtros de eventos
   const ownerEvents = allUserEvents.filter(
     (event) => String(event.owner._id || event.owner) === String(user._id)
   );
@@ -85,7 +83,6 @@ function Profile() {
 
   const isOwnProfile = isLoggedIn && loggedUserId === user._id;
 
-  // Paginación para proyectos
   const currentProjects = showOwnerProjects
     ? ownerProjects.slice(
         (projectPage - 1) * projectsPerPage,
@@ -100,7 +97,6 @@ function Profile() {
     ? Math.ceil(ownerProjects.length / projectsPerPage)
     : Math.ceil(collaboratorProjects.length / projectsPerPage);
 
-  // Paginación para eventos
   const filteredEvents = getFilteredEvents();
   const currentEvents = filteredEvents.slice(
     (eventPage - 1) * eventsPerPage,
@@ -108,7 +104,6 @@ function Profile() {
   );
   const totalEventPages = Math.ceil(filteredEvents.length / eventsPerPage);
 
-  // Calcular si el usuario debe tener el botón "Join" deshabilitado
   const isEventJoinDisabled = (event) => {
     const isOwner =
       String(event.owner._id || event.owner) === String(loggedUserId);
@@ -121,7 +116,6 @@ function Profile() {
     return isOwner || isLecturer || isAttendee;
   };
 
-  // Funciones para cambiar de página
   const goToNextProjectPage = () => {
     if (projectPage < totalProjectPages) setProjectPage(projectPage + 1);
   };
@@ -141,7 +135,6 @@ function Profile() {
   return (
     <div className="container-page">
       <div className="container-main-content">
-        {/* User Info */}
         <section className="card-profile">
           <div>
             <img
@@ -150,39 +143,42 @@ function Profile() {
               alt="User Profile"
             />
           </div>
-          
+
           <div className="infoButton">
             <div className="profile-info">
               <p style={{ fontSize: "35px" }}>{user.username}</p>
-              <p style={{ fontStyle: "italic", padding: "10px"}}>{user.bio}</p>
+              <p style={{ fontStyle: "italic", padding: "10px" }}>{user.bio}</p>
               {user.skills.map((eachSkill) => (
                 <p className="tag-skills">{eachSkill}</p>
               ))}
             </div>
 
-          {/* Mostrar botón condicionalmente */}
-          {isOwnProfile ? (
-            <Link to="/profile/edit">
-              <button className="button-large-yellow" style={{ marginTop: "50px"}}>
+            {isOwnProfile ? (
+              <Link to="/profile/edit">
+                <button
+                  className="button-large-yellow"
+                  style={{ marginTop: "50px" }}
+                >
+                  <div className="icon-text-element">
+                    <img src={edtitImg} alt="Edit" />
+                    <p>Edit Profile</p>
+                  </div>
+                </button>
+              </Link>
+            ) : (
+              <button
+                className="button-large-yellow"
+                style={{ marginTop: "50px" }}
+              >
                 <div className="icon-text-element">
-                  <img src={edtitImg} alt="Edit" />
-                  <p>Edit Profile</p>
+                  <img src={messageImg} alt="" />
+                  <p>Send Message</p>
                 </div>
               </button>
-            </Link>
-          ) : (
-            <button className="button-large-yellow" style={{ marginTop: "50px"}}> 
-              <div className="icon-text-element">
-                <img src={messageImg} alt="" />
-                <p>Send Message</p>
-              </div>
-            </button>
-          )}
+            )}
           </div>
-
         </section>
 
-        {/* Projects Section */}
         <section>
           <h3 className="details-section">Projects</h3>
           <div className="tabs">
@@ -210,7 +206,6 @@ function Profile() {
               />
             ))}
 
-            {/* Paginación de Proyectos (solo si hay más de una página) */}
             {totalProjectPages > 1 && (
               <div className="pagination-controls">
                 <button
@@ -231,7 +226,6 @@ function Profile() {
               </div>
             )}
 
-            {/* Botón "Add Project" */}
             {isOwnProfile && (
               <Link to="/newproject">
                 <div className="add-project-container">
@@ -247,7 +241,6 @@ function Profile() {
           </div>
         </section>
 
-        {/* Events Section */}
         <section>
           <h3 className="details-section">Events</h3>
           <div className="tabs">
@@ -282,7 +275,6 @@ function Profile() {
               />
             ))}
 
-            {/* Paginación de Eventos (solo si hay más de una página) */}
             {totalEventPages > 1 && (
               <div className="pagination-controls">
                 <button
@@ -303,7 +295,6 @@ function Profile() {
               </div>
             )}
 
-            {/* Botón "Add Event" */}
             {isOwnProfile && (
               <Link to="/newevent">
                 <div className="add-event-container">

@@ -68,7 +68,10 @@ function AllEvents() {
         <ListEvents searchValue={searchValue} categoryFilter={categoryFilter} />
 
         {/* Renderiza el mapa de eventos */}
-        <h2 className="index-title" style={{ marginTop: "-16px", marginBottom: "32px" }}>
+        <h2
+          className="index-title"
+          style={{ marginTop: "-16px", marginBottom: "32px" }}
+        >
           Explore events by location
         </h2>
         <EventMap events={events} />
@@ -80,7 +83,6 @@ function AllEvents() {
           className="buttons-fixed"
           style={{ position: "fixed", bottom: "64px", right: "32px" }}
         >
-          {/* Botón "Add Project" */}
           <Link to="/newproject">
             <div className="add-project-container">
               <button
@@ -99,7 +101,6 @@ function AllEvents() {
             </div>
           </Link>
 
-          {/* Botón "Add Event" */}
           <Link to="/newevent">
             <div className="add-event-container">
               <button

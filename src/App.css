@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /*LeafLet*/
-@import url('https://unpkg.com/leaflet/dist/leaflet.css');
+@import url("https://unpkg.com/leaflet/dist/leaflet.css");
 
 :root {
   --primary-blue-extra-light: #c4c9d6;
@@ -44,10 +44,10 @@ ol {
 }
 
 /* Common elements----------------------------------------------------------*/
-/* CSS para el mapa */
+
 .leaflet-container {
-  height: 500px; /* Ajusta la altura como desees */
-  width: 100%; /* Ocupa todo el ancho disponible */
+  height: 500px;
+  width: 100%;
 }
 
 header {
@@ -65,17 +65,12 @@ header {
   gap: 4px;
 }
 
-
-
-
-/*Contenedor genérico de la página*/
 .container-page {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Estructura específica del contenido */
 .container-main-content {
   width: 100%;
   max-width: 1440px;
@@ -85,8 +80,6 @@ header {
   margin-bottom: 96px;
   min-height: 100vh;
 }
-
-
 
 .tabs {
   display: flex;
@@ -115,33 +108,31 @@ header {
   margin: 16px 0;
 }
 
-.hr-thin{
+.hr-thin {
   border: none;
   border-top: 0.5px solid #afadc7;
   margin: 16px 0;
 }
 
-.hr-thin-blue{
+.hr-thin-blue {
   border: none;
   border-top: 0.5px solid var(--primary-blue-extra-light);
   margin: 16px 0;
 }
 
-
 .hr-thin-light-yellow {
   border: none;
   border-top: 0.5px solid var(--accent-yellow);
-  width: 100%; /* El <hr> ocupa todo el ancho del contenedor */
-  margin: 0; /* Elimina márgenes adicionales */
-  box-sizing: border-box; /* Para que el ancho respete los márgenes y el padding */
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
   margin-top: 16px;
 }
 
-
-
 /*Lists---------------------------------------------------------*/
 
-.project-list, .event-list {
+.project-list,
+.event-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -152,21 +143,20 @@ header {
   padding: 0px;
 }
 
-
 .user-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Espacio entre las tarjetas */
-  max-width: 1440px; /* Limitar el ancho máximo del contenedor */
-  margin: 0 auto; /* Centrar el contenido */
+  gap: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
   margin-top: 32px;
   padding: 0px;
-  justify-content: flex-start; /* Alinear las tarjetas desde el inicio */
+  justify-content: flex-start;
 }
 /*Buttons----------------------------------------------------------------*/
 .button-large-yellow {
-  display: block; /* Asegura que se comporte como un bloque */
-  margin: 0 auto; /* Centra horizontalmente el botón */
+  display: block;
+  margin: 0 auto;
   padding: 12px 16px;
   background-color: var(--accent-yellow);
   border: none;
@@ -181,13 +171,14 @@ header {
   cursor: pointer;
 }
 
-.button-large-yellow p, .button-large-blue p{
+.button-large-yellow p,
+.button-large-blue p {
   font-weight: 500;
 }
 
 .button-large-blue {
-  display: block; /* Asegura que se comporte como un bloque */
-  margin: 0 auto; /* Centra horizontalmente el botón */
+  display: block;
+  margin: 0 auto;
   padding: 12px 16px;
   background-color: var(--primary-blue-mid);
   color: var(--neutral-white);
@@ -200,8 +191,8 @@ header {
 }
 
 .button-large-grey {
-  display: block; /* Asegura que se comporte como un bloque */
-  margin: 0 auto; /* Centra horizontalmente el botón */
+  display: block;
+  margin: 0 auto;
   padding: 12px 16px;
   background-color: var(--neutral-grey-dark);
   color: var(--neutral-white);
@@ -243,12 +234,11 @@ header {
   cursor: pointer;
 }
 
-
 /* Controles de paginación */
 .pagination-controls {
   display: flex;
-  justify-content: center; /* Centra los botones de paginación */
-  margin-top: 20px; /* Espacio adicional sobre los botones de paginación */
+  justify-content: center;
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -267,8 +257,6 @@ header {
   font-weight: 600;
 }
 
-
-
 .pagination-controls button:disabled {
   background-color: #f0f0f0;
   color: #b0b0b0;
@@ -276,102 +264,92 @@ header {
 
 .pagination-controls span {
   font-size: 12px;
-  color: var(--primary-blue-mid)
+  color: var(--primary-blue-mid);
 }
 
-.custom-pagination{
+.custom-pagination {
   margin-top: 96px;
 }
 
-/* Contenedores generales */
-.search-container, .filter-container {
-  flex: 1 1 48%; /* Ambos contenedores ocuparán el 48% del ancho en pantallas grandes */
-  min-width: 25%; /* Ambos inputs deben tener un ancho mínimo del 25% */
+.search-container,
+.filter-container {
+  flex: 1 1 48%;
+  min-width: 25%;
 }
 
 /* Contenedor de la barra de búsqueda */
 .searchBar {
-  position: relative; /* Posicionamiento relativo para la lupa */
-  width: 100%; /* Ocupa todo el ancho del contenedor */
+  position: relative;
+  width: 100%;
 }
 
 /* Input de búsqueda */
 .searchBar input {
-  width: 100%; /* El input ocupa todo el ancho disponible dentro del contenedor */
-  padding: 10px 40px 10px 16px; /* Padding para que el icono no se superponga con el texto */
+  width: 100%;
+  padding: 10px 40px 10px 16px;
   font-size: 14px;
-  box-sizing: border-box; /* Asegura que el padding no añada más ancho */
+  box-sizing: border-box;
 }
 
-/* Icono de lupa dentro del input */
 .search-icon {
   position: absolute;
-  right: 16px; /* Posiciona la lupa a la derecha dentro del input */
+  right: 16px;
   top: 50%;
-  transform: translateY(-50%); /* Centra verticalmente el icono dentro del input */
+  transform: translateY(-50%);
   height: 20px;
   width: 20px;
 }
 
 /* Estilo del select de filtro */
 .filter-container select {
-  width: 100%; /* El select ocupa todo el ancho del contenedor */
+  width: 100%;
   padding: 10px 16px;
   font-size: 14px;
   box-sizing: border-box;
 }
 
-/* Flexbox para la distribución de los contenedores */
 .filter-group {
   display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva fila si no caben */
-  gap: 16px; /* Espacio entre los inputs */
+  flex-wrap: wrap;
+  gap: 16px;
   margin-bottom: 32px;
 }
 
-/* Clase específica para ajustar el ancho de la barra de búsqueda en AllUsers */
 .half-width-search {
-  width: 49%; /* Ajusta el ancho al 50% */
-
+  width: 49%;
 }
 
 .half-width-search .searchBar {
-  width: 100%; /* Asegura que el input dentro del contenedor ocupe el 100% del contenedor */
+  width: 100%;
 }
 
-/* Estilos globales que se mantienen */
-.search-container, .filter-container {
-  flex: 1 1 48%; /* Otros contenedores seguirán comportándose igual */
-  min-width: 25%; /* Ancho mínimo del 25% */
+.search-container,
+.filter-container {
+  flex: 1 1 48%;
+  min-width: 25%;
 }
-
-
-
 
 .leaflet-container {
-  border-radius: 15px; /* Aplica el borde redondeado a todo el contenedor de Leaflet */
-  overflow: hidden; /* Evita que el contenido se desborde fuera del contenedor redondeado */
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .filter-group {
-    flex-wrap: nowrap; /* Mantén los elementos en fila en pantallas grandes */
+    flex-wrap: nowrap;
   }
 }
 
 @media (max-width: 768px) {
   .filter-group {
-    flex-wrap: wrap; /* Permite que los inputs se muevan a una nueva fila en pantallas pequeñas */
+    flex-wrap: wrap;
   }
 
   .filter-group .filter {
-    flex: 1 1 100%; /* En pantallas pequeñas, los inputs ocupan el 100% del ancho */
+    flex: 1 1 100%;
   }
 
   body {
-    font-size: 14px; /* Tamaño de fuente en pantallas móviles */
+    font-size: 14px;
   }
 }
-
-
-

@@ -28,19 +28,19 @@ function EditProject() {
   });
 
   const [isLoading, setIsLoading] = useState(true);
-  // const [uploadingImage, setUploadingImage] = useState(false);
+
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   //! aquí empieza código cloudinary
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  // below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
+
   const handleFileUpload = async (event) => {
     if (!event.target.files[0]) {
       return;
     }
 
-    setIsUploading(true); // Iniciar la animación de carga
+    setIsUploading(true);
 
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
@@ -51,16 +51,15 @@ function EditProject() {
         uploadData
       );
 
-      const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
-      setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+      const uploadedImageUrl = response.data.imageUrl;
+      setImageUrl(uploadedImageUrl);
 
-      // Aquí es donde actualizas el estado de userData con la URL de la imagen
       setProjectData((prevData) => ({
         ...prevData,
-        image: uploadedImageUrl, // Actualiza el campo de la imagen en el proyecto
+        image: uploadedImageUrl,
       }));
 
-      setIsUploading(false); // Detener la animación de carga
+      setIsUploading(false);
     } catch (error) {
       console.error("Error subiendo la imagen:", error);
       navigate("/error");
@@ -71,7 +70,6 @@ function EditProject() {
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        //console.log("Fetched project data:", params._id);
         const response = await service.get(`/project/${params.projectid}`);
         setProjectData({
           title: response.data.title || "",
@@ -83,12 +81,11 @@ function EditProject() {
           teamMembers: response.data.teamMembers || [],
         });
 
-        // Pasar los miembros del equipo existentes a Autocomplete
         updateTeamMembers(response.data.teamMembers || []);
         setIsLoading(false);
       } catch (error) {
         console.log("Error fetching project data:", error);
-        navigate("/error")
+        navigate("/error");
       }
     };
 
@@ -105,32 +102,6 @@ function EditProject() {
     }));
   };
 
-  // const handleImageUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", "s3e3p4eg");
-
-  //   setUploadingImage(true);
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.cloudinary.com/v1_1/drqiultmd/image/upload",
-  //       formData
-  //     );
-  //     const imageUrl = response.data.secure_url;
-  //     setProjectData((prevData) => ({
-  //       ...prevData,
-  //       image: imageUrl,
-  //     }));
-  //     setUploadingImage(false);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     setUploadingImage(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -143,7 +114,7 @@ function EditProject() {
       }, 1500);
     } catch (error) {
       console.log("Error updating project:", error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
@@ -155,17 +126,17 @@ function EditProject() {
   const updateTeamMembers = (selectedUsers) => {
     setProjectData((prevData) => ({
       ...prevData,
-      teamMembers: selectedUsers, // Actualiza el array de miembros del equipo en el estado del proyecto
+      teamMembers: selectedUsers,
     }));
   };
 
   if (isLoading) {
     return (
       <>
-      <h4>...loading</h4>
-      <FadeLoader color="#FFBE1A" />
+        <h4>...loading</h4>
+        <FadeLoader color="#FFBE1A" />
       </>
-    )
+    );
   }
 
   return (
@@ -278,37 +249,33 @@ function EditProject() {
         </div>
 
         <div className="button-container">
-          {/* Botón para guardar los cambios */}
-          
-
           <button type="submit" className="submit-button">
-          Save changes
-        </button>
+            Save changes
+          </button>
 
-        <button
-  type="button"
-  className="button-large-grey"
-  onClick={handleGoToProfile}
-  style={{
-    width: "100%", // El botón ocupará todo el ancho
-    backgroundColor: "#bdbdbd", // Gris claro
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    marginTop: "16px",
-    color: "#fff", // Texto blanco
-    textAlign: "center", // Centrar el texto horizontalmente
-    display: "flex", // Usamos flexbox para centrar
-    justifyContent: "center", // Centramos horizontalmente
-    alignItems: "center", // Centramos verticalmente
-  }}
->
-  Back to Profile
-</button>
+          <button
+            type="button"
+            className="button-large-grey"
+            onClick={handleGoToProfile}
+            style={{
+              width: "100%",
+              backgroundColor: "#bdbdbd",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              marginTop: "16px",
+              color: "#fff",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Back to Profile
+          </button>
         </div>
 
-        {/* Mensaje de confirmación al guardar los cambios */}
         {showConfirmation && (
           <div className="confirmation-message">
             Project updated successfully!

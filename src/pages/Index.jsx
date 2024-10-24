@@ -16,7 +16,7 @@ import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
 import { AuthContext } from "../context/auth.context.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes instalado 'react-spinners'
+import FadeLoader from "react-spinners/FadeLoader";
 import SectionTalent from "../components/SectionTalent.jsx";
 
 import addImg from "../assets/icons/add.svg";
@@ -26,8 +26,8 @@ function Index() {
   const [allProjects, setAllProjects] = useState([]);
   const [randomProjects, setRandomProjects] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const [loadingProjects, setLoadingProjects] = useState(true); // Para manejar la carga de proyectos
-  const [loadingEvents, setLoadingEvents] = useState(true); // Para manejar la carga de eventos
+  const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingEvents, setLoadingEvents] = useState(true);
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   useEffect(() => {
     getData();
@@ -215,7 +215,7 @@ function Index() {
               fontWeight: "600",
               textDecoration: "underline",
               textAlign: "right",
-              marginBottom:"48px"
+              marginBottom: "48px",
             }}
           >
             See all &gt;
@@ -228,7 +228,6 @@ function Index() {
           className="buttons-fixed"
           style={{ position: "fixed", bottom: "64px", right: "32px" }}
         >
-          {/* Botón "Add Project" */}
           <Link to="/newproject">
             <div className="add-project-container">
               <button
@@ -248,7 +247,6 @@ function Index() {
             </div>
           </Link>
 
-          {/* Botón "Add Event" */}
           <Link to="/newevent">
             <div className="add-event-container">
               <button

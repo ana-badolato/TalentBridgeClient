@@ -1,18 +1,17 @@
 import "../../App.css"; // Asegúrate de que la ruta sea correcta
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
-import service from "../../services/config"; 
+import service from "../../services/config";
 import axios from "axios";
 import { FadeLoader } from "react-spinners";
 
 function EditUser() {
-  
   const { loggedUserId } = useContext(AuthContext);
   console.log("Logged User ID:", loggedUserId);
 
   const [userData, setUserData] = useState({
-    profilePicture: "", 
+    profilePicture: "",
     contactEmail: "",
     location: "",
     bio: "",
@@ -21,12 +20,11 @@ function EditUser() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [newSkill, setNewSkill] = useState("");
-  
+
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
 
-  //! Cloudinary image upload
-  const [imageUrl, setImageUrl] = useState(null); 
+  const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileUpload = async (event) => {
@@ -40,7 +38,10 @@ function EditUser() {
     uploadData.append("image", event.target.files[0]);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/upload`, uploadData);
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
+        uploadData
+      );
 
       const uploadedImageUrl = response.data.imageUrl;
       setImageUrl(uploadedImageUrl);
@@ -95,8 +96,8 @@ function EditUser() {
       setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);
-        navigate("/user/profile"); // Navegar a la página del perfil
-        window.location.reload();  // Refrescar la página
+        navigate("/user/profile");
+        window.location.reload();
       }, 1500);
     } catch (error) {
       console.log("Error updating profile:", error);
@@ -156,7 +157,12 @@ function EditUser() {
               height="150"
               style={{ objectFit: "cover", borderRadius: "50%" }}
             />
-            <input type="file" name="image" onChange={handleFileUpload} disabled={isUploading} />
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileUpload}
+              disabled={isUploading}
+            />
           </div>
 
           {isUploading ? <h3>... uploading image</h3> : null}
@@ -246,7 +252,7 @@ function EditUser() {
             <button
               type="submit"
               style={{
-                backgroundColor: "#3478f6", // Primary-mid color
+                backgroundColor: "#3478f6",
                 color: "white",
                 padding: "10px 20px",
                 border: "none",
@@ -257,30 +263,32 @@ function EditUser() {
               Save Changes
             </button>
             <button
-  type="button"
-  className="button-large-grey"
-  onClick={handleGoToProfile}
-  style={{
-    width: "100%", // El botón ocupará todo el ancho
-    backgroundColor: "#bdbdbd", // Gris claro
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    marginTop: "16px",
-    color: "#fff", // Texto blanco
-    textAlign: "center", // Centrar el texto horizontalmente
-    display: "flex", // Usamos flexbox para centrar
-    justifyContent: "center", // Centramos horizontalmente
-    alignItems: "center", // Centramos verticalmente
-  }}
->
-  Back to Profile
-</button>
+              type="button"
+              className="button-large-grey"
+              onClick={handleGoToProfile}
+              style={{
+                width: "100%",
+                backgroundColor: "#bdbdbd",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                marginTop: "16px",
+                color: "#fff",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Back to Profile
+            </button>
           </div>
 
           {showConfirmation && (
-            <div className="confirmation-message">Profile updated successfully!</div>
+            <div className="confirmation-message">
+              Profile updated successfully!
+            </div>
           )}
         </form>
       </div>

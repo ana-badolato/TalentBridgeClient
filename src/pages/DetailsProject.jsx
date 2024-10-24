@@ -12,19 +12,19 @@ import dateImg from "../assets/icons/date.svg";
 import applyImg from "../assets/icons/apply.svg";
 import disabledApplyImg from "../assets/icons/disabledApply.svg";
 import teamMembersImg from "../assets/icons/teamMembers.svg";
-import NotificationModal from "../Modals/NotificationModal.jsx"; // Importa el modal de notificación
+import NotificationModal from "../Modals/NotificationModal.jsx";
 import { FadeLoader } from "react-spinners";
 
 function DetailsProject() {
   const navigate = useNavigate();
   const params = useParams();
-  const { isLoggedIn, loggedUserId } = useContext(AuthContext); // Acceso al contexto de autenticación
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   const [projectDetails, setProjectDetails] = useState({});
   const [relatedProjects, setRelatedProjects] = useState([]);
   const [relatedEvents, setRelatedEvents] = useState([]);
-  const [isApplied, setIsApplied] = useState(false); // Estado para gestionar si ya ha aplicado
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
-  const [isSuccess, setIsSuccess] = useState(false); // Estado para éxito
+  const [isApplied, setIsApplied] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     getData();
@@ -34,7 +34,7 @@ function DetailsProject() {
     try {
       const response = await service.get(`/project/${params.projectid}`);
       setProjectDetails(response.data);
-      getRelatedProjects(response.data.category, response.data._id); // Pasa la categoria del proyecto
+      getRelatedProjects(response.data.category, response.data._id);
       const events = await service.get(`/project/${params.projectid}/event`);
       setRelatedEvents(events.data);
     } catch (error) {
@@ -47,7 +47,9 @@ function DetailsProject() {
     try {
       const response = await service.get(`/project/`);
       const filteredProjects = response.data.filter(
-        (eachProject) => eachProject.category === category && eachProject._id !== params.projectid
+        (eachProject) =>
+          eachProject.category === category &&
+          eachProject._id !== params.projectid
       );
       setRelatedProjects(filteredProjects);
     } catch (error) {
@@ -57,7 +59,8 @@ function DetailsProject() {
   };
 
   // Comprobar si el usuario es el propietario o miembro del equipo
-  const isOwner = isLoggedIn && String(loggedUserId) === String(projectDetails?.owner?._id);
+  const isOwner =
+    isLoggedIn && String(loggedUserId) === String(projectDetails?.owner?._id);
   const isTeamMember = projectDetails?.teamMembers?.some(
     (member) => String(member._id || member) === String(loggedUserId)
   );
@@ -69,35 +72,37 @@ function DetailsProject() {
       navigate("/login");
       return;
     }
-    setIsModalOpen(true); // Abrir el modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Cerrar el modal
+    setIsModalOpen(false);
   };
 
   const handleConfirmApply = async () => {
     try {
       await service.post("/notification", {
-        from: loggedUserId, // Usuario logueado
-        to: projectDetails.owner._id, // Propietario del proyecto
-        project: projectDetails._id, // ID del proyecto
-        message: `El usuario ${loggedUserId} quiere unirse al proyecto ${projectDetails.title}`, // Mensaje de notificación
-        type: "action", // Tipo de notificación para acciones
+        from: loggedUserId,
+        to: projectDetails.owner._id,
+        project: projectDetails._id,
+        message: `El usuario ${loggedUserId} quiere unirse al proyecto ${projectDetails.title}`,
+        type: "action",
       });
-      setIsApplied(true); // Cambiar el estado a 'applied'
-      setIsSuccess(true); // Mostrar mensaje de éxito
+      setIsApplied(true);
+      setIsSuccess(true);
       setTimeout(() => {
-        setIsSuccess(false); // Resetear el estado de éxito
-        setIsModalOpen(false); // Cerrar el modal
-      }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
+        setIsSuccess(false);
+        setIsModalOpen(false);
+      }, 1500);
     } catch (error) {
       console.log("Error enviando la notificación", error);
       navigate("/error");
     }
   };
 
-  const totalMembers = projectDetails.teamMembers ? projectDetails.teamMembers.length + 1 : 1;
+  const totalMembers = projectDetails.teamMembers
+    ? projectDetails.teamMembers.length + 1
+    : 1;
 
   if (!projectDetails) {
     return (
@@ -111,19 +116,28 @@ function DetailsProject() {
   return (
     <div className="container-page">
       <div className="container-main-content">
-        <img src={projectDetails.image} alt="project-image" className="project-img" />
+        <img
+          src={projectDetails.image}
+          alt="project-image"
+          className="project-img"
+        />
 
         <div className="details-project-main">
           <section className="pr-details-left">
-            <p className="index-title" style={{ marginTop: "16px" }}>{projectDetails.title}</p>
+            <p className="index-title" style={{ marginTop: "16px" }}>
+              {projectDetails.title}
+            </p>
             <p className="main-objective">{projectDetails.mainObjective}</p>
-            <p className="tag-xl" style={{ color: "#110F34" }}>{projectDetails.category}</p>
+            <p className="tag-xl" style={{ color: "#110F34" }}>
+              {projectDetails.category}
+            </p>
 
             <div className="card-pr-section-properties">
               <div className="icon-text-element-pr">
                 <img src={dateImg} alt="" />
                 <p>
-                  {new Date(projectDetails.startDate).toLocaleDateString()} <span>Start Date</span>
+                  {new Date(projectDetails.startDate).toLocaleDateString()}{" "}
+                  <span>Start Date</span>
                 </p>
               </div>
               <div className="icon-text-element-pr">
@@ -137,17 +151,22 @@ function DetailsProject() {
 
             <button
               className="apply-button"
-              disabled={isApplyDisabled} // Deshabilitar si ya ha aplicado
+              disabled={isApplyDisabled}
               onClick={handleApplyClick}
             >
-              <img src={isApplyDisabled ? disabledApplyImg : applyImg} alt="Apply" />
+              <img
+                src={isApplyDisabled ? disabledApplyImg : applyImg}
+                alt="Apply"
+              />
               <p>{isApplied ? "Applied" : "Apply"}</p>
             </button>
           </section>
 
           <section className="pr-details-right">
             <div>
-              <h3 className="details-section">Events related with this project</h3>
+              <h3 className="details-section">
+                Events related with this project
+              </h3>
             </div>
 
             <div>
@@ -177,7 +196,10 @@ function DetailsProject() {
 
           <div className="project-people">
             {projectDetails.owner && (
-              <div className="owner-container" style={{ border: "2px solid #ffbe1a", borderRadius: "10px" }}>
+              <div
+                className="owner-container"
+                style={{ border: "2px solid #ffbe1a", borderRadius: "10px" }}
+              >
                 <CardUserSmall
                   profilePicture={projectDetails.owner.profilePicture}
                   username={projectDetails.owner.username}
@@ -186,7 +208,8 @@ function DetailsProject() {
                 />
               </div>
             )}
-            {projectDetails.teamMembers && projectDetails.teamMembers.length > 0 ? (
+            {projectDetails.teamMembers &&
+            projectDetails.teamMembers.length > 0 ? (
               projectDetails.teamMembers.map((eachMember) => (
                 <CardUserSmall key={eachMember._id} {...eachMember} />
               ))

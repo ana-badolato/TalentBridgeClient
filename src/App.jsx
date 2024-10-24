@@ -1,69 +1,68 @@
-import { Routes, Route } from 'react-router-dom'
-import './App.css'
-import NavBar from './components/NavBar'
-import Index from './pages/Index'
-import SignUp from './pages/auth/SignUp'
-import LogIn from './pages/auth/LogIn'
-import Profile from './pages/Profile'
-import Error from './pages/Error'
-import Private from './components/auth/Private'
-import AllUsers from './pages/AllUsers'
-import AllEvents from './pages/AllEvents'
-import AllProjects from './pages/AllProjects'
-import ListEvents from './components/ListEvents'
-import DetailsUser from './pages/DetailsUser'
-import ListProjects from './components/ListProjects'
-import NewProject from './pages/forms/NewProject'
-import NewEvent from './pages/forms/NewEvent'
-import EditUser from './pages/forms/EditUser'
-import DetailsEvent from './pages/DetailsEvent'
-import EditProject from './pages/forms/EditProject'
-import EditEvent from "./pages/forms/EditEvent"
-import DetailsProject from './pages/DetailsProject'
-import Footer from './components/Footer'
-import CardCategory from './components/CardCategory'
-import NotFound from './pages/NotFound'
-import ScrollToTop from './components/ScrollToTop'
-import EmailForm from './pages/forms/EmailForm'
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import Index from "./pages/Index";
+import SignUp from "./pages/auth/SignUp";
+import LogIn from "./pages/auth/LogIn";
+import Profile from "./pages/Profile";
+import Error from "./pages/Error";
+import Private from "./components/auth/Private";
+import AllUsers from "./pages/AllUsers";
+import AllEvents from "./pages/AllEvents";
+import AllProjects from "./pages/AllProjects";
+import ListEvents from "./components/ListEvents";
+import DetailsUser from "./pages/DetailsUser";
+import ListProjects from "./components/ListProjects";
+import NewProject from "./pages/forms/NewProject";
+import NewEvent from "./pages/forms/NewEvent";
+import EditUser from "./pages/forms/EditUser";
+import DetailsEvent from "./pages/DetailsEvent";
+import EditProject from "./pages/forms/EditProject";
+import EditEvent from "./pages/forms/EditEvent";
+import DetailsProject from "./pages/DetailsProject";
+import Footer from "./components/Footer";
+import CardCategory from "./components/CardCategory";
+import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
+import EmailForm from "./pages/forms/EmailForm";
 
 function App() {
-
   return (
     <div>
       <NavBar />
-          {/* Scroll to Top component here */}
-          <ScrollToTop />  {/* Esto asegura que el scroll se reinicie en cada cambio de ruta */}
+
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/user/profile" element={<Profile/>}/>
-        <Route path="/user/profile/:username" element={<DetailsUser/>}/>
-        <Route path="/user" element={<AllUsers/>}/>
+        <Route path="/user/profile" element={<Profile />} />
+        <Route path="/user/profile/:username" element={<DetailsUser />} />
+        <Route path="/user" element={<AllUsers />} />
         <Route path="/profile/edit" element={<EditUser />} />
-        <Route path="/category/:category" element={<CardCategory/>}/>
-        <Route path="/sendemail/:userid" element={<EmailForm/>}/>
+        <Route path="/category/:category" element={<CardCategory />} />
+        <Route path="/sendemail/:userid" element={<EmailForm />} />
 
-        {/*Project routes*/}        
-        <Route path="/project" element={<AllProjects/>}/>
+        {/*Project routes*/}
+        <Route path="/project" element={<AllProjects />} />
         <Route path="/newproject" element={<NewProject />} />
-        <Route path="/project/:projectid" element={<DetailsProject/>}/>
-        <Route path="/editproject/:projectid" element={<EditProject/>} />
+        <Route path="/project/:projectid" element={<DetailsProject />} />
+        <Route path="/editproject/:projectid" element={<EditProject />} />
 
         {/*Event routes*/}
-        <Route path="/event" element={<AllEvents/>}/>
-        <Route path="/event/:eventid" element={<DetailsEvent/>}/>
+        <Route path="/event" element={<AllEvents />} />
+        <Route path="/event/:eventid" element={<DetailsEvent />} />
         <Route path="/newevent" element={<NewEvent />} />
-        <Route path="/editevent/:eventid" element={<EditEvent/>}/>
+        <Route path="/editevent/:eventid" element={<EditEvent />} />
 
         {/*Error and noutfound */}
-        <Route path="/error" element={<Error />}/>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path="/error" element={<Error />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      
-      <Footer/>
+
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

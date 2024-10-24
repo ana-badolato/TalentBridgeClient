@@ -19,10 +19,10 @@ function DetailsUser() {
   const [showOwnerProjects, setShowOwnerProjects] = useState(true);
   const [showEventType, setShowEventType] = useState("owner");
 
-  const [projectPage, setProjectPage] = useState(1); 
+  const [projectPage, setProjectPage] = useState(1);
   const projectsPerPage = 6;
 
-  const [eventPage, setEventPage] = useState(1); 
+  const [eventPage, setEventPage] = useState(1);
   const eventsPerPage = 8;
 
   const params = useParams();
@@ -88,7 +88,6 @@ function DetailsUser() {
     return attendeeEvents;
   };
 
-  //! eliminar
   const isOwnProfile = isLoggedIn && loggedUserId === user._id;
 
   // Paginación para proyectos
@@ -157,8 +156,11 @@ function DetailsUser() {
 
           <div className="infoButton">
             <div className="profile-info">
-              <p style={{ fontSize: "35px"}}>{user.username}</p>
-              <p className="profile-bio" style={{ fontStyle: "italic", padding: "10px"}}>
+              <p style={{ fontSize: "35px" }}>{user.username}</p>
+              <p
+                className="profile-bio"
+                style={{ fontStyle: "italic", padding: "10px" }}
+              >
                 {user.bio}
               </p>
               {user.skills.map((eachSkill) => (
@@ -166,7 +168,10 @@ function DetailsUser() {
               ))}
             </div>
 
-            <button className="button-large-yellow" style={{ marginTop: "50px"}}>
+            <button
+              className="button-large-yellow"
+              style={{ marginTop: "50px" }}
+            >
               <div className="icon-text-element">
                 <img src={messageImg} alt="" />
                 <p>Send Message</p>

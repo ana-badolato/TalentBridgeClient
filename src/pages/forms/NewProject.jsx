@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function NewProject() {
   const { loggedUserId } = useContext(AuthContext);
-  // const [uploadingImage, setUploadingImage] = useState(false);
+
   const [projectData, setProjectData] = useState({
     title: "",
     mainObjective: "",
@@ -22,10 +22,9 @@ function NewProject() {
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
-  //! aquí empieza código cloudinary
+
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  // below function should be the only function invoked when the file type input changes => onChange={handleFileUpload}
   const handleGoToProfile = () => {
     navigate(`/user/profile`);
   };
@@ -34,7 +33,7 @@ function NewProject() {
       return;
     }
 
-    setIsUploading(true); // Iniciar la animación de carga
+    setIsUploading(true);
 
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
@@ -45,22 +44,20 @@ function NewProject() {
         uploadData
       );
 
-      const uploadedImageUrl = response.data.imageUrl; // La URL de la imagen subida
-      setImageUrl(uploadedImageUrl); // Esto actualiza la vista previa
+      const uploadedImageUrl = response.data.imageUrl;
+      setImageUrl(uploadedImageUrl);
 
-      // Aquí es donde actualizas el estado de userData con la URL de la imagen
       setProjectData((prevData) => ({
         ...prevData,
-        image: uploadedImageUrl, // Actualiza el campo de la imagen en el proyecto
+        image: uploadedImageUrl,
       }));
 
-      setIsUploading(false); // Detener la animación de carga
+      setIsUploading(false);
     } catch (error) {
       console.error("Error subiendo la imagen:", error);
       navigate("/error");
     }
   };
-  //! aquí termina código cloudinary
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +66,6 @@ function NewProject() {
       [name]: value,
     }));
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,7 +100,7 @@ function NewProject() {
       }, 1500);
     } catch (error) {
       console.log(error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
@@ -116,16 +112,19 @@ function NewProject() {
   };
 
   return (
-    <div className="new-project-container" style={{height:"80vh"}}>
+    <div className="new-project-container" style={{ height: "80vh" }}>
       <form onSubmit={handleSubmit} className="project-form">
         <h3>New Project</h3>
         <div className="image-upload">
           <label htmlFor="">Image</label>
-          {/* 
-          {uploadingImage && <p>Uploading...</p>} */}
-          {projectData.image && ( // Mostrar la imagen si existe
+
+          {projectData.image && (
             <img
-              src={imageUrl || projectData.image || "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/vzupen0uk9ctuhtatn2q.png"}
+              src={
+                imageUrl ||
+                projectData.image ||
+                "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/vzupen0uk9ctuhtatn2q.png"
+              }
               alt="Project"
               style={{ maxHeight: "200px", width: "100%", objectFit: "cover" }}
             />
@@ -218,7 +217,7 @@ function NewProject() {
           <Autocomplete updateTeamMembers={updateTeamMembers} />
         </div>
 
-        <p className="required-fields" style={{marginBottom:"8px"}}>
+        <p className="required-fields" style={{ marginBottom: "8px" }}>
           (<span>*</span>) Required Fields
         </p>
         <button type="submit" className="submit-button">
@@ -226,27 +225,26 @@ function NewProject() {
         </button>
 
         <button
-  type="button"
-  className="button-large-grey"
-  onClick={handleGoToProfile}
-  style={{
-    width: "100%", // El botón ocupará todo el ancho
-    backgroundColor: "#bdbdbd", // Gris claro
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    marginTop: "16px",
-    color: "#fff", // Texto blanco
-    textAlign: "center", // Centrar el texto horizontalmente
-    display: "flex", // Usamos flexbox para centrar
-    justifyContent: "center", // Centramos horizontalmente
-    alignItems: "center", // Centramos verticalmente
-  }}
->
-  Back to Profile
-</button>
-
+          type="button"
+          className="button-large-grey"
+          onClick={handleGoToProfile}
+          style={{
+            width: "100%",
+            backgroundColor: "#bdbdbd",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            marginTop: "16px",
+            color: "#fff",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Back to Profile
+        </button>
 
         {showConfirmation && (
           <div className="confirmation-message">

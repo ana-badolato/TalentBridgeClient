@@ -6,22 +6,22 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardUserSmall from "../components/CardUserSmall.jsx";
 import { FadeLoader } from "react-spinners";
-import NotificationModal from "../Modals/NotificationModal.jsx"; // Importamos el modal
+import NotificationModal from "../Modals/NotificationModal.jsx";
 import applyImg from "../assets/icons/apply.svg";
 
 import evDateImg from "../assets/icons/evDate.svg";
 import locationImg from "../assets/icons/location.svg";
-import { AuthContext } from "../context/auth.context.jsx"; // Importamos AuthContext
+import { AuthContext } from "../context/auth.context.jsx";
 
 function DetailsEvent() {
   const navigate = useNavigate();
   const { eventid } = useParams();
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal para confirmar unirse
-  const [isSuccess, setIsSuccess] = useState(false); // Estado para manejar el éxito de la solicitud
-  const [isJoinDisabled, setIsJoinDisabled] = useState(false); // Estado para deshabilitar el botón Join
-  const { isLoggedIn, loggedUserId } = useContext(AuthContext); // Obtenemos el estado de login y el ID del usuario logueado
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isJoinDisabled, setIsJoinDisabled] = useState(false);
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
 
   useEffect(() => {
     getData();
@@ -40,41 +40,41 @@ function DetailsEvent() {
   };
 
   useEffect(() => {
-    // Deshabilitar el botón si el usuario ya está unido o es el creador
     if (eventData) {
-      const isOwner = isLoggedIn && String(loggedUserId) === String(eventData.owner?._id);
+      const isOwner =
+        isLoggedIn && String(loggedUserId) === String(eventData.owner?._id);
       const isAlreadyAttendee = eventData.atendees?.some(
         (atendeeId) => String(atendeeId) === String(loggedUserId)
       );
 
-      setIsJoinDisabled(isOwner || isAlreadyAttendee || eventData.capacityCounter >= eventData.capacity);
+      setIsJoinDisabled(
+        isOwner ||
+          isAlreadyAttendee ||
+          eventData.capacityCounter >= eventData.capacity
+      );
     }
   }, [eventData, loggedUserId, isLoggedIn]);
 
-  // Función para manejar la solicitud de unirse al evento
   const handleJoinClick = () => {
     if (!isLoggedIn) {
       navigate("/login");
       return;
     }
-    setIsModalOpen(true); // Mostrar el modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Cerrar el modal
+    setIsModalOpen(false);
   };
 
   const handleConfirmJoin = async () => {
     try {
-      // Agregar al usuario como asistente del evento
       await service.put(`/event/${eventid}/join`, {
         atendeeId: loggedUserId,
       });
 
-      // Incrementar capacityCounter en el servidor
       await service.patch(`/event/${eventid}/incrementcapacitycounter`);
 
-      // Enviar una notificación informativa al owner del evento
       await service.post("/notification", {
         from: loggedUserId,
         to: eventData.owner._id,
@@ -83,8 +83,8 @@ function DetailsEvent() {
         type: "info",
       });
 
-      setIsSuccess(true); // Éxito
-      setIsJoinDisabled(true); // Deshabilitar el botón Join
+      setIsSuccess(true);
+      setIsJoinDisabled(true);
       setTimeout(() => {
         setIsSuccess(false);
         setIsModalOpen(false);
@@ -153,19 +153,17 @@ function DetailsEvent() {
               {eventData.description}
             </p>
 
-            {/* Botón de unirse */}
             <button
               className="apply-button"
-              disabled={isJoinDisabled} // Botón deshabilitado
+              disabled={isJoinDisabled}
               onClick={handleJoinClick}
             >
               <img src={applyImg} alt="" />
-              <p>{isSuccess ? "Unido" : "Join"}</p> {/* Mostrar mensaje si ya se unió */}
+              <p>{isSuccess ? "Unido" : "Join"}</p>
             </button>
           </section>
 
           <section className="pr-details-right" style={{ marginTop: "32px" }}>
-            {/* Verificamos que relatedProjects exista antes de renderizar */}
             {eventData.relatedProjects && (
               <CardProject {...eventData.relatedProjects} />
             )}
@@ -176,7 +174,6 @@ function DetailsEvent() {
           <h3 className="details-section">Lecturer</h3>
         </div>
         <div className="project-people">
-          {/* Renderizamos el Owner primero */}
           {eventData.owner && (
             <div
               className="owner-container"
@@ -193,7 +190,6 @@ function DetailsEvent() {
         </div>
       </div>
 
-      {/* Modal de confirmación para unirse */}
       <NotificationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
