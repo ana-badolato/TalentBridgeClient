@@ -130,17 +130,17 @@ function DetailsUser() {
     <div className="container-page">
       <div className="container-main-content">
         {/* User Info */}
-        <section className="card">
+        <section className="card-profile">
           <div>
             <img src={user.profilePicture} className="profile-picture" alt="User Profile" />
           </div>
          
-          <div>
+          <div className="infoButton">
             <div className="profile-info">
               <h4 style={{fontWeight: "600px"}}>{user.username}</h4>
               <p style={{fontStyle: "italic", fontWeight: "300px"}}>{user.bio}</p>
               {user.skills.map((eachSkill) => (
-                <p className="tag-xl">{eachSkill}</p>
+                <p className="tag-skills">{eachSkill}</p>
               ))}
             </div>
 
