@@ -1,3 +1,7 @@
+import "../App.css";
+import "../CSS/home.css";
+import "../CSS/category.css";
+
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import service from "../services/config.js";
@@ -60,44 +64,102 @@ function CardCategory() {
   const headerImage = headerImages[params.category] || null
 
   return (
-    <div>
+    <div className="container-page">
+      <div className="container-main-content">
       <section>
         {headerImage && (
-          <div>
-            <img src={headerImage} alt={params.category}/>
-            <h2>{params.category}</h2>
+          <div className="header-category">
+            <img src={headerImage} alt={params.category} className="header-img-category"/>
+            <h2 className="title-category">{params.category}</h2>
           </div>
         )}
       </section>
 
-      <section className="index-categories">
-          {/* Aquí puedes añadir las categorías, filtros, etc */}
-        <button onClick={() => handleOnClick("Technology & Innovation")}>Technology & Innovation <img src={tech}/></button>
-        <button onClick={() => handleOnClick("Sustainability & Environment")}>Sustainability & Environment <img src={sustainability}/></button>
-        <button onClick={() => handleOnClick("Art & Creativity")}>Art & Creativity <img src={art}/></button>
-        <button onClick={() => handleOnClick("Health & Wellness")}>Health & Wellness <img src={health}/></button>
-        <button onClick={() => handleOnClick("Education & Training")}>Education & Training <img src={education}/></button>
-        <button onClick={() => handleOnClick("Community & Social Impact")}>Community & Social Impact <img src={community}/></button>
-      </section>
+      <div className="index-categories">
+          <button
+            onClick={() => handleOnClick("Technology & Innovation")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Technology &<span style={{ display: "block" }}>Innovation</span>
+            </p>
+            <img src={tech} />
+          </button>
 
-      <section>
-        <h3>Projects</h3>
+          <button
+            onClick={() => handleOnClick("Sustainability & Environment")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Sustainability &
+              <span style={{ display: "block" }}>Environment</span>
+            </p>
+            <img src={sustainability} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Art & Creativity")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Art &<span style={{ display: "block" }}>Creativity</span>
+            </p>
+            <img src={art} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Health & Wellness")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Health &<span style={{ display: "block" }}>Wellness</span>
+            </p>
+            <img src={health} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Education & Training")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Education &<span style={{ display: "block" }}>Training</span>
+            </p>
+            <img src={education} />
+          </button>
+
+          <button
+            onClick={() => handleOnClick("Community & Social Impact")}
+            className="category-tag"
+          >
+            <p className="category-tag-content">
+              Community &<span style={{ display: "block" }}>Social Impact</span>
+            </p>
+            <img src={community} />
+          </button>
+        </div>
+
+      <h2 className="index-title">Projects</h2>
+      <div className="main-section-index">
+      <section style={{marginTop:"32px"}} className="project-list">
         {categoryProjects.map((eachProject)=>{
           return(
             <CardProject key={eachProject._id} {...eachProject}/>
           )
         })}
       </section>
+        </div>
 
-      <section>
-        <h3>Events</h3>
+      <h2 className="index-title">Upcoming Events</h2>
+      <div className="main-section-index">
+      <section style={{marginTop:"32px"}} className="event-list">
       {categoryEvents.map((eachEvent)=>{
           return(
             <CardEvent key={eachEvent._id} {...eachEvent}/>
           )
         })}
       </section>
-
+      </div>
+      </div>
     </div>
   )
 }

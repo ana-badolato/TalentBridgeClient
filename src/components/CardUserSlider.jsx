@@ -1,9 +1,11 @@
 import React from 'react';
 import "../CSS/cardUser.css"; // Aquí estarán los estilos de la tarjeta individual
+import { Link } from 'react-router-dom';
 
 function CardUserSlider(props) {
   return (
     <div className="card-user-slider">
+      <Link to={`/user/profile/${props.username}`}>
       <div className="card-user-top-slider">
         <img
           src={props.profilePicture}
@@ -16,6 +18,7 @@ function CardUserSlider(props) {
           {props.bio && <p className="card-user-bio-slider">"{props.bio}"</p>}
         </div>
       </div>
+      </Link>
     </div>
   );
 }

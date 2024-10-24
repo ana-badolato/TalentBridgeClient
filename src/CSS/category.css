@@ -1,0 +1,20 @@
+.header-category{
+  position: relative;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+.header-img-category {
+  width: 100%;
+  object-fit: cover;
+}
+
+.title-category {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el título horizontal y verticalmente */
+  z-index: 2;
+  color: var(--neutral-white);
+  font-size: 48px;
+  text-align: center;
+}
