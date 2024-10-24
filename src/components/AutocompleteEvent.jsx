@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import service from "../services/config.js";
 import addImg from "../assets/icons/add.svg"; // Icono para añadir usuarios
+import { useNavigate } from "react-router-dom";
 
 function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
+  
+  const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -30,6 +33,7 @@ function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
       console.log("All users fetched:", response.data); // Agregamos log para mostrar todos los usuarios obtenidos
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

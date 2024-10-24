@@ -88,6 +88,7 @@ function EditProject() {
         setIsLoading(false);
       } catch (error) {
         console.log("Error fetching project data:", error);
+        navigate("/error")
       }
     };
 
@@ -141,6 +142,7 @@ function EditProject() {
       }, 3000);
     } catch (error) {
       console.log("Error updating project:", error);
+      navigate("/error")
     }
   };
 

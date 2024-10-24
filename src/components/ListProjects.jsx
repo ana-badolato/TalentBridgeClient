@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardProject from "./CardProject.jsx";
+import { useNavigate } from "react-router-dom";
 
 function ListProjects(props) {
+  const navigate = useNavigate()
   const [allProjects, setAllProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Página actual
   const projectsPerPage = 9;  // Número de proyectos por página
@@ -19,6 +21,7 @@ function ListProjects(props) {
       setAllProjects(response.data);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

@@ -24,6 +24,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
         setUnreadNotificationCount(response.data.length);
       } catch (error) {
         console.error("Error fetching notifications", error);
+        navigate("/error")
       }
     };
 
@@ -39,6 +40,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
       navigate("/");
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -57,6 +59,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1); 
     } catch (error) {
       console.error("Error accepting notification", error);
+      navigate("/error")
     }
   };
 
@@ -67,6 +70,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1); 
     } catch (error) {
       console.error("Error rejecting notification", error);
+      navigate("/error")
     }
   };
   const handleDeleteNotification = async (notificationId) => {
@@ -76,6 +80,7 @@ function NavbarDesktop({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1); // Actualiza el contador
     } catch (error) {
       console.error("Error deleting notification", error);
+      navigate("/error")
     }
   };
 

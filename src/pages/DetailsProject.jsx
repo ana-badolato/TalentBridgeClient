@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import service from "../services/config"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import CardUserSmall from "../components/CardUserSmall";
 import CardProject from "../components/CardProject"
 import CardEventSmall from "../components/CardEventSmall";
@@ -12,6 +12,7 @@ import { FadeLoader } from "react-spinners";
 
 function DetailsProject() {
   
+  const navigate = useNavigate()
   const params = useParams()
   const [projectDetails, setProjectDetails] = useState({})
 
@@ -34,6 +35,7 @@ function DetailsProject() {
       setRelatedEvents(events.data);
     } catch (error) {
       console.log(error)
+      navigate("/error")
     }
   }
 
@@ -44,6 +46,7 @@ function DetailsProject() {
       setRelatedProjects(filteredProjects)
     } catch (error) {
       console.log(error)
+      navigate("/error")
     }
   }
   //por si teamMembers todavia no llega de la api, que no de problemas

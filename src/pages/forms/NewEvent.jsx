@@ -90,6 +90,7 @@ const navigate=useNavigate()
     } catch (error) {
       console.error("Error fetching coordinates:", error);
       return { lat: null, lng: null };
+      navigate("/error")
     }
   };
 
@@ -105,6 +106,7 @@ const navigate=useNavigate()
         setLoggedUserProjects(response.data);
       } catch (error) {
         console.log("Error fetching user projects:", error);
+        navigate("/error")
       }
     };
     fetchUserProjects();
@@ -152,6 +154,7 @@ const navigate=useNavigate()
       }, 3000);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

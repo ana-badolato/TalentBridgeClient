@@ -3,8 +3,11 @@ import "../CSS/autocomplete.css";
 import { useEffect, useState } from "react";
 import service from "../services/config.js";
 import addImg from "../assets/icons/add.svg"; // Icono para añadir usuarios
+import { useNavigate } from "react-router-dom";
 
 function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
+
+  const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -24,6 +27,7 @@ function Autocomplete({updateTeamMembers, initialSelectedUsers = [] }) {
       setAllUsers(response.data);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

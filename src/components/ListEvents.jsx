@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardEvent from "./CardEvent.jsx";
+import { useNavigate } from "react-router-dom";
 
 function ListEvents(props) {
+
+  const navigate = useNavigate()
   const [allEvents, setAllEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Página actual
   const eventsPerPage = 12;  // Número de eventos por página
@@ -20,6 +23,7 @@ function ListEvents(props) {
       setAllEvents(response.data);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

@@ -2,14 +2,18 @@ import "../App.css"
 // src/pages/AllEvents.jsx
 import { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
+import Filter from "../components/Filter";
 import ListEvents from "../components/ListEvents";
 import EventMap from "../components/EventMap.jsx"; // Importa el componente del mapa
 import service from "../services/config.js"; // Importa el servicio para obtener eventos
 
 import eventsImg from "../assets/icons/events.svg"
+import { useNavigate } from "react-router-dom";
 
 function AllEvents() {
+  const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All")
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -19,6 +23,7 @@ function AllEvents() {
         setEvents(response.data);
       } catch (error) {
         console.log("Error fetching events:", error);
+        navigate("/error")
       }
     };
 
@@ -38,6 +43,8 @@ function AllEvents() {
     </section>
 
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+
+        <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/>
 
         {/* Renderiza el mapa de eventos */}
         <EventMap events={events} />

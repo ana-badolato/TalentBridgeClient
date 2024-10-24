@@ -36,6 +36,7 @@ function NavbarMobile({ profilePicture, username, isLoggedIn }) {
       navigate("/"); 
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -47,6 +48,7 @@ function NavbarMobile({ profilePicture, username, isLoggedIn }) {
         setUnreadNotificationCount(response.data.length);
       } catch (error) {
         console.error("Error fetching notifications", error);
+        navigate("/error")
       }
     };
 
@@ -62,6 +64,7 @@ function NavbarMobile({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1); 
     } catch (error) {
       console.error("Error accepting notification", error);
+      navigate("/error")
     }
   };
 
@@ -72,6 +75,7 @@ function NavbarMobile({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1); 
     } catch (error) {
       console.error("Error rejecting notification", error);
+      navigate("/error")
     }
   };
 
@@ -82,6 +86,7 @@ function NavbarMobile({ profilePicture, username, isLoggedIn }) {
       setUnreadNotificationCount(unreadNotificationCount - 1);
     } catch (error) {
       console.error("Error deleting notification", error);
+      navigate("/error")
     }
   };
 

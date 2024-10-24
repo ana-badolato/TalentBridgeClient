@@ -1,7 +1,7 @@
 import "../CSS/detailsUser.css";
 import { useState, useEffect, useContext } from "react";
 import service from "../services/config.js";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
 import { AuthContext } from "../context/auth.context.jsx";
@@ -12,6 +12,7 @@ import messageImg from "../assets/icons/message.svg";
 import { FadeLoader } from "react-spinners";
 
 function Profile() {
+  const navigate = useNavigate()
   const [user, setUser] = useState(null);
   const [allUserProjects, setAllUserProjects] = useState([]);
   const [allUserEvents, setAllUserEvents] = useState([]);
@@ -44,6 +45,7 @@ function Profile() {
       setAllUserEvents(eventResponse.data);
     } catch (error) {
       console.log("Error fetching user data:", error);
+      navigate("/error")
     }
   };
 

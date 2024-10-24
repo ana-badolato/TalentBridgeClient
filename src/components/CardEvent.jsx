@@ -57,6 +57,7 @@ function CardEvent({
         } catch (error) {
           console.error("Error fetching event data:", error);
           setLoading(false);
+          navigate("/error")
         }
       };
       fetchEventData();
@@ -101,6 +102,10 @@ function CardEvent({
 
   // Función para manejar la solicitud de unirse al evento
   const handleJoinClick = () => {
+    if(!isLoggedIn){
+      navigate("/login")
+      return
+    }
     setIsModalOpen(true); // Mostrar el modal
   };
 
@@ -136,6 +141,7 @@ function CardEvent({
       }, 1500);
     } catch (error) {
       console.error("Error al unirse al evento", error);
+      navigate("/error")
     }
   };
 
@@ -158,6 +164,7 @@ function CardEvent({
       }, 1500);
     } catch (error) {
       console.error("Error eliminando el evento", error);
+      navigate("/error")
     }
   };
 

@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/auth.context.jsx"
 import service from "../../services/config.js";
 
@@ -49,7 +49,8 @@ function LogIn() {
   }
   
   return (
-    <div>LogIn
+    <div>
+      <h3>Log In</h3>
 
     <form onSubmit={handleLogIn}>
       <div>
@@ -76,7 +77,9 @@ function LogIn() {
     {errorMessage && <p>{errorMessage}</p>}
     </form>
 
-
+    <p>Wanna join our grup of talents?</p>
+    <p>Go to <Link to="/signup" style={{color: "#FFBE1A"}}> Sign Up</Link>
+    </p>
     </div>
   )
 }

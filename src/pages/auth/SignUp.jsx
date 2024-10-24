@@ -1,6 +1,6 @@
 import service from "../../services/config";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
 
@@ -49,7 +49,8 @@ function SignUp() {
   }
 
   return (
-    <div>
+    <div> 
+      <h3>Join our talents!</h3>
         <div>
           <label>Email</label>
           <input
@@ -84,6 +85,9 @@ function SignUp() {
         <button type="submit">Sign Up</button>
         {errorMessage && <p>{errorMessage}</p>}
       </form>
+
+    <p>Already have an account?</p>
+      <p>Go to <Link to="/login" style={{color: "#FFBE1A"}}> Log In</Link></p>
 
     </div>
   )

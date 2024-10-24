@@ -7,6 +7,7 @@ import axios from "axios";
 import { FadeLoader } from "react-spinners";
 
 function EditUser() {
+  
   const { loggedUserId } = useContext(AuthContext);
   console.log("Logged User ID:", loggedUserId);
 
@@ -75,6 +76,7 @@ const handleFileUpload = async (event) => {
         setIsLoading(false);
       } catch (error) {
         console.log("Error fetching user data:", error);
+        navigate("/error")
       }
     };
 
@@ -128,6 +130,7 @@ const handleFileUpload = async (event) => {
       
     } catch (error) {
       console.log("Error updating profile:", error);
+      navigate("/error")
     }
   };
 

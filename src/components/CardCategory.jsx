@@ -23,12 +23,16 @@ import communityHeader from "../assets/images/headers/communityHeader.svg"
 import educationHeader from "../assets/images/headers/educationHeader.svg"
 import sustainabilityHeader from "../assets/images/headers/sustainabilityHeader.svg"
 import healthHeader from "../assets/images/headers/healthHeader.svg"
+import SearchBar from "./SearchBar.jsx";
+import Filter from "./Filter.jsx";
 
 function CardCategory() {
 
   const params = useParams()
   const navigate = useNavigate()
 
+  const [searchValue, setSearchValue] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All")
   const [categoryProjects, setCategoryProjects] = useState([])
   const [categoryEvents, setCategoryEvents] = useState([])
 
@@ -45,6 +49,7 @@ function CardCategory() {
       setCategoryEvents(responseEvents.data)
     } catch (error) {
       console.log(error)
+      navigate("/error")
     }
   }
 
@@ -68,7 +73,7 @@ function CardCategory() {
     <div className="container-page">
       <div className="container-main-content">
       <div className="filters">
-        //!barra de busqueda y filtros aquí
+
       </div>
       <section>
         {headerImage && (
@@ -141,6 +146,10 @@ function CardCategory() {
             <img src={community} />
           </button>
         </div>
+
+      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+
+      <Filter categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}/> 
 
       <h2 className="index-title">Projects</h2>
       <div className="main-section-index">

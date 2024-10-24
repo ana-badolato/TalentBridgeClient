@@ -38,7 +38,7 @@ const EventMap = ({ events }) => {
               <h4>{event.name}</h4>
               <p>{event.mainObjective}</p>
               <p>{event.address}</p>
-              <p>{new Date(event.date.$date).toLocaleDateString()} at {event.time}</p>
+              <p>{new Date(event.date).toLocaleDateString()} at {event.time}</p>
             </Popup>
           </Marker>
         );

@@ -40,6 +40,7 @@ function CardProject(props) {
         } catch (error) {
           console.error("Error fetching project data:", error);
           setLoading(false);
+          navigate("/error")
         }
       };
       fetchProjectData();
@@ -78,6 +79,10 @@ function CardProject(props) {
   const isApplyDisabled = isOwner || isTeamMember || isApplied;
 
   const handleApplyClick = () => {
+    if(!isLoggedIn){
+      navigate("/login")
+      return
+    }
     setIsModalOpen(true); // Abrir el modal
   };
 
@@ -102,6 +107,7 @@ function CardProject(props) {
         }, 1500); // Esperar 1.5 segundos antes de cerrar el modal
     } catch (error) {
         console.log("Error enviando la notificación", error);
+        navigate("/error")
     }
 };
 
@@ -128,6 +134,7 @@ const handleConfirmDelete = async () => {
     }, 1500);
   } catch (error) {
     console.log("Error eliminando el proyecto", error);
+    navigate("/error")
   }
 };
 

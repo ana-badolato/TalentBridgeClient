@@ -90,6 +90,7 @@ function EditEvent() {
       setLoggedUserProjects(response.data);
     } catch (error) {
       console.log("Error fetching user projects:", error);
+      navigate("/error")
     }
   };
 
@@ -115,6 +116,7 @@ function EditEvent() {
       setIsLoading(false);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -143,6 +145,7 @@ function EditEvent() {
     } catch (error) {
       console.error("Error fetching coordinates:", error);
       return { lat: null, lng: null };
+      navigate("/error")
     }
   };
 
@@ -167,6 +170,7 @@ function EditEvent() {
       }, 3000);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

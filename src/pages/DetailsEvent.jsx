@@ -2,13 +2,14 @@ import "../CSS/detailsEvent.css";
 import "../CSS/cardUser.css";
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import CardProject from "../components/CardProject.jsx";
 import CardUserSmall from "../components/CardUserSmall.jsx";
 import { FadeLoader } from "react-spinners";
 
 
 function DetailsEvent() {
+  const navigate = useNavigate()
   const [eventData, setEventData] = useState(null); // Inicializamos con null
   const [loading, setLoading] = useState(true); // Estado para mostrar loading mientras se cargan los datos
   const { eventid } = useParams(); 
@@ -26,6 +27,7 @@ function DetailsEvent() {
     } catch (error) {
       console.log("Error fetching event data:", error);
       setLoading(false); // Detenemos la carga en caso de error
+      navigate("/error")
     }
   };
 

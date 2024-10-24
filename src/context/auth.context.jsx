@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react"
 import service from "../services/config"
-
+import { FadeLoader } from "react-spinners";
 
 const AuthContext = createContext()
 
@@ -45,8 +45,12 @@ function AuthWrapper(props) {
   }
 
   if (isValidatingToken) {
-    return <h3>...validating token</h3>
-    //! Añadir spinner
+    return(
+      <>
+        <h4>...validating token</h4>
+        <FadeLoader color="#FFBE1A" />
+      </>
+    )
   }
   
 

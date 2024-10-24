@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.js";
 import CardUser from "./CardUser.jsx"
+import { useNavigate } from "react-router-dom";
 
 function ListUser(props) {
+  const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([])
   const {searchValue} = props
 
@@ -17,6 +19,7 @@ function ListUser(props) {
       setAllUsers(response.data)
     } catch (error) {
       console.log(error)
+      navigate("/error")
     }
   }
 

@@ -18,12 +18,6 @@ import { Link, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes instalado 'react-spinners'
 import SectionTalent from "../components/SectionTalent.jsx";
 
-
-
-
-
-
-
 function Index() {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);
@@ -44,6 +38,7 @@ function Index() {
       selectRandomProjects(response.data);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
     setLoadingProjects(false);
   };
@@ -60,6 +55,7 @@ function Index() {
       filterAndSortEvents(response.data);
     } catch (error) {
       console.log("Error al obtener eventos:", error);
+      navigate("/error")
     }
     setLoadingEvents(false);
   };

@@ -3,8 +3,10 @@ import "../App.css";
 import "../CSS/sectionTalent.css"; // Asegúrate de tener aquí los estilos del carrusel
 import CardUserSlider from "../components/CardUserSlider.jsx"; // Importa la tarjeta individual
 import service from "../services/config.js"; // Servicio para hacer las llamadas a la API
+import { useNavigate } from "react-router-dom";
 
 function SectionTalent() {
+  const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
@@ -18,6 +20,7 @@ function SectionTalent() {
       setAllUsers(response.data); // Guardar los usuarios en el estado
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
