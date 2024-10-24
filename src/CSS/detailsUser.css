@@ -23,7 +23,7 @@
   text-align: center; /* Alinea el botón en el centro */
 }
 
-.card{
+.card-profile{
   border: solid black 5px;
   border-radius: 25px;
   background-color: #110F34;
@@ -39,3 +39,26 @@
   width: 350px;
 }
 
+.profile-info p{
+  margin-bottom: 10px;
+ 
+}
+
+.infoButton button{
+  margin-bottom: 10px;
+  
+}
+
+
+.tag-skills {
+  display: inline-block;
+  font-size: 14px;
+  padding: 4px 16px;
+  background-color: var(--neutral-grey-light);
+  border-radius: 25px;
+  max-width: 250px;
+  width: auto;
+  text-align: center;
+  color: #110F34;
+  margin:4px;
+}

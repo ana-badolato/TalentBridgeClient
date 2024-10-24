@@ -74,7 +74,7 @@ function DetailsProject() {
       <section className="pr-details-left">
       <p className="index-title" style={{marginTop:"16px"}}>{projectDetails.title}</p>
       <p className="main-objective">{projectDetails.mainObjective}</p>
-      <p className="tag-xl">{projectDetails.category}</p>
+      <p className="tag-xl" style={{color:"#110F34"}}>{projectDetails.category}</p>
 
       <div className="card-pr-section-properties">
           <div className="icon-text-element-pr">
