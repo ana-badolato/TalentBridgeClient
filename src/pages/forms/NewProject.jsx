@@ -149,7 +149,7 @@ function NewProject() {
           {uploadingImage && <p>Uploading...</p>} */}
           {projectData.image && ( // Mostrar la imagen si existe
             <img
-              src={imageUrl || projectData.image || ""}
+              src={imageUrl || projectData.image || "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/vzupen0uk9ctuhtatn2q.png"}
               alt="Project"
               style={{ maxHeight: "200px", width: "100%", objectFit: "cover" }}
             />
