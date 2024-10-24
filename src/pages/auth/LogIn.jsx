@@ -49,10 +49,10 @@ function LogIn() {
   }
   
   return (
-    <div>
-      <h3>Log In</h3>
+    <div className="new-project-container" style={{height:"80vh"}}>
+      <h3 className="details-section">Log In</h3>
 
-    <form onSubmit={handleLogIn}>
+    <form onSubmit={handleLogIn} className="project-form">
       <div>
         <label> Email</label>
         <input
@@ -64,7 +64,7 @@ function LogIn() {
       </div>
 
       <div>
-        <label>password</label>
+        <label>Password</label>
         <input
           type="password"
           name="password"
@@ -73,12 +73,12 @@ function LogIn() {
           />
       </div>
 
-    <button type="submit">Log in</button>
+    <button type="submit" className="submit-button" style={{marginTop: "10px"}}>Log in</button>
     {errorMessage && <p>{errorMessage}</p>}
     </form>
 
-    <p>Wanna join our grup of talents?</p>
-    <p>Go to <Link to="/signup" style={{color: "#FFBE1A"}}> Sign Up</Link>
+    <p style={{textAlign: "center"}}>Wanna join our grup of talents?</p>
+    <p style={{textAlign: "center"}}>Go to <Link to="/signup" style={{color: "#FFBE1A", textAlign: "center"}}> Sign Up</Link>
     </p>
     </div>
   )

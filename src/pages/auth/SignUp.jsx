@@ -49,8 +49,9 @@ function SignUp() {
   }
 
   return (
-    <div> 
-      <h3>Join our talents!</h3>
+    <div className="new-project-container" style={{height:"80vh"}}> 
+      <h3 className="details-section" style={{textAlign: "center"}}>Join our talents!</h3>
+      <form onSubmit={handleSignUp} className="project-form">
         <div>
           <label>Email</label>
           <input
@@ -61,7 +62,6 @@ function SignUp() {
           />
         </div>
 
-      <form onSubmit={handleSignUp}>
         <div>
           <label htmlFor="">Username</label>
           <input
@@ -82,12 +82,12 @@ function SignUp() {
           />
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="submit-button" style={{marginTop: "10px"}}>Sign Up</button>
         {errorMessage && <p>{errorMessage}</p>}
       </form>
 
-    <p>Already have an account?</p>
-      <p>Go to <Link to="/login" style={{color: "#FFBE1A"}}> Log In</Link></p>
+    <p style={{textAlign: "center"}}>Already have an account?</p>
+      <p style={{textAlign: "center"}}> Go to <Link to="/login" style={{color: "#FFBE1A"}}> Log In</Link></p>
 
     </div>
   )
