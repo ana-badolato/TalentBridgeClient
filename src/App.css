@@ -324,7 +324,7 @@ header {
 
 /* Clase específica para ajustar el ancho de la barra de búsqueda en AllUsers */
 .half-width-search {
-  width: 50%; /* Ajusta el ancho al 50% */
+  width: 49%; /* Ajusta el ancho al 50% */
 
 }
 

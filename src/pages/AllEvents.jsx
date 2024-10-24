@@ -16,13 +16,13 @@ import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction.jsx";
 import CallToActionLogged from "../components/CallToActionLogged.jsx";
 
-
 function AllEvents() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [events, setEvents] = useState([]);
   const { isLoggedIn, loggedUserId } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -64,17 +64,17 @@ function AllEvents() {
           />
         </div>
 
-       
+        {/* Renderiza la lista de eventos, pasamos searchValue y categoryFilter */}
+        <ListEvents searchValue={searchValue} categoryFilter={categoryFilter} />
 
-        {/* Renderiza la lista de eventos */}
-        <ListEvents searchValue={searchValue} />
-
-         {/* Renderiza el mapa de eventos */}
-         <h2 className="index-title" style={{marginTop:"-16px", marginBottom:"32px"}}>Explore events by location</h2>
-         <EventMap events={events} />
-         {isLoggedIn ? <CallToActionLogged /> : <CallToAction />}
-         
+        {/* Renderiza el mapa de eventos */}
+        <h2 className="index-title" style={{ marginTop: "-16px", marginBottom: "32px" }}>
+          Explore events by location
+        </h2>
+        <EventMap events={events} />
+        {isLoggedIn ? <CallToActionLogged /> : <CallToAction />}
       </div>
+
       {isLoggedIn && (
         <div
           className="buttons-fixed"

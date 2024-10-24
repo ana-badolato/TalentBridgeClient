@@ -215,6 +215,7 @@ function Index() {
               fontWeight: "600",
               textDecoration: "underline",
               textAlign: "right",
+              marginBottom:"48px"
             }}
           >
             See all &gt;

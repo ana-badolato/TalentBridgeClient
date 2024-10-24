@@ -1,7 +1,7 @@
 function Filter(props) {
   const { categoryFilter, setCategoryFilter } = props;
   const categories = [
-    "All Categories",
+    "All",
     "Technology & Innovation",
     "Sustainability & Environment",
     "Art & Creativity",

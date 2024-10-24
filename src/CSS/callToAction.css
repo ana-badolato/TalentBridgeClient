@@ -21,6 +21,27 @@
   margin-bottom: 32px;
 }
 
+
+.call-container-nocontent{
+  background-color: var(--neutral-grey-light);
+  min-height: 360px;
+  height: 360px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.call-subtitle-nocontent{
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
 @media (max-width: 768px) {
   .call-text h2 {
     font-size: 24px; /* Tamaño de fuente más pequeño en móviles */

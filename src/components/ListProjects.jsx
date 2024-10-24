@@ -3,9 +3,10 @@ import service from "../services/config.js";
 import CardProject from "./CardProject.jsx";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination.jsx";
+import NoContentBox from "./NoContentBox";  // Importamos NoContentBox
 
 function ListProjects(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // Página actual
   const projectsPerPage = props.projectsPerPage || 9;  // Número de proyectos por página (por defecto 9)
@@ -22,7 +23,7 @@ function ListProjects(props) {
       setAllProjects(response.data);
     } catch (error) {
       console.log(error);
-      navigate("/error")
+      navigate("/error");
     }
   };
 
@@ -48,22 +49,29 @@ function ListProjects(props) {
 
   return (
     <div>
-      {/* Renderizando los proyectos */}
-      <div className="project-list">
-        {currentProjects.map((eachProject) => (
-          <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject} />
-        ))}
-      </div>
+      {/* Si no hay proyectos después de filtrar, mostrar NoContentBox */}
+      {filteredProjects.length === 0 ? (
+        <NoContentBox />
+      ) : (
+        <>
+          {/* Renderizando los proyectos */}
+          <div className="project-list">
+            {currentProjects.map((eachProject) => (
+              <CardProject key={eachProject._id} allProjects={allProjects} {...eachProject} />
+            ))}
+          </div>
 
-      {/* Asegurándome de llamar al componente de Paginación */}
-      <Pagination
-  currentPage={currentPage}
-  totalPages={totalPages}
-  onPageChange={onPageChange}
-  nextLabel=">"         // Usa directamente el símbolo de mayor que
-  prevLabel="<"     // Usa directamente el símbolo de menor que
-  className="custom-pagination"  // Clase CSS personalizada para la paginación
-/>
+          {/* Asegurándome de llamar al componente de Paginación */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            nextLabel=">"         // Usa directamente el símbolo de mayor que
+            prevLabel="<"         // Usa directamente el símbolo de menor que
+            className="custom-pagination"  // Clase CSS personalizada para la paginación
+          />
+        </>
+      )}
     </div>
   );
 }
