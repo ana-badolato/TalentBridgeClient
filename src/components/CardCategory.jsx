@@ -5,7 +5,8 @@ import "../CSS/category.css";
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import service from "../services/config.js";
-import CardProject from "./CardProject"
+import CardProject from "./CardProject";
+import CallToAction from "./CallToAction.jsx";
 import CardEvent from "./CardEvent"
 
 //images
@@ -66,6 +67,9 @@ function CardCategory() {
   return (
     <div className="container-page">
       <div className="container-main-content">
+      <div className="filters">
+        //!barra de busqueda y filtros aquí
+      </div>
       <section>
         {headerImage && (
           <div className="header-category">
@@ -159,6 +163,7 @@ function CardCategory() {
         })}
       </section>
       </div>
+      <CallToAction />
       </div>
     </div>
   )

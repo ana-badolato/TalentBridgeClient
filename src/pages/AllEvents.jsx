@@ -6,6 +6,8 @@ import ListEvents from "../components/ListEvents";
 import EventMap from "../components/EventMap.jsx"; // Importa el componente del mapa
 import service from "../services/config.js"; // Importa el servicio para obtener eventos
 
+import eventsImg from "../assets/icons/events.svg"
+
 function AllEvents() {
   const [searchValue, setSearchValue] = useState("");
   const [events, setEvents] = useState([]);
@@ -26,7 +28,15 @@ function AllEvents() {
   return (
     <div className="container-page">
       <div className="container-main-content">
-        <h3>ALL EVENTS</h3>
+      <section>
+        
+        <div className="header-category">
+          <img src={eventsImg} alt="projects" className="header-img-category"/>
+          <h2 className="title-category">All Events</h2>
+        </div>
+      
+    </section>
+
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
 
         {/* Renderiza el mapa de eventos */}
