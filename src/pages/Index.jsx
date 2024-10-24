@@ -9,16 +9,16 @@ import community from "../assets/icons/community.svg";
 import education from "../assets/icons/education.svg";
 import health from "../assets/icons/health.svg";
 import CallToAction from "../components/CallToAction.jsx"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import service from "../services/config.js";
 import CardProject from "../components/CardProject.jsx";
 import CardEvent from "../components/CardEvent.jsx";
-
+import { AuthContext } from "../context/auth.context.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader"; // Asegúrate de que tienes instalado 'react-spinners'
 import SectionTalent from "../components/SectionTalent.jsx";
 
-
+import addImg from "../assets/icons/add.svg";
 
 
 
@@ -31,7 +31,7 @@ function Index() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loadingProjects, setLoadingProjects] = useState(true); // Para manejar la carga de proyectos
   const [loadingEvents, setLoadingEvents] = useState(true); // Para manejar la carga de eventos
-
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   useEffect(() => {
     getData();
     getEvents();
@@ -198,7 +198,33 @@ function Index() {
           </p></Link>
       <CallToAction />
       </div>
+      {isLoggedIn && (
+  <div className="buttons-fixed" style={{position:"fixed", bottom:"64px", right:"32px"}}>
+    {/* Botón "Add Project" */}
+    <Link to="/newproject">
+      <div className="add-project-container">
+        <button className="button-large-blue" style={{width:"130px",zIndex:"10", marginBottom:"-16px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}}>
+          <div className="icon-text-element">
+            <img src={addImg} alt="" />
+            <p>Add Project</p>
+          </div>
+        </button>
+      </div>
+    </Link>
 
+    {/* Botón "Add Event" */}
+    <Link to="/newevent">
+      <div className="add-event-container">
+        <button className="button-large-blue" style={{width:"130px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}} >
+          <div className="icon-text-element" style={{display:"flex", alignItems:"center"}}>
+            <img src={addImg} alt="" />
+            <p>Add Event</p>
+          </div>
+        </button>
+      </div>
+    </Link>
+  </div>
+)}
     </div>
   );
 }

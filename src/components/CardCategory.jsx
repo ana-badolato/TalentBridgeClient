@@ -2,13 +2,13 @@ import "../App.css";
 import "../CSS/home.css";
 import "../CSS/category.css";
 
-import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useState, useEffect, useContext } from "react"
+import { useNavigate, useParams, Link } from "react-router-dom"
 import service from "../services/config.js";
 import CardProject from "./CardProject";
 import CallToAction from "./CallToAction.jsx";
 import CardEvent from "./CardEvent"
-
+import { AuthContext } from "../context/auth.context.jsx";
 //images
 import tech from "../assets/icons/tech.svg"
 import sustainability from "../assets/icons/sustainability.svg"
@@ -23,6 +23,7 @@ import communityHeader from "../assets/images/headers/communityHeader.svg"
 import educationHeader from "../assets/images/headers/educationHeader.svg"
 import sustainabilityHeader from "../assets/images/headers/sustainabilityHeader.svg"
 import healthHeader from "../assets/images/headers/healthHeader.svg"
+import addImg from "../assets/icons/add.svg";
 
 function CardCategory() {
 
@@ -63,12 +64,12 @@ function CardCategory() {
   }
 
   const headerImage = headerImages[params.category] || null
-
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
   return (
     <div className="container-page">
       <div className="container-main-content">
       <div className="filters">
-        //!barra de busqueda y filtros aquí
+        
       </div>
       <section>
         {headerImage && (
@@ -165,6 +166,33 @@ function CardCategory() {
       </div>
       <CallToAction />
       </div>
+      {isLoggedIn && (
+  <div className="buttons-fixed" style={{position:"fixed", bottom:"64px", right:"32px"}}>
+    {/* Botón "Add Project" */}
+    <Link to="/newproject">
+      <div className="add-project-container">
+        <button className="button-large-blue" style={{width:"130px", marginBottom:"-16px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}}>
+          <div className="icon-text-element">
+            <img src={addImg} alt="" />
+            <p>Add Project</p>
+          </div>
+        </button>
+      </div>
+    </Link>
+
+    {/* Botón "Add Event" */}
+    <Link to="/newevent">
+      <div className="add-event-container">
+        <button className="button-large-blue" style={{width:"130px", boxShadow:"0px 4px 10px rgba(200, 200, 200, 0.2)"}} >
+          <div className="icon-text-element" style={{display:"flex", alignItems:"center"}}>
+            <img src={addImg} alt="" />
+            <p>Add Event</p>
+          </div>
+        </button>
+      </div>
+    </Link>
+  </div>
+)}
     </div>
   )
 }
