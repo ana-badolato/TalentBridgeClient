@@ -11,7 +11,7 @@ function EditUser() {
   console.log("Logged User ID:", loggedUserId);
 
   const [userData, setUserData] = useState({
-    profilePicture: "",
+    profilePicture: "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/wt5jxiswqfcwebb89dwx.png",
     contactEmail: "",
     location: "",
     bio: "",

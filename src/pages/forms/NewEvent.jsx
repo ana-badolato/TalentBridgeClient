@@ -20,7 +20,7 @@ function NewEvent() {
     category: "",
     capacity: 20,
     price: 0,
-    posterImage: "",
+    posterImage: "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/fibd808bw4dixushxoln.png",
     owner: loggedUserId,
     lecturer: [],
     attendees: [],

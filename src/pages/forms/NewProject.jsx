@@ -14,7 +14,7 @@ function NewProject() {
     mainObjective: "",
     description: "",
     location: "",
-    image: "",
+    image: "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/vzupen0uk9ctuhtatn2q.png",
     category: "",
     owner: loggedUserId,
     teamMembers: [],
