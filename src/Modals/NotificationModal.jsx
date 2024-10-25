@@ -1,18 +1,22 @@
+import React, { useEffect } from "react";
+import "../CSS/notificationModal.css";
 
-import React, { useEffect } from 'react';
-import '../CSS/notificationModal.css'; // Ajustamos la ruta
-
-function NotificationModal({ isOpen, onClose, onConfirm, message, successMessage }) {
-
+function NotificationModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  message,
+  successMessage,
+}) {
   useEffect(() => {
     console.log("Modal isOpen:", isOpen);
   }, [isOpen]);
 
-  if (!isOpen) return null; // Si el modal no está abierto, no mostramos nada
+  if (!isOpen) return null;
 
   const handleConfirm = (e) => {
-    e.preventDefault(); // Evitar comportamiento predeterminado
-    onConfirm(); // Ejecutar la función de confirmación
+    e.preventDefault();
+    onConfirm();
   };
 
   return (
@@ -22,19 +26,13 @@ function NotificationModal({ isOpen, onClose, onConfirm, message, successMessage
         <p>{message}</p>
 
         {successMessage ? (
-          <p className="success-message">{successMessage}</p> // Mostrar mensaje de éxito si está disponible
+          <p className="success-message">{successMessage}</p>
         ) : (
           <div className="modal-buttons">
-            <button
-              className="button-small-yellow"
-              onClick={handleConfirm}
-            >
+            <button className="button-small-yellow" onClick={handleConfirm}>
               Enviar
             </button>
-            <button
-              className="button-small-gray"
-              onClick={onClose}
-            >
+            <button className="button-small-gray" onClick={onClose}>
               Cancelar
             </button>
           </div>

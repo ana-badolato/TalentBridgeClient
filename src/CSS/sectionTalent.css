@@ -12,28 +12,30 @@
   margin-top: 48px;
 }
 
-/* Contenedor del carrusel */
+
 .slider {
-  overflow: hidden; /* Ocultar las tarjetas fuera de la vista */
-  width: 100%; /* Ajusta el carrusel al ancho del contenedor */
+  overflow: hidden;
+  width: 100%; 
   position: relative;
 }
 
-/* Pista de las tarjetas */
+
 .slider-track {
   display: flex;
-  gap: 20px; /* Espacio entre las tarjetas */
-  flex-wrap: nowrap; /* Asegura que las tarjetas no se envuelvan */
-  animation: scroll 10s linear infinite; /* Animación de desplazamiento continuo */
-  /* En lugar de usar un ancho fijo (como 300%), lo puedes dejar flexible */
+  gap: 20px; 
+  flex-wrap: nowrap; 
+  animation: scroll 10s linear infinite; 
+  
 }
 
-/* Estilo de cada tarjeta de usuario */
+
 .card-user-slider {
   min-width: 400px;
-  width: 400px; /* Ajustamos el tamaño de la tarjeta */
+  width: 400px; 
   color: var(--neutral-white);
-  background-color: var(--primary-blue-dark); /* Asegúrate de que la tarjeta tenga un fondo visible */
+  background-color: var(
+    --primary-blue-dark
+  ); 
   border-radius: 15px;
   padding: 20px;
   display: flex;
@@ -42,7 +44,7 @@
   transition: transform 0.3s ease;
 }
 
-/* Imagen del usuario en la tarjeta */
+
 .card-user-image-slider {
   width: 128px;
   height: 128px;
@@ -51,7 +53,7 @@
   margin-right: 20px;
 }
 
-/* Nombre de usuario en la tarjeta */
+
 .card-user-username-slider {
   font-size: 24px;
   font-weight: 500;
@@ -62,47 +64,45 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  width: 100%; /* Asegúrate de que las tarjetas ocupen todo el ancho */
+  width: 100%; 
 }
 
-/* Biografía del usuario en la tarjeta */
+
 .card-user-bio-slider {
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
-  overflow: hidden; /* Ocultar el texto que se desborda */
-  text-overflow: ellipsis; /* Mostrar "..." si el texto es demasiado largo */
-  display: -webkit-box; /* Necesario para usar -webkit-line-clamp */
-  display: box; /* Añade la versión estándar */
-  -webkit-line-clamp: 4; /* Limitar a 4 líneas con prefijo */
-  line-clamp: 4; /* Versión estándar de la propiedad */
-  -webkit-box-orient: vertical; /* Necesario para el comportamiento en WebKit */
-  line-height: 1.2em; /* Altura de cada línea */
-  max-height: calc(1.2em * 4); /* Limitar a 4 líneas de altura */
-  white-space: normal; /* Asegurarse de que el texto se ajuste en varias líneas */
-  word-wrap: break-word; /* Para romper líneas largas si es necesario */
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  display: -webkit-box; 
+  display: box; 
+  -webkit-line-clamp: 4; 
+  line-clamp: 4; 
+  -webkit-box-orient: vertical; 
+  line-height: 1.2em; 
+  max-height: calc(1.2em * 4); 
+  white-space: normal; 
+  word-wrap: break-word; 
 }
 
 
-
-/* Animación de desplazamiento continuo */
 @keyframes scroll {
   0% {
-    transform: translateX(0); /* Empieza desde el principio */
+    transform: translateX(0); 
   }
   100% {
-    transform: translateX(-50%); /* Mueve el carrusel hasta la mitad */
+    transform: translateX(-50%);
   }
 }
 
-/* Ajustes para pantallas más pequeñas */
+
 @media screen and (max-width: 768px) {
   .slider-track {
-    gap: 10px; /* Menos espacio entre tarjetas en pantallas pequeñas */
+    gap: 10px; 
   }
 
   .card-user-slider {
-    width: 280px; /* Tarjetas más pequeñas en pantallas pequeñas */
+    width: 280px; 
   }
 
   .card-user-username-slider {
