@@ -152,7 +152,6 @@ function EditEvent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting eventData: ", eventData);
 
     const coordinates = await getCoordinates(eventData.address);
 

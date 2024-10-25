@@ -25,7 +25,6 @@ function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
       const response = await service.get("/user/");
       setAllUsers(response.data);
       setFilteredUsers([]);
-      console.log("All users fetched:", response.data);
     } catch (error) {
       console.log(error);
       navigate("/error");
@@ -43,7 +42,6 @@ function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
           .includes(event.target.value.toLowerCase())
       );
       setFilteredUsers(usersFiltered);
-      console.log("Filtered users:", usersFiltered);
     }
   };
 
@@ -57,8 +55,6 @@ function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
       );
 
       updateLecturers(newSelectedLecturers);
-
-      console.log("User added, selectedLecturers:", newSelectedLecturers);
     }
   };
 
@@ -69,8 +65,6 @@ function AutocompleteEvent({ updateLecturers, initialSelectedLecturers = [] }) {
     setSelectedLecturers(newSelectedLecturers);
     setFilteredUsers((prevFiltered) => [...prevFiltered, user]);
     updateLecturers(newSelectedLecturers);
-
-    console.log("User removed, selectedLecturers:", newSelectedLecturers);
   };
 
   return (

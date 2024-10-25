@@ -109,16 +109,11 @@ function CardProject(props) {
     e.preventDefault();
     e.stopPropagation();
     setIsDeleteModalOpen(true);
-    console.log("abriendo modal eliminar");
   };
 
   const handleConfirmDelete = async () => {
     try {
-      console.log("modal abierto eliminar");
-      console.log("ID del proyecto que se va a eliminar:", _id);
-      console.log("Intentando eliminar proyecto...");
       await service.delete(`/project/${_id}`);
-      console.log("Proyecto eliminado con éxito");
       setIsSuccess(true);
       setTimeout(() => {
         setIsSuccess(false);
@@ -133,7 +128,6 @@ function CardProject(props) {
   };
 
   const handleCloseDeleteModal = () => {
-    console.log("cerramos modal eliminar");
     setIsDeleteModalOpen(false);
   };
 

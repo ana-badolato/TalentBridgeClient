@@ -19,7 +19,6 @@ function AuthWrapper(props) {
   const authenticateUser = async () => {
     try {
       const response = await service.get("/auth/verify");
-      console.log(response);
       setIsLoggedIn(true);
       setLoggedUserId(response.data._id);
       setUsername(response.data.username);

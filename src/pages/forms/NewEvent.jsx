@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 function NewEvent() {
   const { loggedUserId } = useContext(AuthContext);
-  console.log("Logged User ID:", loggedUserId);
 
   const [eventData, setEventData] = useState({
     name: "",
@@ -162,7 +161,6 @@ function NewEvent() {
       relatedProjects: relatedProjects || null,
     };
 
-    console.log("Event Data to be sent:", newEvent);
     try {
       await service.post("/event/", newEvent);
       setShowConfirmation(true);

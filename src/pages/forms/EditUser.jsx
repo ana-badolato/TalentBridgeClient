@@ -8,7 +8,6 @@ import { FadeLoader } from "react-spinners";
 
 function EditUser() {
   const { loggedUserId } = useContext(AuthContext);
-  console.log("Logged User ID:", loggedUserId);
 
   const [userData, setUserData] = useState({
     profilePicture: "https://res.cloudinary.com/drqiultmd/image/upload/v1729707730/wt5jxiswqfcwebb89dwx.png",

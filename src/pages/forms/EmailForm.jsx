@@ -19,7 +19,6 @@ const EmailForm = () => {
     } else {
       navigate("/login");
     }
-    console.log("aqui", params.userid);
   }, [contactEmail, isLoggedIn, navigate, params.userid]);
 
   const fetchUserEmail = async (username) => {
@@ -27,7 +26,6 @@ const EmailForm = () => {
       
       const response = await service.get(`/user/profile/${username}`);
       setRecipientEmail(response.data.contactEmail);
-      console.log(response.data.contactEmail);
     } catch (error) {
       console.error("Error obtenint el correu de l'usuari:", error);
       alert("Error obtent el correu de l'usuari");
